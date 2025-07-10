@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "../shadcn/Button";
-import { IThemes } from "./types";
+import { IThemes } from "../types";
 
 const ThemeSwitcher = () => {
   const { setTheme } = useTheme();

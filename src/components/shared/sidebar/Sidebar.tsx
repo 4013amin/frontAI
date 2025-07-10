@@ -6,6 +6,7 @@ import SidebarHeader from "./SidebarHeader";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setInitialSidebarState } from "@/store/features/sidebarSlice";
+import Nav from "./Nav";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
@@ -23,6 +24,9 @@ const Sidebar = () => {
         dark:bg-zinc-800 ${isOpen ? "right-0" : ""}`}
     >
       <SidebarHeader />
+
+      <Nav />
+      
     </aside>
   );
 };
