@@ -17,9 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
-      <body
-        className="font-sans"
-      >
+      <body>
         <ThemeWrapper>
           <Toaster />
           <Header />
