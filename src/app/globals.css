@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'Vazirmatn';
+  src: url('/fonts/vazirmatn[wght].ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+body * {
+  font-family: "Vazirmatn";
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
