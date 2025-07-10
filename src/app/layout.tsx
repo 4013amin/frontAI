@@ -4,6 +4,7 @@ import "@/styles/utilities.css";
 import ThemeWrapper from "@/providers/ThemeWrapper";
 import { Toaster } from "@/components/shadcn/Toaster";
 import Header from "@/components/shared/header/Header";
+import StoreProvider from "@/providers/StoreProvider";
 
 
 export const metadata: Metadata = {
@@ -19,11 +20,13 @@ export default function RootLayout({
   return (
     <html lang="fa-IR" dir="rtl" className="font-sans" suppressHydrationWarning>
       <body>
-        <ThemeWrapper>
-          <Toaster />
-          <Header />
-          {children}
-        </ThemeWrapper>
+        <StoreProvider>
+          <ThemeWrapper>
+            <Toaster />
+            <Header />
+            {children}
+          </ThemeWrapper>
+        </StoreProvider>
       </body>
     </html>
   );
