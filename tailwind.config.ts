@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Vazirmatn', 'sans-serif'],
+        sans: ["Vazirmatn", "sans-serif"],
       },
     },
   },

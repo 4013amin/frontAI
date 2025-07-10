@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" dir="rtl" suppressHydrationWarning>
+    <html lang="fa-IR" dir="rtl" className="font-sans" suppressHydrationWarning>
       <body>
         <ThemeWrapper>
           <Toaster />
