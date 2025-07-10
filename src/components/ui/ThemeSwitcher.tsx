@@ -6,25 +6,26 @@ import { Button } from "../shadcn/Button";
 import { IThemes } from "./types";
 
 const ThemeSwitcher = () => {
-    const { setTheme } = useTheme()
+  const { setTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState<IThemes>("light");
 
   const changeThemeHandler = (): void => {
-    if(currentTheme === "dark") {
-        setCurrentTheme("light")
-        setTheme("light")
+    if (currentTheme === "dark") {
+      setCurrentTheme("light");
+      setTheme("light");
     }
-    if(currentTheme === "light") {
-        setCurrentTheme("dark")
-        setTheme("dark")
+    if (currentTheme === "light") {
+      setCurrentTheme("dark");
+      setTheme("dark");
     }
   };
 
   return (
-    <Button onClick={changeThemeHandler}>
-      {
-        currentTheme === "dark" ? <Sun/> : <Moon />
-      }
+    <Button 
+    variant={"outline"}
+    onClick={changeThemeHandler}
+    >
+      {currentTheme === "dark" ? <Sun /> : <Moon />}
     </Button>
   );
 };
