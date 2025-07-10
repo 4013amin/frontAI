@@ -13,7 +13,7 @@ const SidebarToggler = ({className}: IProps) => {
     <button
       type="button"
       className={`p-2 rounded-md hover:bg-gray-200 
-      dark:hover:bg-zinc-800 transition-colors duration-300
+      dark:hover:bg-zinc-800 transition-colors
       ${className}`}
       onClick={() => {
         // Dispatch the toggleSidebar action to open/close the sidebar

@@ -5,7 +5,7 @@ import ThemeWrapper from "@/providers/ThemeWrapper";
 import { Toaster } from "@/components/shadcn/Toaster";
 import Header from "@/components/shared/header/Header";
 import StoreProvider from "@/providers/StoreProvider";
-
+import MainContentProvider from "@/providers/MainContentProvider";
 
 export const metadata: Metadata = {
   title: "Mr.coder AI",
@@ -24,7 +24,9 @@ export default function RootLayout({
           <ThemeWrapper>
             <Toaster />
             <Header />
-            {children}
+            <MainContentProvider>
+              {children}
+            </MainContentProvider>
           </ThemeWrapper>
         </StoreProvider>
       </body>
