@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "../shadcn/Button";
@@ -20,11 +20,19 @@ const ThemeSwitcher = () => {
     }
   };
 
+  useEffect(() => {
+    const theme = localStorage.getItem("theme") as IThemes;
+    if (theme) {
+      setCurrentTheme(theme);
+      setTheme(theme);
+    } else {
+      setCurrentTheme("light");
+      setTheme("light");
+    }
+  }, []);
+
   return (
-    <Button 
-    variant={"outline"}
-    onClick={changeThemeHandler}
-    >
+    <Button variant={"outline"} onClick={changeThemeHandler}>
       {currentTheme === "dark" ? <Sun /> : <Moon />}
     </Button>
   );
