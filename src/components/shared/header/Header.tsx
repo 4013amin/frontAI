@@ -1,11 +1,15 @@
-import React from 'react'
+import ThemeSwitcher from "@/components/ui/ThemeSwitcher";
+import React from "react";
 
 const Header = () => {
   return (
-    <header>
-        سلام این یه متن با فونت وزیر متن هست
+    <header className="w-full p-3 items-center">
+      <div className="w-full bg-red-200 flex-between-center">
+        <div>l</div>
+        <ThemeSwitcher />
+      </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

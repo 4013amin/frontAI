@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/styles/utilities.css";
 import ThemeWrapper from "@/providers/ThemeWrapper";
 import { Toaster } from "@/components/shadcn/Toaster";
 import Header from "@/components/shared/header/Header";
