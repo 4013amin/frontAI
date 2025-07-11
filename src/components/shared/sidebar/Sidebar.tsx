@@ -3,19 +3,13 @@ import React from "react";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
 import SidebarHeader from "./SidebarHeader";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setInitialSidebarState } from "@/store/features/sidebarSlice";
+import useResponsiveSidebar from "@/hooks/useResponsiveSidebar";
 import Nav from "./Nav";
 
 const Sidebar = () => {
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen);
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const isMobile = window.innerWidth < 1024;
-    dispatch(setInitialSidebarState(!isMobile));
-  }, []);
+  useResponsiveSidebar();
 
   return (
     <aside
@@ -26,7 +20,6 @@ const Sidebar = () => {
       <SidebarHeader />
 
       <Nav />
-      
     </aside>
   );
 };

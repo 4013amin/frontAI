@@ -13,16 +13,10 @@ import React from "react";
 import NavLink from "./Navlink";
 import { Separator } from "@/components/shadcn/Separator";
 
-
 const Links: INavLink[] = [
   { id: 1, name: "خانه", href: "/", icon: <House /> },
   { id: 2, name: "ایجاد مقاله", href: "/articles/create", icon: <FilePen /> },
-  {
-    id: 3,
-    name: "پیشنهاد عنوان",
-    href: "/articles/suggest-title",
-    icon: <Heading1 />,
-  },
+  {id: 3, name: "پیشنهاد عنوان", href: "/articles/suggest-title", icon: <Heading1 />},
   { id: 4, name: "سایت های من", href: "/my-sites", icon: <PanelsTopLeft /> },
   { id: 5, name: "مقالات", href: "/my-articles", icon: <BookMarked /> },
   { id: 6, name: "اشتراک من", href: "/subscription", icon: <BadgeCheck /> },
@@ -33,10 +27,8 @@ const Links: INavLink[] = [
 const Nav = () => {
   return (
     <nav className="mt-3">
-      <Separator
-      className="my-3"
-        orientation="horizontal"
-      />
+      <Separator className="my-3" orientation="horizontal" />
+
       <ul>
         {Links.map((navItem) => (
           <NavLink href={navItem.href} key={navItem.id}>
@@ -45,6 +37,7 @@ const Nav = () => {
           </NavLink>
         ))}
       </ul>
+      
     </nav>
   );
 };
