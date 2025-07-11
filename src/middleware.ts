@@ -2,8 +2,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('token')?.value
-  const pathname = request.nextUrl.pathname
+  // const token = request.cookies.get('token')?.value
+  // const pathname = request.nextUrl.pathname
 
   // if not login redirect to login page
   // if (pathname.startsWith('/panel') && !token) {
