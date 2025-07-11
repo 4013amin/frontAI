@@ -1,5 +1,5 @@
 "use client";
-import "./globals.css";
+import "@/styles/globals.css";
 import "@/styles/utilities.css";
 import ThemeWrapper from "@/providers/ThemeWrapper";
 import { Toaster } from "@/components/shadcn/Toaster";
