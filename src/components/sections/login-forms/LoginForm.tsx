@@ -10,7 +10,7 @@ import useRequestOtp from "./hooks/useSubmitLoginForm";
 import { IPhoneNumber } from "@/components/types";
 
 const LoginForm = () => {
-  const { mutate, isPending, isError, isSuccess } = useRequestOtp();
+  const { mutate, isPending } = useRequestOtp();
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const LoginForm = () => {
     },
   });
 
-  const submitForm = (phone : IPhoneNumber) => {
+  const submitForm = (phone: IPhoneNumber) => {
     mutate(phone.phone);
   };
 
@@ -36,7 +36,7 @@ const LoginForm = () => {
       {/* End of Form Header  */}
 
       <form
-        onSubmit={handleSubmit((data) => submitForm({phone : data.phone}))}
+        onSubmit={handleSubmit((data) => submitForm({ phone: data.phone }))}
         className="w-full flex-center flex-col gap-4"
       >
         <Input

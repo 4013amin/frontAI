@@ -14,6 +14,7 @@ const FormFooter = ({ isPending }: IProps) => {
         type="submit"
         className="max-w-[380px] w-full bg-blue-500"
         size="lg"
+        disabled={isPending}
       >
         {isPending ? <Loader2Icon className="animate-spin" /> : "دریافت کد"}
       </Button>
