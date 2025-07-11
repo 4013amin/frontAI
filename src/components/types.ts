@@ -6,3 +6,7 @@ export type INavLink = {
     href: string;
     icon: React.ReactNode;
 }
+
+export type IPhoneNumber = {
+    phone: string
+}
