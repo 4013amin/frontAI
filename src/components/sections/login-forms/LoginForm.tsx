@@ -8,8 +8,12 @@ import { LoginFormSchema } from "@/lib/schemas";
 import FormFooter from "./FormFooter";
 import useRequestOtp from "./hooks/useRequestOtp";
 import { IPhoneNumber } from "@/components/types";
+import { useDispatch } from 'react-redux';
+import { setPhoneNumber } from "@/store/features/authSlice";
+
 
 const LoginForm = () => {
+  const dispatch = useDispatch();
   const { mutate, isPending } = useRequestOtp();
   const {
     register,
@@ -23,6 +27,7 @@ const LoginForm = () => {
   });
 
   const submitForm = (phone: IPhoneNumber) => {
+    dispatch(setPhoneNumber(phone.phone))
     mutate(phone.phone);
   };
 

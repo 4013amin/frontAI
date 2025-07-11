@@ -1,13 +1,21 @@
 "use client";
 import { LoginFormSchema } from "@/lib/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import FormFooter from "./FormFooter";
 import useVerifyOtp from "./hooks/useVerifyOtp";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useRouter } from "next/navigation";
+
 
 const OtpForm = () => {
+  const hasPhoneNumber = useSelector(
+    (state: RootState) => state.auth.phoneNumber
+  );
+  const navigator = useRouter()
   const { mutate, isPending } = useVerifyOtp();
   const {
     register,
@@ -23,6 +31,12 @@ const OtpForm = () => {
   const submitForm = (phone) => {
     mutate(phone.phone);
   };
+
+  useEffect(() => {
+    if(!hasPhoneNumber) {
+      navigator.replace("/auth/login")
+    }
+  }, [])
 
   return (
     <div className="flex-center flex-col gap-2">

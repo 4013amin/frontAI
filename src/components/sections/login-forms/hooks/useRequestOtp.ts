@@ -4,8 +4,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
+
 // Request Function 
-const requestFn = ({ phone }: IPhoneNumber) =>{
+const requestFn = ({ phone }: IPhoneNumber) => {
     return API.post("/auth/otp/request/", { phone_number: phone })
 };
 
@@ -19,7 +20,7 @@ const useRequestOtp = () => {
     } = useMutation({
         mutationFn: (phone: string) => requestFn({ phone: phone }),
         onSuccess: () => {
-            toast.success("کد تایید با موفقیت ارسال شد", {duration: 5000})
+            toast.success("کد تایید با موفقیت ارسال شد", { duration: 5000 })
             navigation.push("/auth/verify")
         },
         onError: (error) => {
