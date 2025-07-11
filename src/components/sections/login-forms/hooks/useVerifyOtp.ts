@@ -4,6 +4,7 @@ import { RootState } from '@/store/store';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 
@@ -16,13 +17,13 @@ const useVerifyOtp = () => {
     const phoneNumber = useSelector(
         (state: RootState) => state.auth.phoneNumber
     );
+    const [verifyError, setVerifyError] = useState("")
     const navigation = useRouter()
     const {
         mutate,
         isPending,
         isError,
         isSuccess,
-        error
     } = useMutation({
         mutationFn: (code: string) => requestFn({ code: code, phone: phoneNumber }),
         onSuccess: () => {
@@ -31,11 +32,15 @@ const useVerifyOtp = () => {
         },
         onError: (error) => {
             if (axios.isAxiosError(error)) {
+                setTimeout(() => {
+                    setVerifyError("")
+                }, 3000);
                 // اگر خطا از نوع Axios باشد
                 const statusCode = error.response?.status; // کد وضعیت HTTP
                 const errorMessage = error.response?.data; // کد وضعیت HTTP
 
                 if(statusCode === 400){
+                    setVerifyError("کد وارد شده صحیح نیست")
                     toast.error("کد وارد شده صحیح نیست")
                 }
                 console.log("کد خطا:", statusCode);
@@ -47,7 +52,8 @@ const useVerifyOtp = () => {
         },
     });
 
-    return { mutate, isPending, isError, isSuccess, error }
+
+    return { mutate, isPending, isError, isSuccess, verifyError }
 };
 
 export default useVerifyOtp;

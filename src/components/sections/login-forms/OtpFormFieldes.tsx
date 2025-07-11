@@ -22,7 +22,7 @@ import { OtpFormSchema } from "@/lib/schemas";
 import useVerifyOtp from "./hooks/useVerifyOtp";
 
 export function InputOTPForm() {
-  const { mutate, isPending } = useVerifyOtp();
+  const { mutate, isPending, verifyError } = useVerifyOtp();
   const form = useForm<z.infer<typeof OtpFormSchema>>({
     resolver: zodResolver(OtpFormSchema),
     defaultValues: {
@@ -31,7 +31,7 @@ export function InputOTPForm() {
   });
 
   function onSubmit(data: z.infer<typeof OtpFormSchema>) {
-    mutate({code: data.otp})
+    mutate(data.otp);
   }
 
   return (
@@ -53,18 +53,41 @@ export function InputOTPForm() {
                   pattern={REGEXP_ONLY_DIGITS}
                 >
                   <InputOTPGroup>
-                    <InputOTPSlot index={0} />
-                    <InputOTPSlot index={1} />
-                    <InputOTPSlot index={2} />
+                    <InputOTPSlot
+                      index={0}
+                      aria-invalid={Boolean(verifyError)}
+                    />
+                    <InputOTPSlot
+                      index={1}
+                      aria-invalid={Boolean(verifyError)}
+                    />
+                    <InputOTPSlot
+                      index={2}
+                      aria-invalid={Boolean(verifyError)}
+                    />
                   </InputOTPGroup>
                   <InputOTPSeparator />
                   <InputOTPGroup>
-                    <InputOTPSlot index={3} />
-                    <InputOTPSlot index={4} />
-                    <InputOTPSlot index={5} />
+                    <InputOTPSlot
+                      index={3}
+                      aria-invalid={Boolean(verifyError)}
+                    />
+                    <InputOTPSlot
+                      index={4}
+                      aria-invalid={Boolean(verifyError)}
+                    />
+                    <InputOTPSlot
+                      index={5}
+                      aria-invalid={Boolean(verifyError)}
+                    />
                   </InputOTPGroup>
                 </InputOTP>
               </FormControl>
+              {verifyError && (
+                <span className="text-sm text-red-400 text-center">
+                  {verifyError}
+                </span>
+              )}
               <FormMessage className="text-center mt-2" />
             </FormItem>
           )}

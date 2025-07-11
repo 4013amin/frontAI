@@ -16,7 +16,8 @@ const FormFooter = ({ isPending, text, isOtpForm }: IProps) => {
     <>
       <Button
         type="submit"
-        className="max-w-[380px] w-full bg-blue-500"
+        className="max-w-[380px] w-full bg-blue-500 dark:text-white
+        dark:hover:bg-blue-900"
         size="lg"
         disabled={isPending}
       >

@@ -41,7 +41,7 @@ const OtpTimer = () => {
     <div>
       <div className="flex-center flex-col">
         {isTimerRunning && (
-          <span className="text-sm text-slate-500 mb-3 ">
+          <span className="text-sm text-slate-500 mb-3 dark:text-salte-300 ">
             {formatTime()} ثانیه تا ارسال مجدد
           </span>
         )}
@@ -49,7 +49,8 @@ const OtpTimer = () => {
         {!isTimerRunning && isTimerComplete && (
           <Button
             type="button"
-            className="max-w-[380px] w-full bg-gray-500 mb-3"
+            className="max-w-[380px] w-full bg-gray-500 mb-3
+            dark:bg-gray-800 dark:text-white hover:dark:bg-gray-700"
             size="lg"
             disabled={isPending}
             onClick={resendCode}
@@ -64,7 +65,7 @@ const OtpTimer = () => {
 
         <Link
           href={"/auth/login"}
-          className="font-sm text-blue-500 flex-center gap-3"
+          className="font-sm text-blue-500 flex-center gap-3 dark:text-blue-400"
         >
           <PencilLine />
           ویراش شماره تلفن

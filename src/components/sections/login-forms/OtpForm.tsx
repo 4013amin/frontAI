@@ -22,7 +22,7 @@ const OtpForm = () => {
     <div className="flex-center flex-col gap-2">
       {/* Form Header  */}
       <h1 className="text-lg font-semibold">تایید کد</h1>
-      <p className="text-sm text-slate-500">لطفا کد پیامک شده را وارد کنید</p>
+      <p className="text-sm text-slate-500 dark:text-slate-200">لطفا کد پیامک شده را وارد کنید</p>
       {/* End of Form Header  */}
 
       <InputOTPForm />
