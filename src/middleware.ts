@@ -7,12 +7,12 @@ export function middleware(request: NextRequest) {
 
   // if not login redirect to login page
   if (pathname.startsWith('/panel') && !token) {
-    return NextResponse.redirect(new URL('/login', request.url))
+    return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
   // if login redirect to panel page
   if (
-    (pathname === '/login') &&
+    (pathname.startsWith("/auth")) &&
     token
   ) {
     return NextResponse.redirect(new URL('/panel', request.url))
@@ -24,6 +24,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/panel/:path*',
-    '/login',
+    '/auth',
   ],
 }

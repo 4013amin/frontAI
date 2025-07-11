@@ -2,8 +2,8 @@
 @import "tw-animate-css";
 
 @font-face {
-  font-family: 'Vazirmatn';
-  src: url('/fonts/vazirmatn.ttf') format('truetype');
+  font-family: "Vazirmatn";
+  src: url("/fonts/vazirmatn.ttf") format("truetype");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -127,3 +127,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Remove arrows from Number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+/* END OF Remove arrows from Number inputs */
