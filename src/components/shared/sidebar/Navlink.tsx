@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { RootState } from "@/store/store";
 import { toggleSidebar } from "@/store/features/sidebarSlice";
+import { memo } from "react";
 
 type IProps = {
   href: string;
@@ -16,13 +17,13 @@ type IProps = {
   exact?: boolean;
 };
 
-export default function NavLink({
+const NavLink = ({
   href,
   children,
   className,
   activeClass = "text-blue-600 dark:text-blue-400",
   exact = true,
-}: IProps) {
+}: IProps) => {
   const pathname = usePathname();
   const isActive = exact ? pathname === href : pathname.startsWith(href);
   const isMobile = useSelector((state: RootState) => state.sidebar.isMobile);
@@ -49,3 +50,5 @@ export default function NavLink({
     </Link>
   );
 }
+
+export default memo(NavLink)

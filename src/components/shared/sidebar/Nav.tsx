@@ -9,7 +9,7 @@ import {
   House,
   PanelsTopLeft,
 } from "lucide-react";
-import React from "react";
+import React, { memo } from "react";
 import NavLink from "./Navlink";
 import { Separator } from "@/components/shadcn/Separator";
 
@@ -42,4 +42,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default memo(Nav);

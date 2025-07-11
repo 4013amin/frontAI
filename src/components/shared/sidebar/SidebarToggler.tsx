@@ -1,5 +1,5 @@
 import { Menu, PanelRight, X } from "lucide-react";
-import React from "react";
+import React, { memo } from "react";
 import { toggleSidebar } from "@/store/features/sidebarSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -36,4 +36,4 @@ const SidebarToggler = ({ className }: IProps) => {
   );
 };
 
-export default SidebarToggler;
+export default memo(SidebarToggler);
