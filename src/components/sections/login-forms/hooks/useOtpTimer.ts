@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const useOtpTimer = (initialTime = 120) => {
+const useOtpTimer = (initialTime = 60) => {
     const [timeRemaining, setTimeRemaining] = useState(initialTime);
     const [isTimerComplete, setIsTimerComplete] = useState(false);
     const [isTimerRunning, setIsTimerRunning] = useState(false);

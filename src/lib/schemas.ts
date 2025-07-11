@@ -12,5 +12,13 @@ const LoginFormSchema = z.object({
         }),
 });
 
+const OtpFormSchema = z.object({
+  otp: z.string({
+    message: "لطفا این قسمت را خالی نگذارید"
+  }).min(6, {
+    message: "کد تایید باید 6 رقم باشد",
+  }),
+})
 
-export { LoginFormSchema }
+
+export { LoginFormSchema, OtpFormSchema }

@@ -6,17 +6,17 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
 
   // if not login redirect to login page
-  if (pathname.startsWith('/panel') && !token) {
-    return NextResponse.redirect(new URL('/auth/login', request.url))
-  }
+  // if (pathname.startsWith('/panel') && !token) {
+  //   return NextResponse.redirect(new URL('/auth/login', request.url))
+  // }
 
   // if login redirect to panel page
-  if (
-    (pathname.startsWith("/auth")) &&
-    token
-  ) {
-    return NextResponse.redirect(new URL('/panel', request.url))
-  }
+  // if (
+  //   (pathname.startsWith("/auth")) &&
+  //   token
+  // ) {
+  //   return NextResponse.redirect(new URL('/panel', request.url))
+  // }
 
   return NextResponse.next()
 }

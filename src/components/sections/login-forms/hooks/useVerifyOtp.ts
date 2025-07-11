@@ -1,34 +1,53 @@
-import { IPhoneNumber } from '@/components/types';
+import { IOtpCode } from '@/components/types';
 import API from '@/lib/axios';
+import { RootState } from '@/store/store';
 import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 
 // Request Function 
-const requestFn = ({ phone }: IPhoneNumber) =>{
-    return API.post("/auth/otp/request/", { phone_number: phone })
+const requestFn = ({ code, phone }: IOtpCode) => {
+    return API.post("/auth/otp/verify/", { phone_number: phone, code: code })
 };
 
 const useVerifyOtp = () => {
+    const phoneNumber = useSelector(
+        (state: RootState) => state.auth.phoneNumber
+    );
     const navigation = useRouter()
     const {
         mutate,
         isPending,
         isError,
-        isSuccess
+        isSuccess,
+        error
     } = useMutation({
-        mutationFn: (phone: string) => requestFn({ phone: phone }),
+        mutationFn: (code: string) => requestFn({ code: code, phone: phoneNumber }),
         onSuccess: () => {
-            toast.success("کد تایید با موفقیت ارسال شد", {duration: 5000})
+            toast.success("با موفقیت وارد شدید!", { duration: 5000 })
             navigation.push("/auth/verify")
         },
         onError: (error) => {
-            toast.error("کد تایید ارسال نشد!")
-            console.log(error);
+            if (axios.isAxiosError(error)) {
+                // اگر خطا از نوع Axios باشد
+                const statusCode = error.response?.status; // کد وضعیت HTTP
+                const errorMessage = error.response?.data; // کد وضعیت HTTP
+
+                if(statusCode === 400){
+                    toast.error("کد وارد شده صحیح نیست")
+                }
+                console.log("کد خطا:", statusCode);
+                console.log("پیام خطا:", errorMessage);
+            } else {
+                // در غیر این صورت، خطای عمومی
+                console.log("خطای عمومی:", error.message);
+            }
         },
     });
 
-    return { mutate, isPending, isError, isSuccess }
+    return { mutate, isPending, isError, isSuccess, error }
 };
 
 export default useVerifyOtp;

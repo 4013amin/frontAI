@@ -10,3 +10,8 @@ export type INavLink = {
 export type IPhoneNumber = {
     phone: string
 }
+
+export type IOtpCode = {
+    code: string
+    phone: string
+}
