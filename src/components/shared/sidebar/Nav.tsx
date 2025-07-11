@@ -15,13 +15,13 @@ import { Separator } from "@/components/shadcn/Separator";
 
 const Links: INavLink[] = [
   { id: 1, name: "خانه", href: "/", icon: <House /> },
-  { id: 2, name: "ایجاد مقاله", href: "/articles/create", icon: <FilePen /> },
-  {id: 3, name: "پیشنهاد عنوان", href: "/articles/suggest-title", icon: <Heading1 />},
-  { id: 4, name: "سایت های من", href: "/my-sites", icon: <PanelsTopLeft /> },
-  { id: 5, name: "مقالات", href: "/my-articles", icon: <BookMarked /> },
-  { id: 6, name: "اشتراک من", href: "/subscription", icon: <BadgeCheck /> },
-  { id: 7, name: "پشتیبانی", href: "/support", icon: <Headset /> },
-  { id: 8, name: "راهنما", href: "/help", icon: <CircleQuestionMark /> },
+  { id: 2, name: "ایجاد مقاله", href: "/panel/articles/create", icon: <FilePen /> },
+  {id: 3, name: "پیشنهاد عنوان", href: "/panel/articles/suggest-title", icon: <Heading1 />},
+  { id: 4, name: "سایت های من", href: "/panel/my-sites", icon: <PanelsTopLeft /> },
+  { id: 5, name: "مقالات", href: "/panel/my-articles", icon: <BookMarked /> },
+  { id: 6, name: "اشتراک من", href: "/panel/subscription", icon: <BadgeCheck /> },
+  { id: 7, name: "پشتیبانی", href: "/panel/support", icon: <Headset /> },
+  { id: 8, name: "راهنما", href: "/panel/help", icon: <CircleQuestionMark /> },
 ];
 
 const Nav = () => {
@@ -37,7 +37,7 @@ const Nav = () => {
           </NavLink>
         ))}
       </ul>
-      
+
     </nav>
   );
 };
