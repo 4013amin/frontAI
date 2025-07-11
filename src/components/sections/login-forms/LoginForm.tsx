@@ -6,7 +6,7 @@ import { z } from "zod";
 import { Input } from "@/components/shadcn/Input";
 import { LoginFormSchema } from "@/lib/schemas";
 import FormFooter from "./FormFooter";
-import useRequestOtp from "./hooks/useSubmitLoginForm";
+import useRequestOtp from "./hooks/useRequestOtp";
 import { IPhoneNumber } from "@/components/types";
 
 const LoginForm = () => {
@@ -51,7 +51,7 @@ const LoginForm = () => {
           <p className="text-red-500 text-sm">{errors.phone.message}</p>
         )}
 
-        <FormFooter isPending={isPending} />
+        <FormFooter isPending={isPending} text="دریافت کد" />
       </form>
     </div>
   );

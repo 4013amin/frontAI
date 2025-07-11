@@ -1,13 +1,15 @@
 import { Button } from "@/components/shadcn/Button";
 import Link from "next/link";
 import React from "react";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, PencilLine } from "lucide-react";
 
 type IProps = {
   isPending: boolean;
+  text: string;
+  isOtpForm?: boolean;
 };
 
-const FormFooter = ({ isPending }: IProps) => {
+const FormFooter = ({ isPending, text, isOtpForm }: IProps) => {
   return (
     <>
       <Button
@@ -16,8 +18,20 @@ const FormFooter = ({ isPending }: IProps) => {
         size="lg"
         disabled={isPending}
       >
-        {isPending ? <Loader2Icon className="animate-spin" /> : "دریافت کد"}
+        {isPending ? <Loader2Icon className="animate-spin" /> : text}
       </Button>
+
+      {isOtpForm && (
+        <div>
+          <Link
+            href={"/auth/login"}
+            className="font-sm text-blue-500 flex-center gap-3"
+          >
+            <PencilLine />
+            ویراش شماره تلفن
+          </Link>
+        </div>
+      )}
 
       <div>
         <span className="text-xs font-light">
