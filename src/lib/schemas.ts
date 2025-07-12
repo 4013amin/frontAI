@@ -20,5 +20,15 @@ const OtpFormSchema = z.object({
   }),
 })
 
+const RegisterFormSchema = z.object({
+  fullname: z.string({
+    message: "لطفا این قسمت را خالی نگذارید"
+  }).min(3, {
+    message: "حداقل 3 کاراکتر وارد کنید",
+  }).max(30, {
+    message: "نام نمی‌ تواند بیشتر از 30 کاراکتر باشد",
+  })
+})
 
-export { LoginFormSchema, OtpFormSchema }
+
+export { LoginFormSchema, OtpFormSchema, RegisterFormSchema }

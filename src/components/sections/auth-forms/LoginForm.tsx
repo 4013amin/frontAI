@@ -8,9 +8,9 @@ import { LoginFormSchema } from "@/lib/schemas";
 import FormFooter from "./FormFooter";
 import useRequestOtp from "./hooks/useRequestOtp";
 import { IPhoneNumber } from "@/components/types";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { setPhoneNumber } from "@/store/features/authSlice";
-
+import FormHeader from "./FormHeader";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -27,18 +27,16 @@ const LoginForm = () => {
   });
 
   const submitForm = (phone: IPhoneNumber) => {
-    dispatch(setPhoneNumber(phone.phone))
+    dispatch(setPhoneNumber(phone.phone));
     mutate(phone.phone);
   };
 
   return (
     <div className="flex-center flex-col gap-2">
-      {/* Form Header  */}
-      <h1 className="text-lg font-semibold">ورود و عضویت</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-200">
-        لطفا برای ادامه شماره تلفن خود را وارد کنید
-      </p>
-      {/* End of Form Header  */}
+      <FormHeader
+        title="ورود و عضویت"
+        desc="لطفا برای ادامه شماره تلفن خود را وارد کنید"
+      />
 
       <form
         onSubmit={handleSubmit((data) => submitForm({ phone: data.phone }))}

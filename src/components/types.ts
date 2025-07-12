@@ -15,3 +15,7 @@ export type IOtpCode = {
     code: string
     phone: string
 }
+
+export type IFullName = {
+    full_name: string
+}

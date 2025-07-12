@@ -5,6 +5,7 @@ import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 
 import { InputOTPForm } from "./InputOTPForm";
+import FormHeader from "../FormHeader";
 
 const OtpForm = () => {
   const hasPhoneNumber = useSelector(
@@ -20,13 +21,9 @@ const OtpForm = () => {
 
   return (
     <div className="flex-center flex-col gap-2">
-      {/* Form Header  */}
-      <h1 className="text-lg font-semibold">تایید کد</h1>
-      <p className="text-sm text-slate-500 dark:text-slate-200">لطفا کد پیامک شده را وارد کنید</p>
-      {/* End of Form Header  */}
+      <FormHeader title="تایید کد" desc="لطفا کد پیامک شده را وارد کنید" />
 
       <InputOTPForm />
-      
     </div>
   );
 };
