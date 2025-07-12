@@ -52,6 +52,7 @@ const useVerifyOtp = () => {
                     toast.error("کد وارد شده صحیح نیست")
                 } else if (errorMessage === undefined) {
                     navigation.push("/auth/login")
+                    toast.error("عملیات با شکست مواجه شد!")
                 }
             } else {
                 toast.error("عملیات با شکست مواجه شد!")

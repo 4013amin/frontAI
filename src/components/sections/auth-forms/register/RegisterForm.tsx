@@ -1,5 +1,5 @@
-"use client"
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import FormFooter from "../FormFooter";
 import { Input } from "@/components/shadcn/Input";
 import FormHeader from "../FormHeader";
@@ -9,9 +9,16 @@ import { RegisterFormSchema } from "@/lib/schemas";
 import z from "zod";
 import useSubmitRegister from "../hooks/useSubmitRegister";
 import { IFullName } from "@/components/types";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
-  const { mutate, isPending, isError, isSuccess } = useSubmitRegister();
+  const navigator = useRouter();
+  const hasPhoneNumber = useSelector(
+    (state: RootState) => state.auth.phoneNumber
+  );
+  const { mutate, isPending } = useSubmitRegister();
   const {
     register,
     handleSubmit,
@@ -26,6 +33,12 @@ const RegisterForm = () => {
   const submitForm = (data: IFullName) => {
     mutate(data.full_name);
   };
+
+  useEffect(() => {
+    if (!hasPhoneNumber) {
+      navigator.replace("/auth/login");
+    }
+  }, []);
 
   return (
     <div className="flex-center flex-col gap-2">
@@ -52,7 +65,7 @@ const RegisterForm = () => {
           <p className="text-red-500 text-sm">{errors.fullname.message}</p>
         )}
 
-        <FormFooter isPending={isPending} text="دریافت کد" />
+        <FormFooter isPending={isPending} text="ادامه" />
       </form>
     </div>
   );
