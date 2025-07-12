@@ -21,7 +21,7 @@ const useSubmitRegister = () => {
         mutationFn: (full_name: string) => requestFn({ full_name }),
         onSuccess: () => {
             toast.success("اطلاعات شما با موفقیت بروزرسانی شد", { duration: 5000 })
-            navigation.push("/panel")
+            navigation.replace("/panel")
         },
         onError: (error) => {
             toast.error("اطلاعات ذخیره نشد!")

@@ -31,8 +31,8 @@ const useVerifyOtp = () => {
             const { is_new_user: isNewUser } = data.data;
 
             if (status === 201) {
-                if (isNewUser) navigation.push("/auth/register")
-                else navigation.push("/auth/panel")
+                if (isNewUser) navigation.replace("/auth/register")
+                else navigation.replace("/auth/panel")
                 toast.success("با موفقیت وارد شدید!", { duration: 5000 })
             }
         },
@@ -51,7 +51,7 @@ const useVerifyOtp = () => {
                     setVerifyError("کد وارد شده صحیح نیست")
                     toast.error("کد وارد شده صحیح نیست")
                 } else if (errorMessage === undefined) {
-                    navigation.push("/auth/login")
+                    navigation.replace("/auth/login")
                     toast.error("عملیات با شکست مواجه شد!")
                 }
             } else {

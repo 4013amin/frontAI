@@ -21,7 +21,7 @@ const useRequestOtp = () => {
         mutationFn: (phone: string) => requestFn({ phone: phone }),
         onSuccess: () => {
             toast.success("کد تایید با موفقیت ارسال شد", { duration: 5000 })
-            navigation.push("/auth/verify")
+            navigation.replace("/auth/verify")
         },
         onError: (error) => {
             toast.error("کد تایید ارسال نشد!")
