@@ -26,27 +26,35 @@ const useVerifyOtp = () => {
         isSuccess,
     } = useMutation({
         mutationFn: (code: string) => requestFn({ code: code, phone: phoneNumber }),
-        onSuccess: () => {
-            toast.success("با موفقیت وارد شدید!", { duration: 5000 })
-            navigation.push("/auth/verify")
+        onSuccess: (data) => {
+            const status = data.status
+            const { is_new_user: isNewUser } = data.data;
+
+            if (status === 201) {
+                if (isNewUser) navigation.push("/auth/register")
+                else navigation.push("/auth/panel")
+                toast.success("با موفقیت وارد شدید!", { duration: 5000 })
+            }
         },
         onError: (error) => {
             if (axios.isAxiosError(error)) {
                 setTimeout(() => {
                     setVerifyError("")
                 }, 3000);
-                // اگر خطا از نوع Axios باشد
-                const statusCode = error.response?.status; // کد وضعیت HTTP
-                const errorMessage = error.response?.data; // کد وضعیت HTTP
-
-                if(statusCode === 400){
+                // Get error from Axios
+                const errorMessage = error.response?.data.error;
+                console.log(errorMessage);
+                if (errorMessage === "Code has expired.") {
+                    setVerifyError("کد منقضی شده است")
+                    toast.error("کد منقضی شده است")
+                } else if (errorMessage === "Invalid phone number or code.") {
                     setVerifyError("کد وارد شده صحیح نیست")
                     toast.error("کد وارد شده صحیح نیست")
+                } else if (errorMessage === undefined) {
+                    navigation.push("/auth/login")
                 }
-                console.log("کد خطا:", statusCode);
-                console.log("پیام خطا:", errorMessage);
             } else {
-                // در غیر این صورت، خطای عمومی
+                toast.error("عملیات با شکست مواجه شد!")
                 console.log("خطای عمومی:", error.message);
             }
         },
