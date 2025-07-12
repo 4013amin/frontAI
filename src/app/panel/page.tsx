@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import React from 'react'
+import { Metadata } from "next"
+import React from "react"
 
 export const metadata: Metadata = {
   title: "Mr.coder AI",
-  description: "تولید محتوای هوشمند",
-};
+  description: "تولید محتوای هوشمند"
+}
 
 const page = () => {
   return (

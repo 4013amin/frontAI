@@ -1,21 +1,21 @@
 export type IThemes = "light" | "dark"
 
 export type INavLink = {
-    id: number
-    name: string;
-    href: string;
-    icon: React.ReactNode;
+  id: number
+  name: string
+  href: string
+  icon: React.ReactNode
 }
 
 export type IPhoneNumber = {
-    phone: string
+  phone: string
 }
 
 export type IOtpCode = {
-    code: string
-    phone: string
+  code: string
+  phone: string
 }
 
 export type IFullName = {
-    full_name: string
+  full_name: string
 }

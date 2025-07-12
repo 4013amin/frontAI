@@ -1,16 +1,20 @@
-import { Button } from "@/components/shadcn/Button";
-import Link from "next/link";
-import React from "react";
-import { Loader2Icon } from "lucide-react";
-import OtpTimer from "./otp/OtpTimer";
+import Link from "next/link"
+import React from "react"
+import { Loader2Icon } from "lucide-react"
+import OtpTimer from "./otp/OtpTimer"
+import { Button } from "@/components/shadcn/Button"
 
 type IProps = {
-  isPending: boolean;
-  text: string;
-  isOtpForm?: boolean;
-};
+  isPending: boolean
+  text: string
+  isOtpForm?: boolean
+}
 
-const FormFooter = ({ isPending, text, isOtpForm }: IProps) => {
+const FormFooter = ({
+  isPending,
+  text,
+  isOtpForm
+}: IProps) => {
 
   return (
     <>
@@ -30,15 +34,16 @@ const FormFooter = ({ isPending, text, isOtpForm }: IProps) => {
       <div>
         <span className="text-xs font-light">
           ورود شما به معنای پذیرش شرایط بینام و
-          <Link href={"#"} className="text-blue-500">
+          <Link href="#" className="text-blue-500">
             {" "}
+
             قوانین حریم‌خصوصی{" "}
           </Link>
           است
         </span>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default FormFooter;
+export default FormFooter

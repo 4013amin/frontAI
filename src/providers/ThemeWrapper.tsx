@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { ThemeProvider } from "./ThemeProvider";
-import { ReactNode } from "react";
+import { ReactNode } from "react"
+import { ThemeProvider } from "./ThemeProvider"
 
 export default function ThemeWrapper({ children }: { children: ReactNode }) {
   return (
@@ -13,5 +13,5 @@ export default function ThemeWrapper({ children }: { children: ReactNode }) {
     >
       {children}
     </ThemeProvider>
-  );
+  )
 }

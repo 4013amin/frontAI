@@ -1,9 +1,9 @@
-import LoginForm from "@/components/sections/auth-forms/LoginForm";
+import React from "react"
+import LoginForm from "@/components/sections/auth-forms/LoginForm"
 
-import React from "react";
 
 function page() {
-  return <LoginForm />;
+  return <LoginForm />
 }
 
-export default page;
+export default page

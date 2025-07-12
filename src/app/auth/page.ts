@@ -1,10 +1,10 @@
 // app/auth/page.js
-import { redirect } from 'next/navigation';
+import { redirect } from "next/navigation"
 
 const AuthPage = () => {
-  redirect('/auth/login');
+  redirect("/auth/login")
 
-  return null;
-};
+  return null
+}
 
-export default AuthPage;
+export default AuthPage

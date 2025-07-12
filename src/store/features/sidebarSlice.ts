@@ -1,20 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   isOpen: false,
   initialized: false,
-  isMobile: false,
-};
+  isMobile: false
+}
 
 const sidebarSlice = createSlice({
-  name: 'sidebar',
+  name: "sidebar",
   initialState,
   reducers: {
-    toggleSidebar: (state) => {
-      state.isOpen = !state.isOpen;
+    toggleSidebar: state => {
+      state.isOpen = !state.isOpen
     },
     setSidebar: (state, action) => {
-      state.isOpen = action.payload;
+      state.isOpen = action.payload
     },
     setInitialSidebarState: (state, action) => {
       if (!state.initialized) {
@@ -23,10 +23,16 @@ const sidebarSlice = createSlice({
       }
     },
     setIsMobile: (state, action) => {
-      state.isMobile = action.payload;
-    },
-  },
-});
+      state.isMobile = action.payload
+    }
+  }
+})
 
-export const { toggleSidebar, setSidebar, setInitialSidebarState, setIsMobile } = sidebarSlice.actions;
-export default sidebarSlice.reducer;
+export const {
+  toggleSidebar,
+  setSidebar,
+  setInitialSidebarState,
+  setIsMobile
+} = sidebarSlice.actions
+
+export default sidebarSlice.reducer

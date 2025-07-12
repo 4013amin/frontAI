@@ -1,5 +1,5 @@
-import OtpForm from '@/components/sections/auth-forms/otp/OtpForm'
-import React from 'react'
+import React from "react"
+import OtpForm from "@/components/sections/auth-forms/otp/OtpForm"
 
 const page = () => {
   return (
