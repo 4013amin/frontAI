@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import useOtpTimer from "./hooks/useOtpTimer";
+import useOtpTimer from "../hooks/useOtpTimer";
 import Link from "next/link";
 import { Loader2Icon, PencilLine } from "lucide-react";
 import { Button } from "@/components/shadcn/Button";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
-import useRequestOtp from "./hooks/useRequestOtp";
+import useRequestOtp from "../hooks/useRequestOtp";
 
 const OtpTimer = () => {
   const phone_number = useSelector(

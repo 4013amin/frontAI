@@ -1,4 +1,4 @@
-import FormLogo from "@/components/sections/login-forms/FormLogo";
+import FormLogo from "@/components/sections/auth-forms/FormLogo";
 
 export default function RootLayout({
   children,

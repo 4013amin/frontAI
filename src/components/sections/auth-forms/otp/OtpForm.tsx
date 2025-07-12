@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useRouter } from "next/navigation";
 
-import { InputOTPForm } from "./OtpFormFieldes";
+import { InputOTPForm } from "./InputOTPForm";
 
 const OtpForm = () => {
   const hasPhoneNumber = useSelector(

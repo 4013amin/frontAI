@@ -17,9 +17,9 @@ import {
   InputOTPSeparator,
 } from "@/components/shadcn/InputOtp";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import FormFooter from "./FormFooter";
+import FormFooter from "../FormFooter";
 import { OtpFormSchema } from "@/lib/schemas";
-import useVerifyOtp from "./hooks/useVerifyOtp";
+import useVerifyOtp from "../hooks/useVerifyOtp";
 
 export function InputOTPForm() {
   const { mutate, isPending, verifyError } = useVerifyOtp();

@@ -2,7 +2,7 @@ import { Button } from "@/components/shadcn/Button";
 import Link from "next/link";
 import React from "react";
 import { Loader2Icon } from "lucide-react";
-import OtpTimer from "./OtpTimer";
+import OtpTimer from "./otp/OtpTimer";
 
 type IProps = {
   isPending: boolean;
