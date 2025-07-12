@@ -7,6 +7,7 @@ import ThemeSwitcher from "@/components/ui/ThemeSwitcher"
 import { RootState } from "@/store/store"
 import SidebarToggler from "@/components/shared/sidebar/SidebarToggler"
 import Logo from "@/components/ui/Logo"
+import UserAvatarDropbar from "@/components/ui/UserAvatarDropbar"
 
 const Header = () => {
   const isOpen = useSelector((state: RootState) => state.sidebar.isOpen)
@@ -37,7 +38,11 @@ const Header = () => {
           <Logo />
         </div>
 
-        <ThemeSwitcher />
+        <div className="flex-center justify-end gap-3">
+          <UserAvatarDropbar />
+
+          <ThemeSwitcher />
+        </div>
       </div>
     </header>
   )
