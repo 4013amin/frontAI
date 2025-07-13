@@ -1,8 +1,17 @@
 import React from "react"
+import Breadcrumb from "@/components/shared/Breadcrumb"
+
+const breadcrumbItems = [
+  { title: "اشتراک من", isCurrent: true }
+]
 
 function page() {
+
+
   return (
-    <div>page</div>
+    <div>
+      <Breadcrumb items={breadcrumbItems} />
+    </div>
   )
 }
 

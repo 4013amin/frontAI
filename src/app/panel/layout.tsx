@@ -1,4 +1,4 @@
-import Header from "@/components/shared/header/Header"
+import Header from "@/components/shared/Header"
 import MainContentProvider from "@/providers/MainContentProvider"
 
 export default function RootLayout({ children }: Readonly<{

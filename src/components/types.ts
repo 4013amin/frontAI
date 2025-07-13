@@ -19,3 +19,9 @@ export type IOtpCode = {
 export type IFullName = {
   full_name: string
 }
+
+export type IBreadcrumbItem = {
+  title: string
+  link?: string
+  isCurrent?: boolean
+}

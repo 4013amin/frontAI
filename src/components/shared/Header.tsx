@@ -1,7 +1,7 @@
 "use client"
 import React from "react"
 import { useSelector } from "react-redux"
-import SidebarOverlay from "../sidebar/SidebarOverlay"
+import SidebarOverlay from "./sidebar/SidebarOverlay"
 import Sidebar from "@/components/shared/sidebar/Sidebar"
 import ThemeSwitcher from "@/components/ui/ThemeSwitcher"
 import { RootState } from "@/store/store"
