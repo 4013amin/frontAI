@@ -15,7 +15,7 @@ import { Separator } from "@/components/shadcn/Separator"
 
 const Links: INavLink[] = [
   {
-    id: 1, name: "خانه", href: "/", icon: <House /> 
+    id: 1, name: "خانه", href: "/panel", icon: <House /> 
   },
   {
     id: 2, name: "ایجاد مقاله", href: "/panel/articles/create", icon: <FilePen /> 
@@ -24,10 +24,10 @@ const Links: INavLink[] = [
     id: 3, name: "پیشنهاد عنوان", href: "/panel/articles/suggest-title", icon: <Heading1 /> 
   },
   {
-    id: 4, name: "سایت های من", href: "/panel/my-sites", icon: <PanelsTopLeft /> 
+    id: 4, name: "سایت ها", href: "/panel/my-sites", icon: <PanelsTopLeft /> 
   },
   {
-    id: 5, name: "مقالات", href: "/panel/my-articles", icon: <BookMarked /> 
+    id: 5, name: "مقالات", href: "/panel/articles", icon: <BookMarked /> 
   },
   {
     id: 6, name: "اشتراک من", href: "/panel/subscription", icon: <BadgeCheck /> 
