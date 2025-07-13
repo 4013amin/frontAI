@@ -1,37 +1,66 @@
 import { User } from "lucide-react"
-import React from "react"
-import { Button } from "../shadcn/Button"
+import React, { useState } from "react"
+import Link from "next/link"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger
 } from "@/components/shadcn/DropdownMenu"
 
+const MenuItems = [
+  {
+    id: 1,
+    link: "/panel/subscription",
+    title: "اشتراک من"
+  },
+  {
+    id: 2,
+    link: "/pane/logout",
+    title: "خروج"
+  }
+]
+
 const UserAvatarDropbar = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const handleToggle = (): void => {
+    setIsOpen(!isOpen)
+  }
+
+  const handleLinkClick = (): void => {
+    setIsOpen(false)
+  }
+
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button>
-            <User />
-          </Button>
+    <div className="">
+      <DropdownMenu dir="rtl" open={isOpen} onOpenChange={setIsOpen}>
+        <DropdownMenuTrigger
+          onClick={handleToggle}
+          className={
+            `border-none cursor-pointer p-2 rounded-lg
+         hover:bg-slate-100 outline-0 dark:hover:bg-zinc-800 
+         ${isOpen ? "bg-slate-100 dark:bg-zinc-800" : ""}`
+          }
+        >
+          <User />
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuContent sideOffset={5}>
 
-          <DropdownMenuSeparator />
-
-          <DropdownMenuItem>Profile</DropdownMenuItem>
-
-          <DropdownMenuItem>Billing</DropdownMenuItem>
-
-          <DropdownMenuItem>Team</DropdownMenuItem>
-
-          <DropdownMenuItem>Subscription</DropdownMenuItem>
+          {
+            MenuItems.map(item => (
+              <DropdownMenuItem key={item.id} className="px-3">
+                <Link
+                  href={item.link} 
+                  onClick={handleLinkClick}
+                  className={` w-full text-[16px] ${item.link.includes("/logout") ? "text-red-500" : ""}`}
+                >
+                  {item.title}
+                </Link>
+              </DropdownMenuItem>
+            ))
+          }
         </DropdownMenuContent>
       </DropdownMenu>
 

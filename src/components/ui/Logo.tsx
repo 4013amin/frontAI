@@ -5,10 +5,10 @@ const Logo = () => {
   return (
     <div className="flex-center gap-2">
       <Image
-        src="/binam-logo.svg"
+        src="/binam-logo.svg" 
         className="w-8 lg:w-10"
-        width={40}
-        height={32}
+        width={40} 
+        height={32} 
         alt="هوش مصنوعی تولید محتوا"
       />
 
