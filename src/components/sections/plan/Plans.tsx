@@ -1,5 +1,6 @@
 import React from "react"
 import PlanCard from "./PlanCard"
+import CurrentPlan from "./CurrentPlan"
 import PageHeader from "@/components/ui/PageHeader"
 
 const plans = [
@@ -19,12 +20,14 @@ const Plans = () => {
     <div id="plans">
       <PageHeader title="اشتراک من" />
 
+      <CurrentPlan />
+
       <div>
-        {
+        {/* {
           plans.map(item => (
             <PlanCard key={item.id} {...item} />
           ))
-        }
+        } */}
       </div>
     </div>
   )

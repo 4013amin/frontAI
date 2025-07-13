@@ -33,9 +33,9 @@ const RegisterForm = () => {
   }
 
   useEffect(() => {
-    if (!hasPhoneNumber) {
-      navigator.replace("/auth/login")
-    }
+    // if (!hasPhoneNumber) {
+    //   navigator.replace("/auth/login")
+    // }
   }, [])
 
   return (

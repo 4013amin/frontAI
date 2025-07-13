@@ -7,7 +7,7 @@ type IProps = {
 
 function PageHeader({ children, title }: IProps) {
   return (
-    <div id="page-header" className="">
+    <div id="page-header" className="mb-4">
       <h1 className="font-bold text-xl">
         {title}
       </h1>
