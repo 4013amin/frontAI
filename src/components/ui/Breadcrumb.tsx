@@ -16,7 +16,7 @@ type IProps = {
 const Breadcrumb = ({ items }: IProps) => {
   const defaultItem = { title: "داشبورد", link: "/panel" }
   return (
-    <ShadcnBreadcrumb dir="rtl" className="m-3 lg:m-6">
+    <ShadcnBreadcrumb dir="rtl" className="my-4">
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href={defaultItem.link}>{defaultItem.title}</BreadcrumbLink>

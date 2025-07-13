@@ -1,5 +1,5 @@
 import React from "react"
-import Breadcrumb from "@/components/shared/Breadcrumb"
+import Breadcrumb from "@/components/ui/Breadcrumb"
 
 const breadcrumbItems = [
   { title: "مقالات", link: "/panel/articles" },

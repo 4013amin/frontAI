@@ -9,7 +9,7 @@ const MainContentProvider = ({ children }: { children: ReactNode }) => {
     <div
       className={
         ` transition-all duration-300 container
-      mx-auto ${isOpen ? "lg:pr-[260px]" : ""}`
+          mx-auto px-5 ${isOpen ? "lg:pr-[280px]" : ""}`
       }
     >
       {children}
