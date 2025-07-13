@@ -24,7 +24,9 @@ const useRequestOtp = () => {
       toast.success("کد تایید با موفقیت ارسال شد", { duration: 5000 })
       navigation.replace("/auth/verify")
     },
-    onError: () => {
+    onError: error => {
+      // eslint-disable-next-line no-console
+      console.log(error)
       toast.error("کد تایید ارسال نشد!")
     }
   })

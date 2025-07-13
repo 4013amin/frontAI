@@ -53,11 +53,15 @@ const useVerifyOtp = () => {
           toast.error("کد وارد شده صحیح نیست")
         }
         else if (errorMessage === undefined) {
-          navigation.replace("/auth/login")
+          // navigation.replace("/auth/login")
+          // eslint-disable-next-line no-console
+          console.log(error)
           toast.error("عملیات با شکست مواجه شد!")
         }
       }
       else {
+        // eslint-disable-next-line no-console
+        console.log(error)
         toast.error("عملیات با شکست مواجه شد!")
       }
     }

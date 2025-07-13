@@ -32,9 +32,13 @@ const useSubmitRegister = () => {
         // BLOCK unAuthorised
         if(errorStatus === 401) {
           toast.error("شما احراز هویت نشده اید!")
-          navigation.replace("/auth/login")
+          // eslint-disable-next-line no-console
+          console.log(error)
+          // navigation.replace("/auth/login")
         }
         else {
+          // eslint-disable-next-line no-console
+          console.log(error)
           toast.error("اطلاعات ذخیره نشد!")
         }
       }

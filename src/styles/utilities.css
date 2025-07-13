@@ -27,12 +27,12 @@
     .bg-pattern {
       background-image: linear-gradient(
           to right,
-          rgba(200, 200, 200, 0.06) 1px,
+          rgba(200, 200, 200, 0.07) 1px,
           transparent 1px
         ),
         linear-gradient(
           to bottom,
-          rgba(200, 200, 200, 0.06) 1px,
+          rgba(200, 200, 200, 0.07) 1px,
           transparent 1px
         );
     }
