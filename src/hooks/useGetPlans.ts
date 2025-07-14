@@ -1,40 +1,39 @@
-import { useMutation } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { useQuery } from "@tanstack/react-query"
+import type { AxiosResponse } from "axios"
 import API from "@/lib/axios"
+import { IPlan } from "@/types/globa_types"
 
+type IPlansResponse = AxiosResponse<{ plans: IPlan[] }>
 
-// Request Function 
-const requestFn = () => {
+const requestFn = (): Promise<IPlansResponse> => {
   return API.get("/subscription/plans/")
 }
 
 const useGetPlans = () => {
-
-
   const {
-    mutate,
-    isPending,
+    data,
+    isLoading,
     isError,
     isSuccess,
-    data,
-    error
-  } = useMutation({
-    mutationFn: () => requestFn(),
-    onSuccess: () => {
-
-
-    },
-    onError: error => {
-      // eslint-disable-next-line no-console
-      console.log(error)
-      toast.error("دریافت اطلاعات از سرور انجام نشد!")
-    }
+    error,
+    refetch
+  } = useQuery<IPlansResponse, Error, IPlan[]>({
+    queryKey: ["subscription-plans"],
+    queryFn: requestFn,
+    select: res => res.data.plans,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: 2,
+    staleTime: 1000 * 60 * 5 // 5 min
   })
 
-  const plans = data?.data.plans
-
   return {
-    mutate, isPending, isError, isSuccess, plans, error
+    plans: data,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+    refetch
   }
 }
 

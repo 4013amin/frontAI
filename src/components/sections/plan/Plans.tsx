@@ -1,5 +1,5 @@
 "use client"
-import React, { useEffect } from "react"
+import React from "react"
 import CurrentPlan from "./CurrentPlan"
 import PlanCard from "./PlanCard"
 import PageHeader from "@/components/ui/PageHeader"
@@ -9,8 +9,7 @@ import { IPlan } from "@/types/globa_types"
 
 const Plans = () => {
   const {
-    mutate,
-    isPending,
+    isLoading,
     isError,
     isSuccess,
     plans,
@@ -19,14 +18,10 @@ const Plans = () => {
 
   console.log(plans)
   console.log(error)
-  console.log(isPending)
+  console.log(isLoading)
   console.log(isSuccess)
   console.log(isError)
 
-
-  useEffect(() => {
-    mutate()
-  }, [])
 
   return (
     <div id="plans">
@@ -37,7 +32,7 @@ const Plans = () => {
       <div>
 
         {
-          isPending
+          isLoading
             ? (
               <h1>درحال بارگزاری...</h1>
             )

@@ -1,36 +1,36 @@
-import { useMutation } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { useQuery } from "@tanstack/react-query"
 import API from "@/lib/axios"
+import { IProfile } from "@/types/globa_types"
 
-
-// Request Function 
-const requestFn = () => {
+const requestFn = (): Promise<{ data: IProfile }> => {
   return API.get("/profile/")
 }
 
 const useGetProfile = () => {
-
-
   const {
-    mutate,
-    isPending,
+    data: profile,
+    isLoading,
     isError,
     isSuccess,
-    data,
-    error
-  } = useMutation({
-    mutationFn: () => requestFn(),
-    onError: error => {
-      // eslint-disable-next-line no-console
-      console.log(error)
-      toast.error("دریافت اطلاعات از سرور انجام نشد!")
-    }
+    error,
+    refetch
+  } = useQuery<{ data: IProfile }, Error, IProfile>({
+    queryKey: ["profile"],
+    queryFn: requestFn,
+    select: res => res.data,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    retry: 2,
+    staleTime: 1000 * 60 * 5 // 5 min
   })
 
-  const profile = data?.data
-
   return {
-    mutate, isPending, isError, isSuccess, profile, error
+    profile,
+    isLoading,
+    isError,
+    isSuccess,
+    error,
+    refetch
   }
 }
 

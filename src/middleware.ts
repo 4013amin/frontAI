@@ -12,9 +12,9 @@ export function middleware(request: NextRequest) {
 
   //   if login redirect to panel page
   if (
-    (pathname.startsWith("/auth")) &&
-    localToken
+    (pathname.startsWith("/auth")) && localToken === "true"
   ) {
+    console.log(localToken)
     return NextResponse.redirect(new URL("/panel", request.url))
   }
 
@@ -24,6 +24,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/panel/:path*",
-    "/auth"
+    "/auth/:path"
   ]
 }
