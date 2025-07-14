@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
 import sidebarReducer from "./features/sidebarSlice"
 import authReducer from "./features/authSlice"
+import userInfoReducer from "./features/userInfoSlice"
 
 export const store = configureStore({
   reducer: {
     sidebar: sidebarReducer,
-    auth: authReducer
+    auth: authReducer,
+    userInfo: userInfoReducer
   }
 })
 
