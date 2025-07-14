@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { AlertCircleIcon } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/shadcn/Alert"
