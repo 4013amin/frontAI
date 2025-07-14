@@ -16,7 +16,7 @@ const MenuItems = [
   },
   {
     id: 2,
-    link: "/pane/logout",
+    link: "/panel/logout",
     title: "خروج"
   }
 ]
