@@ -26,6 +26,10 @@ const CurrentPlan = () => {
       dispatch(setCurrentPlanId(String(3)))
     }
   }, [isSuccess])
+
+
+  console.log(profile)
+
     
   return (
     <div className="my-5">

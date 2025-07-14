@@ -16,6 +16,7 @@ const Plans = () => {
     plans
   } = useGetPlans()
   
+  console.log(plans)
   
 
   return (
