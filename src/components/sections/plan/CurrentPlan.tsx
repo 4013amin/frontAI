@@ -1,21 +1,31 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { StarIcon } from "lucide-react"
+import { useDispatch } from "react-redux"
 import ExpirTime from "./ExpirTime"
 import DontHavePlan from "./DontHavePlan"
 import useGetProfile from "@/hooks/useGetProfile"
 import Skeleton from "@/components/ui/Skeleton"
 import { Alert, AlertDescription, AlertTitle } from "@/components/shadcn/Alert"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
+import { setCurrentPlanId } from "@/store/features/userInfoSlice"
 
 
 const CurrentPlan = () => {
+  const dispatch = useDispatch()
+
   const {
     isLoading,
     isError,
-    profile
+    profile,
+    isSuccess
   } = useGetProfile()
   
+  useEffect(() => {
+    if(isSuccess && profile) {
+      dispatch(setCurrentPlanId(String(3)))
+    }
+  }, [isSuccess])
     
   return (
     <div className="my-5">

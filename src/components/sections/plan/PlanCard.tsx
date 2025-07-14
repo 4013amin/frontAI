@@ -3,12 +3,9 @@ import { CheckCircle } from "lucide-react"
 import CardHeader from "./CardHeader"
 import { IPlan } from "@/types/globa_types"
 
-const fu = [
-  "ویژگی شماره یک",
-  "ویژگی شماره دو",
-  "ویژگی شماره سه",
-  "ویژگی شماره چهار"
-]
+const randomCount = Math.floor(Math.random() * 8) + 1 // عددی بین 1 تا 8
+const fu = Array.from({ length: randomCount }, () => "")
+
 
 const PlanCard = (props: IPlan) => {
   const { id, duration_months } = props
@@ -26,6 +23,7 @@ const PlanCard = (props: IPlan) => {
         className="plan-card rounded-lg text-right min-h-36 rounded-xl
          !bg-[linear-gradient(to_bottom,_white_50%,_#f0f0f0_100%)]
           dark:!bg-[linear-gradient(to_bottom,_#000_50%,_#0f0f0f_100%)]
+          min-h-[100%]
          "
         data-id={id}
       >

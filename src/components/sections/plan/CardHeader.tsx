@@ -1,6 +1,9 @@
 import React from "react"
 import Link from "next/link"
+import { useSelector } from "react-redux"
+import { Star } from "lucide-react"
 import { IPlan } from "@/types/globa_types"
+import { RootState } from "@/store/store"
 
 type IProps = {
   plan: IPlan
@@ -16,6 +19,8 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
     price,
     is_trial
   } = plan
+
+  const currentPlanId = useSelector((state: RootState) => state.userInfo.currentPlanId)
   
 
   const formattedPrice = price.toLocaleString()
@@ -24,9 +29,25 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
     <div
       className={
         `card-header border border-2 border-zinc-100 rounded-xl p-6 
-          dark:border-zinc-800 ${isPopular ? "bg-blue-500" : ""}`
+          dark:border-zinc-800 relative ${isPopular ? "bg-blue-500" : ""}`
       }
     >
+
+      {/* Current plan Badge */}
+      {
+        currentPlanId === String(id) && (
+          <span
+            className="absolute top-2 left-2 bg-green-500 py-1 px-2 rounded-full
+          text-white text-sm flex-center gap-2 dark:bg-green-500/50"
+          >
+            <Star size={15} />
+            پلن فعلی شما
+          </span>
+        )
+      }
+
+      {/* End of Current plan Badge */}
+
       <h2 className={`font-bold text-lg ${isPopular ? "text-white" : ""}`}>{title}</h2>
 
       <p className={`text-sm text-slate-500 my-2 ${isPopular ? "text-white" : ""}`}>مناسب برای کسب و کارهای کوچک</p>
@@ -64,8 +85,8 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
         is_trial
           ? (
             <button
-              className="bg-green-600 py-2 w-full block text-white rounded-full text-center
-                text-[15px] mt-5 cursor-pointer hover:!bg-green-500" 
+              className="py-2 w-full block rounded-full text-center
+                text-[15px] mt-5 cursor-pointer bg-blue-500 text-white hover:bg-blue-600" 
               type="button"
             >
               فعالسازی رایگان
@@ -75,7 +96,7 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
             <Link
               href={`/panel/submit-payment/${id}`}
               className={
-                ` py-2 w-full block  rounded-full text-center text-[15px] mt-5  
+                ` py-2 w-full block rounded-full text-center text-[15px] mt-5  
                 ${isPopular ? "bg-white text-blue-500 hover:bg-slate-100" : "bg-blue-500 text-white hover:bg-blue-600"}`
               }
             >

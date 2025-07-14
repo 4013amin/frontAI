@@ -16,7 +16,7 @@ const Plans = () => {
     plans
   } = useGetPlans()
   
-  console.log(plans)
+  
 
   return (
     <div id="plans">
@@ -24,7 +24,7 @@ const Plans = () => {
 
       <CurrentPlan  />
 
-      <div className="w-full text-center mt-10">
+      <div className="w-full text-center mt-15">
         <h1 className="font-bold text-lg">پلن‌های اشتراک</h1>
 
         <span className="text-zinc-600 dark:text-zinc-400 mb-5 inline-block text-base mt-2">
@@ -41,7 +41,7 @@ const Plans = () => {
                 <NotLoadErorr />
               )
               : (
-                <div className="grid !grid-cols-1 lg:!grid-cols-3 gap-5 w-full">
+                <div className="grid !grid-cols-1 lg:!grid-cols-3 gap-5 w-full items-start">
                   {
                     plans?.map((item: IPlan) => (
                       item.is_active && (<PlanCard key={item.id} {...item} />)
