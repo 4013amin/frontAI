@@ -1,48 +1,57 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
+import { StarIcon } from "lucide-react"
+import { toast } from "sonner"
+import ExpirTime from "./ExpirTime"
 import DontHavePlan from "./DontHavePlan"
-import useSubscriptionDaysLeft from "@/hooks/useSubscriptionDaysLeft"
 import useGetProfile from "@/hooks/useGetProfile"
+import Skeleton from "@/components/ui/Skeleton"
+import { Alert, AlertDescription, AlertTitle } from "@/components/shadcn/Alert"
+import NotLoadErorr from "@/components/ui/NotLoadErorr"
 
 
 const CurrentPlan = () => {
   const {
     isLoading,
     isError,
-    profile,
-    error
+    profile
   } = useGetProfile()
-
-  console.log(profile)
-
-  const daysLeft = useSubscriptionDaysLeft("")
   
+  useEffect(() => {
+    if(isError) {
+      toast.error("اطلاعات اشتراک شما دریافت نشد!")
+    }
+  }, [isError])
     
   return (
     <div className="my-5">
 
-      {isError && <h1>ERROR</h1>}
+      {isError && <NotLoadErorr />}
 
-      {isLoading && <h1>Loading</h1>}
+      {isLoading && <Skeleton className="w-full h-20 runded-xl" />}
 
       {
         !isLoading && !isError && profile && (
                
-          !profile.active_plan
+          profile.active_plan
             ? (
-              <div
-                className={`border rounded-lgp-4 ${""}`} 
-                data-id={10}
-              >
-                <h2>رایگان 7 روزه</h2>
+              <Alert variant="default" className="text-green-700 bg-green-300/5 dark:text-green-500">
 
-                <h3>زمان باقی مانده: 22 روز</h3>
-              </div>
+                <StarIcon />
+
+                <AlertTitle className="flex gap-3 items-center text-[16px]">
+                  <span>درحال حاضر اشتراک {profile.active_plan?.title} برای شما فعال است</span>
+                </AlertTitle>
+
+                <AlertDescription className="text-black mt-3 dark:text-white">
+                  <ExpirTime expiryDate={profile.active_plan?.duration_months} /> روز از اشتراک شما باقی مانده
+
+                </AlertDescription>
+              </Alert>
             )
             : (
               <DontHavePlan />
             )
-      
         )
       }
 

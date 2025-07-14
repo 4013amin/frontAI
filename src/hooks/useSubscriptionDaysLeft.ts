@@ -2,14 +2,14 @@
 import { useState, useEffect } from "react"
 
 
-const useSubscriptionDaysLeft = (expiryDate: string) => {
+const useSubscriptionDaysLeft = (expiryDate: number) => {
   const [daysLeft, setDaysLeft] = useState(0)
 
   useEffect(() => {
     const calculateDaysLeft = () => {
       const today = new Date()
       today.setHours(0, 0, 0, 0) // Set time to 00:00:00
-      const expiry = new Date(expiryDate)
+      const expiry = new Date(String(expiryDate))
       expiry.setHours(0, 0, 0, 0) // Set time to 00:00:00
 
       // Calculate the remaining days
