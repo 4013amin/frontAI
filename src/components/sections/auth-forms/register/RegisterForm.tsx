@@ -33,9 +33,9 @@ const RegisterForm = () => {
   }
 
   useEffect(() => {
-    // if (!hasPhoneNumber) {
-    //   navigator.replace("/auth/login")
-    // }
+    if (!hasPhoneNumber) {
+      navigator.replace("/auth/login")
+    }
   }, [])
 
   return (
@@ -52,7 +52,7 @@ const RegisterForm = () => {
         <Input
           {...register("fullname")}
           type="text"
-          maxLength={11}
+          maxLength={30}
           placeholder="نام و نام‌خانوادگی"
           aria-invalid={errors.fullname?.message ? "true" : "false"}
           className="max-w-[380px] mt-3"

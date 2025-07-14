@@ -31,6 +31,7 @@ const useVerifyOtp = () => {
       const status = data.status
       const { is_new_user: isNewUser } = data.data
 
+
       if (status === 201 || status === 200) {
         // Set local token for middleware validation
         Cookies.set("local_token", "true", { path: "/" })
@@ -45,26 +46,22 @@ const useVerifyOtp = () => {
       if (axios.isAxiosError(error)) {
         setTimeout(() => {
           setVerifyError("")
-        }, 3000)
+        }, 4000)
 
         // Get error from Axios
-        const errorMessage = error.response?.data.error
-        if (errorMessage === "Code has expired.") {
+        const errorMessageExp = error.response?.data.error
+        const errorMessage = error.response?.data.detail
+        if (errorMessageExp === "کد وارد شده منقضی شده است.") {
           setVerifyError("کد منقضی شده است")
           toast.error("کد منقضی شده است")
           return
         }
-        else if (errorMessage === "Invalid phone number or code.") {
+        else if (errorMessage === "No OTPCode matches the given query.") {
           setVerifyError("کد وارد شده صحیح نیست")
           toast.error("کد وارد شده صحیح نیست")
           return
         }
-        else if (errorMessage === "No OTPCode matches the given query.") {
-          toast.error("کد تایید وارد شده وجود ندارد")
-          return
-        }
         else if (errorMessage === undefined) {
-          navigation.replace("/auth/login")
           // eslint-disable-next-line no-console
           console.log(error)
           toast.error("عملیات با شکست مواجه شد!")
