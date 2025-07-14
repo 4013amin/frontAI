@@ -8,7 +8,7 @@ import { IFullName } from "@/components/types"
 
 // Request Function 
 const requestFn = ({ full_name }: IFullName) => {
-  return API.put("/profile/complete/", { full_name })
+  return API.patch("/profile/complete/", { full_name })
 }
 
 const useSubmitRegister = () => {
@@ -28,13 +28,14 @@ const useSubmitRegister = () => {
     onError: error => {
       if (axios.isAxiosError(error)) {
         const errorStatus = error.response?.status
-        
+        const errorMessage = error.response?.data.error
+
         // BLOCK unAuthorised
         if(errorStatus === 401) {
           toast.error("شما احراز هویت نشده اید!")
           // eslint-disable-next-line no-console
-          console.log(error)
-          // navigation.replace("/auth/login")
+          console.log(errorMessage)
+          navigation.replace("/auth/login")
         }
         else {
           // eslint-disable-next-line no-console

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { toast } from "sonner"
+import Cookies from "js-cookie"
 import { RootState } from "@/store/store"
 import API from "@/lib/axios"
 import { IOtpCode } from "@/components/types"
@@ -30,9 +31,13 @@ const useVerifyOtp = () => {
       const status = data.status
       const { is_new_user: isNewUser } = data.data
 
-      if (status === 201) {
+      if (status === 201 || status === 200) {
+        // Set local token for middleware validation
+        Cookies.set("local_token", "true", { path: "/" })
+
+        // Redirect user
         if (isNewUser) navigation.replace("/auth/register")
-        else navigation.replace("/auth/panel")
+        else navigation.replace("/panel")
         toast.success("با موفقیت وارد شدید!", { duration: 5000 })
       }
     },
@@ -47,16 +52,23 @@ const useVerifyOtp = () => {
         if (errorMessage === "Code has expired.") {
           setVerifyError("کد منقضی شده است")
           toast.error("کد منقضی شده است")
+          return
         }
         else if (errorMessage === "Invalid phone number or code.") {
           setVerifyError("کد وارد شده صحیح نیست")
           toast.error("کد وارد شده صحیح نیست")
+          return
+        }
+        else if (errorMessage === "No OTPCode matches the given query.") {
+          toast.error("کد تایید وارد شده وجود ندارد")
+          return
         }
         else if (errorMessage === undefined) {
-          // navigation.replace("/auth/login")
+          navigation.replace("/auth/login")
           // eslint-disable-next-line no-console
           console.log(error)
           toast.error("عملیات با شکست مواجه شد!")
+          return
         }
       }
       else {
