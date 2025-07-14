@@ -1,19 +1,43 @@
 "use client"
 
-import React from "react"
-import { AlertCircleIcon } from "lucide-react"
-import { Alert, AlertDescription, AlertTitle } from "@/components/shadcn/Alert"
+import React, { useEffect } from "react"
+// import { AlertCircleIcon } from "lucide-react"
+// import { Alert, AlertDescription, AlertTitle } from "@/components/shadcn/Alert"
 import useSubscriptionDaysLeft from "@/hooks/useSubscriptionDaysLeft"
+import useGetProfile from "@/hooks/useGetProfile"
 
 
 const CurrentPlan = () => {
+  const {
+    mutate,
+    isPending,
+    isError,
+    isSuccess,
+    profile,
+    error
+  } = useGetProfile()
 
   const daysLeft = useSubscriptionDaysLeft("")
+  
+  useEffect(() => {
+    mutate()
+  }, [])
 
-  console.log(daysLeft)
+  console.log(profile)
     
   return (
     <>
+
+      {isError && <h1>ERROR</h1>}
+
+      {isPending && <h1>Loading</h1>}
+
+      {
+        !isPending && !isError && profile && (
+          <h1>data loaded</h1>
+        )
+      }
+
       {/* {
         user.subscription_active
           ? (
