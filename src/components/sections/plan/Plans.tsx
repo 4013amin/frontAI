@@ -16,6 +16,7 @@ const Plans = () => {
     plans
   } = useGetPlans()
   
+  console.log(plans)
 
   return (
     <div id="plans">
@@ -43,7 +44,7 @@ const Plans = () => {
                 <div className="grid !grid-cols-1 lg:!grid-cols-3 gap-5 w-full">
                   {
                     plans?.map((item: IPlan) => (
-                      <PlanCard key={item.id} {...item} />
+                      item.is_active && (<PlanCard key={item.id} {...item} />)
                     ))
                   }
                 </div>
