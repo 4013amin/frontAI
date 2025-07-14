@@ -1,7 +1,6 @@
 "use client"
-import React, { useEffect } from "react"
+import React from "react"
 import { StarIcon } from "lucide-react"
-import { toast } from "sonner"
 import ExpirTime from "./ExpirTime"
 import DontHavePlan from "./DontHavePlan"
 import useGetProfile from "@/hooks/useGetProfile"
@@ -17,11 +16,6 @@ const CurrentPlan = () => {
     profile
   } = useGetProfile()
   
-  useEffect(() => {
-    if(isError) {
-      toast.error("اطلاعات اشتراک شما دریافت نشد!")
-    }
-  }, [isError])
     
   return (
     <div className="my-5">

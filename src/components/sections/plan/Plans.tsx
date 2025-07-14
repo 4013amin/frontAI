@@ -2,26 +2,20 @@
 import React from "react"
 import CurrentPlan from "./CurrentPlan"
 import PlanCard from "./PlanCard"
+import PlansSkeleton from "./skeletons/PlansSkeleton"
 import PageHeader from "@/components/ui/PageHeader"
 import useGetPlans from "@/hooks/useGetPlans"
 import { IPlan } from "@/types/globa_types"
+import NotLoadErorr from "@/components/ui/NotLoadErorr"
 
 
 const Plans = () => {
   const {
     isLoading,
     isError,
-    isSuccess,
-    plans,
-    error
+    plans
   } = useGetPlans()
-
-  console.log(plans)
-  console.log(error)
-  console.log(isLoading)
-  console.log(isSuccess)
-  console.log(isError)
-
+  
 
   return (
     <div id="plans">
@@ -29,21 +23,30 @@ const Plans = () => {
 
       <CurrentPlan  />
 
-      <div>
+      <div className="w-full text-center mt-10">
+        <h1 className="font-bold text-lg">پلن‌های اشتراک</h1>
+
+        <span className="text-zinc-600 dark:text-zinc-400 mb-5 inline-block text-base mt-2">
+          پلن متناسب با نیاز خود را انتخاب کنید و از تمام امکانات بهره‌مند شوید.
+        </span>
 
         {
           isLoading
             ? (
-              <h1>درحال بارگزاری...</h1>
+              <PlansSkeleton />
             )
             : isError
               ? (
-                <>ERORR</>
+                <NotLoadErorr />
               )
               : (
-                plans?.map((item: IPlan) => (
-                  <PlanCard key={item.id} {...item} />
-                ))
+                <div className="grid !grid-cols-1 lg:!grid-cols-3 gap-5 w-full">
+                  {
+                    plans?.map((item: IPlan) => (
+                      <PlanCard key={item.id} {...item} />
+                    ))
+                  }
+                </div>
               )
         }
 
