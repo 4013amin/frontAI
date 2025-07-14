@@ -28,6 +28,7 @@ const CurrentPlan = () => {
   }, [isSuccess])
 
 
+  // eslint-disable-next-line no-console
   console.log(profile)
 
     

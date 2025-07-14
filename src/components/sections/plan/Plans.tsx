@@ -16,6 +16,7 @@ const Plans = () => {
     plans
   } = useGetPlans()
   
+  // eslint-disable-next-line no-console
   console.log(plans)
   
 

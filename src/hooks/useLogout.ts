@@ -1,8 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
-import { useRouter } from "next/navigation"
+// import { useRouter } from "next/navigation"
 import { toast } from "sonner"
-import Cookies from "js-cookie"
 import API from "@/lib/axios"
 
 // Request Function 
@@ -11,7 +10,7 @@ const requestFn = () => {
 }
 
 const useLogout = () => {
-  const navigation = useRouter()
+  // const navigation = useRouter()
 
   const {
     mutate,

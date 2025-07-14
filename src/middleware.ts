@@ -14,7 +14,6 @@ export function middleware(request: NextRequest) {
   if (
     (pathname.startsWith("/auth")) && localToken === "true"
   ) {
-    console.log(localToken)
     return NextResponse.redirect(new URL("/panel", request.url))
   }
 
