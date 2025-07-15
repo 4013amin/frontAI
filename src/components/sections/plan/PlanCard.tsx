@@ -11,7 +11,7 @@ const PlanCard = (props: IPlan) => {
     features
   } = props
 
-  const isPopular = duration_months === 3 ? true : false
+  const isPopular = duration_months === 22 ? true : false
 
 
   return (

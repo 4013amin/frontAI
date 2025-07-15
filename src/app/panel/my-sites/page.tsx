@@ -16,7 +16,10 @@ function page() {
 
       <PageHeader title="مدیریت سایت ها" />
 
-      <div className="flex flex-col lg:!flex-row gap-5 w-full">
+      <div
+        className="flex flex-col lg:!flex-row gap-5 w-full 
+        justify-start items-start"
+      >
         <SitesList />
 
         <NewSiteForm />

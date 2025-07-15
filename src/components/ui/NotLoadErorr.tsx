@@ -3,7 +3,10 @@ import React from "react"
 
 const NotLoadErorr = () => {
   return (
-    <div className="flex-center flex-col gap-3 text-center text-red-500">
+    <div
+      className="flex-center flex-col gap-3 text-center text-red-500
+      w-full my-4"
+    >
       <AlertCircleIcon />
 
       <span>خطا در دریافت اطلاعات!</span>

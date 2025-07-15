@@ -3,7 +3,7 @@ import type { AxiosResponse } from "axios"
 import API from "@/lib/axios"
 import { ISite } from "@/types/globa_types"
 
-type ISitesResponse = AxiosResponse<{ sites: ISite[] }>
+type ISitesResponse = AxiosResponse<ISite[]>
 
 const requestFn = (): Promise<ISitesResponse> => {
   return API.get("/sites/")
@@ -17,18 +17,19 @@ const useGetSites = () => {
     isSuccess,
     error,
     refetch
-  } = useQuery<ISitesResponse, Error, ISite[]>({
+  } = useQuery<ISitesResponse>({
     queryKey: ["my-sites"],
     queryFn: requestFn,
-    select: res => res.data.sites,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     retry: 2,
     staleTime: 1000 * 60 * 5 // 5 min
   })
 
+  const sites = data?.data
+
   return {
-    sites: data,
+    sites,
     isLoading,
     isError,
     isSuccess,

@@ -4,10 +4,12 @@ import { Input } from "../shadcn/Input"
 import { Label } from "../shadcn/Label"
 
 type IProps = {
-  register: UseFormRegister<any>  // یا فرم خاصت رو تایپ کن
+  register: UseFormRegister<any>
   name: string
   error?: string
   label?: string
+  placeholder: string
+  type?: string
 }
 
 const CustomInput = (props: IProps) => {
@@ -15,31 +17,42 @@ const CustomInput = (props: IProps) => {
     register,
     name,
     error,
-    label
+    label,
+    placeholder,
+    type = "text"
   } = props
+
+  const handleEnterFocus = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault()
+
+      const allInputs =
+       Array.from(document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[name], textarea[name]"))
+
+      const currentIndex = allInputs.findIndex(input => input.name === name)
+      const nextInput = allInputs[currentIndex + 1]
+
+      nextInput?.focus()
+    }
+  }
 
   return (
     <div className="w-full">
-      {
-        label && (
-          <Label >
-            {label}
-          </Label>
-        )
-      }
+      {label && <Label>{label}</Label>}
 
       <Input
         {...register(name)}
-        type="name"
-        maxLength={11}
-        placeholder="شماره تماس"
+        name={name}
+        type={type}
+        placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
-        className="mt-3 w-full"
+        className="w-full"
+        onKeyDown={handleEnterFocus}
       />
 
       {
         error && (
-          <p className="text-red-500 text-sm">{error}</p>
+          <p className="text-red-500 text-sm mt-2">{error}</p>
         )
       }
     </div>

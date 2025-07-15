@@ -1,6 +1,6 @@
 "use client"
 import { Plus } from "lucide-react"
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
@@ -9,18 +9,21 @@ import { Separator } from "@/components/shadcn/Separator"
 import { NewSiteFormSchema } from "@/lib/schemas"
 import { ISite } from "@/types/globa_types"
 import CustomInput from "@/components/ui/CustomInput"
+import CustomTextarea from "@/components/ui/CustomTexarea"
+import SubmitFormButton from "@/components/ui/SubmitFormButton"
+
 
 const NewSiteForm = () => {
   const {
     mutate,
     isPending,
-    isSuccess,
-    isError
+    isSuccess
   } = useCreateNewSite()
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<z.infer<typeof NewSiteFormSchema>>({
     resolver: zodResolver(NewSiteFormSchema),
@@ -36,10 +39,16 @@ const NewSiteForm = () => {
     mutate(site)
   }
 
+  useEffect(() => {
+    if(isSuccess) {
+      reset()
+    }
+  }, [isSuccess, reset])
+
 
   return (
     <div
-      className="lg:w-2/5 flex flex-col items-start justify-center p-3
+      className="w-full lg:!w-2/5 flex flex-col justify-start p-3
         border rounded-xl"
     >
       <h2 className="flex items-center gap-2 text-bold">
@@ -57,7 +66,36 @@ const NewSiteForm = () => {
           register={register}
           name="name"
           error={errors.name?.message}
-          label="نام نمایشی"
+          type="text"
+          placeholder="نام نمایشی سایت"
+        />
+
+        <CustomInput
+          register={register}
+          name="site_url"
+          error={errors.site_url?.message}
+          placeholder="آدرس سایت"
+          type="text"
+        />
+
+        <CustomInput
+          register={register}
+          name="username"
+          error={errors.username?.message}
+          placeholder="نام کاربری وردپرس"
+          type="text"
+        />
+
+        <CustomTextarea
+          register={register}
+          name="app_password"
+          error={errors.app_password?.message}
+          placeholder="App password"
+        />
+
+        <SubmitFormButton 
+          text="افزودن سایت جدید"
+          isPending={isPending}
         />
       </form>
 

@@ -15,9 +15,11 @@ const SitesList = () => {
     sites
   } = useGetSites()
 
+  console.log(sites)
+
   return (
     <div
-      className="lg:w-3/5 flex flex-col items-start justify-center p-3
+      className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
     border rounded-xl"
     >
       <h2 className="flex items-center gap-2 text-bold">
@@ -32,14 +34,14 @@ const SitesList = () => {
       {isLoading && <SitesListSkeleton />}
 
       {
-        !isLoading && sites?.length &&
+        sites &&
         sites.map((site: ISite) => (
           <p key={site.id}>{site.name}</p>
         ))
       }
 
       {
-        !isLoading && !sites?.length && (
+        sites === undefined || sites.length < 1 && (
           <EmptySiteList />
         )
       }

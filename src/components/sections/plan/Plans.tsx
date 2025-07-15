@@ -15,10 +15,7 @@ const Plans = () => {
     isError,
     plans
   } = useGetPlans()
-  
-  // eslint-disable-next-line no-console
-  console.log(plans)
-  
+    
 
   return (
     <div id="plans">

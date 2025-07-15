@@ -26,11 +26,6 @@ const CurrentPlan = () => {
       dispatch(setCurrentPlanId(String(profile.active_plan?.id)))
     }
   }, [isSuccess])
-
-
-  // eslint-disable-next-line no-console
-  console.log(profile)
-
     
   return (
     <div className="my-5">
