@@ -34,7 +34,7 @@ const useVerifyOtp = () => {
 
       if (status === 201 || status === 200) {
         // Set local token for middleware validation
-        Cookies.set("local_token", "true", { path: "/" })
+        Cookies.set("local_token", "true", { path: "/", expires: 10 })
 
         // Redirect user
         if (isNewUser) navigation.replace("/auth/register")
