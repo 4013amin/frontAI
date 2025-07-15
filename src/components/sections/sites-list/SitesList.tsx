@@ -3,6 +3,7 @@ import React from "react"
 import { List } from "lucide-react"
 import EmptySiteList from "./EmptySiteList"
 import SitesListSkeleton from "./SitesListSkeleton"
+import SiteCard from "./SiteCard"
 import useGetSites from "@/hooks/useGetSites"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { ISite } from "@/types/globa_types"
@@ -15,7 +16,6 @@ const SitesList = () => {
     sites
   } = useGetSites()
 
-  console.log(sites)
 
   return (
     <div
@@ -36,7 +36,11 @@ const SitesList = () => {
       {
         sites &&
         sites.map((site: ISite) => (
-          <p key={site.id}>{site.name}</p>
+          <div className="w-full" key={site.id}>
+            <SiteCard {...site} />
+
+            <Separator />
+          </div>
         ))
       }
 
