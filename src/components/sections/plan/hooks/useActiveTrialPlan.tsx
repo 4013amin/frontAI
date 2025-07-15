@@ -36,7 +36,7 @@ const useActiveTrialPlan = () => {
           queryClient.invalidateQueries({ queryKey: ["profile"] })
 
           // Redirect to sites
-          navigation.push("/plan/my-sites")
+          navigation.push("/panel/my-sites")
         }
       }
     },
