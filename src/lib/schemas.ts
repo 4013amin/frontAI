@@ -1,4 +1,5 @@
 import z from "zod"
+import { SITE_REGEX } from "./regex"
 
 const LoginFormSchema = z.object({
   phone: z
@@ -19,6 +20,24 @@ const RegisterFormSchema = z.object({
 })
 
 
+const NewSiteFormSchema = z.object({
+  name: z.string({ message: "لطفا یک نام برای سایت انتخاب کنید" })
+    .min(3, { message: "حداقل 3 کاراکتر وارد کنید" })
+    .max(30, { message: "نام نمی‌ تواند بیشتر از 30 کاراکتر باشد" }),
+  site_url: z.string("لطفا آدرس سایت را وارد کنید")
+    .regex(SITE_REGEX, "آدرس وارد شده معتبر نیست")
+    .min(8, { message: "حداقل 8 کاراکتر وارد کنید" })
+    .max(200, { message: "آدرس سایت نمی‌ تواند بیشتر از 200 کاراکتر باشد" }),
+  username: z.string({ message: "لطفا نام کاربری را وارد نمایید" })
+    .min(3, { message: "حداقل 3 کاراکتر وارد کنید" })
+    .max(120, { message: "نام کاربری نمی‌ تواند بیشتر از 120 کاراکتر باشد" }),
+  app_password: z.string({ message: "لطفا app password را وارد نمایید" })
+    .min(3, { message: "حداقل 3 کاراکتر وارد کنید" })
+    .max(350, { message: "app password نمی‌ تواند بیشتر از 350 کاراکتر باشد" })
+})
+
+
 export {
-  LoginFormSchema, OtpFormSchema, RegisterFormSchema
+  LoginFormSchema, OtpFormSchema, RegisterFormSchema,
+  NewSiteFormSchema
 }

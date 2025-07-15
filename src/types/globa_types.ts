@@ -22,7 +22,7 @@ export type IProfile = {
 }
 
 export type ISite = {
-  id: number
+  id?: number
   name: string
   site_url: string
   username: string
