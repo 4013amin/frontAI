@@ -17,7 +17,7 @@ const useLogout = () => {
     isSuccess
   } = useMutation({
     mutationFn: requestFn,
-    onSuccess: data => {
+    onSuccess: () => {
       // حتی اگر سرور خطا نده
       // Cookies.remove("local_token", { path: "/" })
       // localStorage.clear()
@@ -28,7 +28,7 @@ const useLogout = () => {
     },
     onError: error => {
       if (axios.isAxiosError(error)) {
-        const status = error.response?.status
+        // const status = error.response?.status
 
         const errorMessage = error.response?.data?.detail || "خطایی رخ داد"
         toast.error("خروج انجام نشد: " + errorMessage)

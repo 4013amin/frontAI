@@ -11,7 +11,7 @@ const breadcrumbItems = [
 function page() {
 
   return (
-    <div>
+    <div className="mb-10">
       <Breadcrumb items={breadcrumbItems} />
 
       <PageHeader title="مدیریت سایت ها" />

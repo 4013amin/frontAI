@@ -1,15 +1,19 @@
 "use client"
-import React from "react"
+import React, { memo, useState } from "react"
 import { List } from "lucide-react"
 import EmptySiteList from "./EmptySiteList"
 import SitesListSkeleton from "./SitesListSkeleton"
 import SiteCard from "./SiteCard"
+import RemoveSiteDialog from "./RemoveSiteDialog"
 import useGetSites from "@/hooks/useGetSites"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { ISite } from "@/types/globa_types"
 import { Separator } from "@/components/shadcn/Separator"
 
 const SitesList = () => {
+  const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
+  const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
+
   const {
     isLoading,
     isError,
@@ -36,11 +40,12 @@ const SitesList = () => {
       {
         sites &&
         sites.map((site: ISite) => (
-          <div className="w-full" key={site.id}>
-            <SiteCard {...site} />
-
-            <Separator />
-          </div>
+          <SiteCard
+            key={site.id}
+            {...site} 
+            setRemoveId={setSelectedForRemove} 
+            setIsOpenRemoveDialog={setIsOpenRemoveDialog}
+          />
         ))
       }
 
@@ -49,8 +54,14 @@ const SitesList = () => {
           <EmptySiteList />
         )
       }
+
+      <RemoveSiteDialog
+        isOpen={isOpenRemoveDialog}
+        siteId={selectedForRemove} 
+        setIsOpen={setIsOpenRemoveDialog}
+      />
     </div>
   )
 }
 
-export default SitesList
+export default memo(SitesList)
