@@ -25,3 +25,5 @@ export type IBreadcrumbItem = {
   link?: string
   isCurrent?: boolean
 }
+
+export type IPlanId = number

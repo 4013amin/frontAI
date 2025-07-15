@@ -2,8 +2,10 @@ import React from "react"
 import Link from "next/link"
 import { useSelector } from "react-redux"
 import { Star } from "lucide-react"
+import useActiveTrialPlan from "./hooks/useActiveTrialPlan"
 import { IPlan } from "@/types/globa_types"
 import { RootState } from "@/store/store"
+import { IPlanId } from "@/components/types"
 
 type IProps = {
   plan: IPlan
@@ -21,9 +23,20 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
   } = plan
 
   const currentPlanId = useSelector((state: RootState) => state.userInfo.currentPlanId)
-  
 
+  const {
+    mutate,
+    isPending,
+    isSuccess
+  } = useActiveTrialPlan()
+  
   const formattedPrice = price.toLocaleString()
+
+
+  const activeTrialPlanHandler = (id: IPlanId): void => {
+    mutate(id)
+  }
+
 
   return (
     <div
@@ -85,11 +98,30 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
         is_trial
           ? (
             <button
-              className="py-2 w-full block rounded-full text-center
-                text-[15px] mt-5 cursor-pointer bg-blue-500 text-white hover:bg-blue-600" 
+              disabled={isPending || isSuccess}
+              onClick={() => activeTrialPlanHandler(id)}
+              className={
+                `py-2 w-full block rounded-full text-center disabled:cursor-progress
+                text-[15px] mt-5 cursor-pointer bg-blue-500 text-white hover:bg-blue-600
+                ${isPending ? "cursur-auto" : ""}`
+              }
               type="button"
             >
-              فعالسازی رایگان
+              {
+                !isSuccess
+                  ? (
+                    isPending
+                      ? (
+                        "درحال فعالسازی..."
+                      )
+                      : (
+                        "فعالسازی رایگان"
+                      )
+                  )
+                  : (
+                    "پلن رایگان برای شما فعال شد"
+                  )
+              }
             </button>
           )
           : (
