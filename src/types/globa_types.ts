@@ -20,3 +20,10 @@ export type IProfile = {
   jalali_registration_date: string
   active_plan: IPlan | null
 }
+
+export type ISite = {
+  id: number
+  name: string
+  site_url: string
+  username: string
+}
