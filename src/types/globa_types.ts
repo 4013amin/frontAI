@@ -5,6 +5,7 @@ export type IPlan =   {
   price: number
   is_active: boolean
   is_trial: boolean
+  description: string
   features: string | []
   subscription_end_date: string
 }

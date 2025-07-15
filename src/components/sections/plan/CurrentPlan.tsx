@@ -37,7 +37,7 @@ const CurrentPlan = () => {
 
       {isError && <NotLoadErorr />}
 
-      {isLoading && <Skeleton className="w-full h-20 runded-xl" />}
+      {isLoading && <Skeleton className="w-full h-24 runded-xl" />}
 
       {
         !isLoading && !isError && profile && (
@@ -52,10 +52,14 @@ const CurrentPlan = () => {
                   <span>درحال حاضر اشتراک {profile.active_plan?.title} برای شما فعال است</span>
                 </AlertTitle>
 
-                <AlertDescription className="text-black mt-3 dark:text-white">
+                <AlertDescription className=" mt-3">
                   <ExpirTime 
                     expiryDate={profile.subscription_end_date}
                   />
+
+                  <span className="mt-2">
+                    درصورت خریداری پلن جدید، مدت باقی مانده این پلن هم به آن اضافه می‌شود.
+                  </span>
                 </AlertDescription>
               </Alert>
             )

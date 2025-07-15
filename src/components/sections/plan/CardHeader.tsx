@@ -19,7 +19,8 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
     title,
     duration_months,
     price,
-    is_trial
+    is_trial,
+    description
   } = plan
 
   const currentPlanId = useSelector((state: RootState) => state.userInfo.currentPlanId)
@@ -62,7 +63,7 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
 
       <h2 className={`font-bold text-lg ${isPopular ? "text-white" : ""}`}>{title}</h2>
 
-      <p className={`text-sm text-slate-500 my-2 ${isPopular ? "text-white" : ""}`}>مناسب برای کسب و کارهای کوچک</p>
+      <p className={`text-sm text-slate-500 my-2 ${isPopular ? "text-white" : ""}`}>{description}</p>
 
       <div className="flex items-center gap-2 mt-4">
         <span className={`block ${isPopular ? "text-white" : ""}`}>{

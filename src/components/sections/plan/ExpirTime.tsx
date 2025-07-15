@@ -22,7 +22,7 @@ const ExpirTime = ({ expiryDate }: { expiryDate: string }) => {
   }
   else {
     message = `${daysLeft} روز از اشتراک شما باقی مانده`
-    className = "text-black"
+    className = "text-black dark:text-white"
   }
 
   return <span className={`${className} font-semibold`}>{message}</span>

@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query"
 import axios from "axios"
 import { toast } from "sonner"
 import { useQueryClient } from "@tanstack/react-query"
+import { useRouter } from "next/navigation"
 import API from "@/lib/axios"
 import { IPlanId } from "@/components/types"
 
@@ -14,6 +15,7 @@ const requestFn = (planId: IPlanId) => {
 
 const useActiveTrialPlan = () => {
   const queryClient = useQueryClient()
+  const navigation = useRouter()
 
   const {
     mutate,
@@ -32,6 +34,9 @@ const useActiveTrialPlan = () => {
         
           //   Refatch Current Plan
           queryClient.invalidateQueries({ queryKey: ["profile"] })
+
+          // Redirect to sites
+          navigation.push("/plan/my-sites")
         }
       }
     },
