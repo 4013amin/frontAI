@@ -32,7 +32,6 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
   
   const formattedPrice = price.toLocaleString()
 
-
   const activeTrialPlanHandler = (id: IPlanId): void => {
     mutate(id)
   }

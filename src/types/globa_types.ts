@@ -6,6 +6,7 @@ export type IPlan =   {
   is_active: boolean
   is_trial: boolean
   features: string | []
+  subscription_end_date: string
 }
 
 export type IProfile = {

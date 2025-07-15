@@ -23,7 +23,7 @@ const CurrentPlan = () => {
   
   useEffect(() => {
     if(isSuccess && profile) {
-      dispatch(setCurrentPlanId(String(3)))
+      dispatch(setCurrentPlanId(String(profile.active_plan?.id)))
     }
   }, [isSuccess])
 
@@ -53,8 +53,9 @@ const CurrentPlan = () => {
                 </AlertTitle>
 
                 <AlertDescription className="text-black mt-3 dark:text-white">
-                  <ExpirTime expiryDate={profile.active_plan?.duration_months} /> روز از اشتراک شما باقی مانده
-
+                  <ExpirTime 
+                    expiryDate={profile.subscription_end_date}
+                  />
                 </AlertDescription>
               </Alert>
             )

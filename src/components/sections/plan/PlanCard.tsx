@@ -3,12 +3,13 @@ import { CheckCircle } from "lucide-react"
 import CardHeader from "./CardHeader"
 import { IPlan } from "@/types/globa_types"
 
-const randomCount = Math.floor(Math.random() * 8) + 1 // عددی بین 1 تا 8
-const fu = Array.from({ length: randomCount }, () => "")
-
 
 const PlanCard = (props: IPlan) => {
-  const { id, duration_months } = props
+  const {
+    id,
+    duration_months,
+    features
+  } = props
 
   const isPopular = duration_months === 3 ? true : false
 
@@ -35,16 +36,18 @@ const PlanCard = (props: IPlan) => {
         {/* Features SECTION */}
         <div className="flex flex-col mt-12 p-3 gap-3">
           {
-            fu.map((item, index) => (
-              <span
-                key={index}
-                className="flex items-center gap-2 border-b pb-2 "
-              >
-                <CheckCircle size={15} />
+            Array.isArray(features) && features.length > 0 && (
+              features.map((item, index) => (
+                <span
+                  key={index}
+                  className="flex items-center gap-2 border-b pb-2"
+                >
+                  <CheckCircle size={15} />
 
-                {item}
-              </span>
-            ))
+                  {item}
+                </span>
+              ))
+            )
           }
         </div>
 

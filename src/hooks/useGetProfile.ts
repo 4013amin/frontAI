@@ -20,8 +20,7 @@ const useGetProfile = () => {
     select: res => res.data,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    retry: 2,
-    staleTime: 1000 * 60 * 5 // 5 min
+    retry: 2
   })
 
   return {
