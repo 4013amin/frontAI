@@ -5,6 +5,7 @@ import EmptySiteList from "./EmptySiteList"
 import SitesListSkeleton from "./SitesListSkeleton"
 import SiteCard from "./SiteCard"
 import RemoveSiteDialog from "./RemoveSiteDialog"
+import NewSiteForm from "./new-site-form/NewSiteForm"
 import useGetSites from "@/hooks/useGetSites"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { ISite } from "@/types/globa_types"
@@ -23,43 +24,52 @@ const SitesList = () => {
 
   return (
     <div
-      className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
-    border rounded-xl"
+      className="flex flex-col lg:!flex-row gap-5 w-full 
+            justify-start items-start"
     >
-      <h2 className="flex items-center gap-2 text-bold">
-        <List />
-        لیست سایت ها
-      </h2>
+     
+      <div
+        className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
+        border rounded-xl"
+      >
+        <h2 className="flex items-center gap-2 text-bold">
+          <List />
+          لیست سایت ها
+        </h2>
 
-      <Separator className="my-3" />
+        <Separator className="my-3" />
 
-      {isError && <NotLoadErorr />}
+        {isError && <NotLoadErorr />}
     
-      {isLoading && <SitesListSkeleton />}
+        {isLoading && <SitesListSkeleton />}
 
-      {
-        sites &&
-        sites.map((site: ISite) => (
-          <SiteCard
-            key={site.id}
-            {...site} 
-            setRemoveId={setSelectedForRemove} 
-            setIsOpenRemoveDialog={setIsOpenRemoveDialog}
-          />
-        ))
-      }
+        {
+          sites &&
+          sites.map((site: ISite) => (
+            <SiteCard
+              key={site.id}
+              {...site} 
+              setRemoveId={setSelectedForRemove} 
+              setIsOpenRemoveDialog={setIsOpenRemoveDialog}
+            />
+          ))
+        }
 
-      {
-        sites === undefined || sites.length < 1 && (
-          <EmptySiteList />
-        )
-      }
+        {
+          sites === undefined || sites.length < 1 && (
+            <EmptySiteList />
+          )
+        }
 
-      <RemoveSiteDialog
-        isOpen={isOpenRemoveDialog}
-        siteId={selectedForRemove} 
-        setIsOpen={setIsOpenRemoveDialog}
-      />
+        <RemoveSiteDialog
+          isOpen={isOpenRemoveDialog}
+          siteId={selectedForRemove} 
+          setIsOpen={setIsOpenRemoveDialog}
+        />
+      </div>
+
+      <NewSiteForm isLoadingSites={isLoading} sitesLength={sites?.length} />
+
     </div>
   )
 }
