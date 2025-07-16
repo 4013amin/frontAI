@@ -29,15 +29,15 @@ const useVerifyOtp = () => {
     mutationFn: (code: string) => requestFn({ code: code, phone: phoneNumber }),
     onSuccess: data => {
       const status = data.status
-      const { is_new_user: isNewUser } = data.data
+      const { is_new_user: isNewUser, token } = data.data
 
 
       if (status === 201 || status === 200) {
         // Set local token for middleware validation
-        Cookies.set("local_token", "true", { path: "/", expires: 10 })
+        Cookies.set("auth_token", token, { path: "/", expires: 15 })
 
         // Redirect user
-        if (isNewUser) navigation.replace("/auth/register")
+        if (isNewUser === true) navigation.replace("/auth/register")
         else navigation.replace("/panel")
         toast.success("با موفقیت وارد شدید!", { duration: 5000 })
       }
