@@ -49,7 +49,6 @@ const EditSiteDialog = ({
     }
   })
 
-  console.log(currentSite)
   
   const handelEdit = (data: ISite) => {
     if(currentSite?.id) {
