@@ -26,4 +26,5 @@ export type ISite = {
   name: string
   site_url: string
   username: string
+  app_password: string
 }

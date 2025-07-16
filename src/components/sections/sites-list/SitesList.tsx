@@ -6,6 +6,7 @@ import SitesListSkeleton from "./SitesListSkeleton"
 import SiteCard from "./SiteCard"
 import RemoveSiteDialog from "./RemoveSiteDialog"
 import NewSiteForm from "./new-site-form/NewSiteForm"
+import EditSiteDialog from "./EditSiteDialog"
 import useGetSites from "@/hooks/useGetSites"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { ISite } from "@/types/globa_types"
@@ -14,6 +15,8 @@ import { Separator } from "@/components/shadcn/Separator"
 const SitesList = () => {
   const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
   const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
+  const [selectedForEdit, setSelectedForEdit] = useState<number>(0)
+  const [isOpenEditDialog, setIsOpenEditDialog] = useState<boolean>(false)
 
   const {
     isLoading,
@@ -50,7 +53,9 @@ const SitesList = () => {
               key={site.id}
               {...site} 
               setRemoveId={setSelectedForRemove} 
+              setEditId={setSelectedForEdit} 
               setIsOpenRemoveDialog={setIsOpenRemoveDialog}
+              setIsOpenEditDialog={setIsOpenEditDialog}
             />
           ))
         }
@@ -61,12 +66,26 @@ const SitesList = () => {
           )
         }
 
-        <RemoveSiteDialog
-          isOpen={isOpenRemoveDialog}
-          siteId={selectedForRemove} 
-          setIsOpen={setIsOpenRemoveDialog}
-        />
       </div>
+
+      {
+        sites && (
+          <>
+            <RemoveSiteDialog
+              isOpen={isOpenRemoveDialog}
+              siteId={selectedForRemove} 
+              setIsOpen={setIsOpenRemoveDialog}
+            />
+
+            <EditSiteDialog 
+              currentSite={sites.find(site => site.id === selectedForEdit)}
+              isOpen={isOpenEditDialog}
+              setIsOpen={setIsOpenEditDialog}
+            />
+          </>
+        )
+      }
+
 
       <NewSiteForm isLoadingSites={isLoading} sitesLength={sites?.length} />
 

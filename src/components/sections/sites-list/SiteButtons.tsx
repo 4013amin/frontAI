@@ -5,19 +5,31 @@ import { Button } from "@/components/shadcn/Button"
 
 type IProps = { id: number | undefined
   setRemoveId: (val: number) => void
-  setIsOpenRemoveDialog: (val: boolean) => void  }
+  setEditId: (val: number) => void
+  setIsOpenRemoveDialog: (val: boolean) => void  
+  setIsOpenEditDialog: (val: boolean) => void }
 
 const SiteButtons = (props: IProps) => {
   const {
     id,
     setRemoveId, 
-    setIsOpenRemoveDialog 
+    setEditId,
+    setIsOpenRemoveDialog,
+    setIsOpenEditDialog
   } = props
 
 
   return (
     <div className="flex gap-2">
       <Button
+        onClick={
+          () => {
+            setIsOpenEditDialog(true)
+            if(id) {
+              setEditId(id)
+            }
+          }
+        }
         variant="outline"
         className="border-violet-500 text-violet-500 bg-white
           shadow-none hover:!bg-violet-500 hover:text-white"

@@ -7,7 +7,9 @@ import { Separator } from "@/components/shadcn/Separator"
 
 type SiteCardProps = ISite & {
   setRemoveId: (val: number) => void
+  setEditId: (val: number) => void
   setIsOpenRemoveDialog: (val: boolean) => void
+  setIsOpenEditDialog: (val: boolean) => void
 }
 
 const SiteCard = ({
@@ -15,7 +17,9 @@ const SiteCard = ({
   name,
   site_url,
   setRemoveId,
-  setIsOpenRemoveDialog
+  setEditId,
+  setIsOpenRemoveDialog,
+  setIsOpenEditDialog
 }: SiteCardProps) => {
   const slicedUrl = site_url.slice(7)
 
@@ -42,7 +46,9 @@ const SiteCard = ({
         <SiteButtons
           id={id}
           setRemoveId={setRemoveId}
+          setEditId={setEditId}
           setIsOpenRemoveDialog={setIsOpenRemoveDialog}
+          setIsOpenEditDialog={setIsOpenEditDialog}
         />
       </div>
 
