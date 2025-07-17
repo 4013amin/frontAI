@@ -1,3 +1,7 @@
+import PaymentDetails from "@/components/sections/submit-payment/PaymentDetails"
+import Breadcrumb from "@/components/ui/Breadcrumb"
+import PageHeader from "@/components/ui/PageHeader"
+
 interface IProps {
   params: {
     id?: string
@@ -7,9 +11,40 @@ interface IProps {
 export default function page({ params }: IProps) {
   const id = params.id
 
+  const breadcrumbItems = [
+    { title: "پرداخت ها", link: "/panel/payments" },
+    { title: "ثبت پرداخت جدید", isCurrent: true }
+  ]
+
   return (
-    <div>
-      <h1>پرداخت با شناسه: {id}</h1>
+
+    <div className="mb-10">
+      <Breadcrumb items={breadcrumbItems} />
+
+      <PageHeader title="ثبت فیش پرداخت" />
+
+      {
+        id && (
+          <div
+            className="flex flex-col lg:!flex-row gap-5 w-full 
+            justify-start items-start"
+          >
+            <div
+              className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
+              border rounded-xl"
+            >
+            </div>
+
+            <div
+              className="w-full lg:!w-2/5 flex flex-col items-start justify-start p-3
+              border rounded-xl"
+            >
+              <PaymentDetails planId={Number(id)} />
+            </div>
+          </div>
+        )
+      }
+      
     </div>
   )
 }

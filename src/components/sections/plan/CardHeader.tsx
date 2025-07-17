@@ -95,46 +95,57 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
       </div>
 
       {
-        is_trial
+        currentPlanId === String(id)
           ? (
-            <button
-              disabled={isPending || isSuccess}
-              onClick={() => activeTrialPlanHandler(id)}
-              className={
-                `py-2 w-full block rounded-full text-center disabled:cursor-progress
-                text-[15px] mt-5 cursor-pointer bg-blue-500 text-white hover:bg-blue-600
-                ${isPending ? "cursur-auto" : ""}`
-              }
-              type="button"
-            >
-              {
-                !isSuccess
-                  ? (
-                    isPending
-                      ? (
-                        "درحال فعالسازی..."
-                      )
-                      : (
-                        "فعالسازی رایگان"
-                      )
-                  )
-                  : (
-                    "پلن رایگان برای شما فعال شد"
-                  )
-              }
-            </button>
+            <h5
+              className="py-2 w-full block rounded-full text-center
+                text-[15px] mt-5 bg-black text-white"
+            >پلن فعال شما
+            </h5>
           )
           : (
-            <Link
-              href={`/panel/payments/submit/${id}`}
-              className={
-                ` py-2 w-full block rounded-full text-center text-[15px] mt-5  
+            is_trial
+              ? (
+                <button
+                  disabled={isPending || isSuccess}
+                  onClick={() => activeTrialPlanHandler(id)}
+                  className={
+                    `py-2 w-full block rounded-full text-center disabled:cursor-progress
+                text-[15px] mt-5 cursor-pointer bg-blue-500 text-white hover:bg-blue-600
+                ${isPending ? "cursur-auto" : ""}`
+                  }
+                  type="button"
+                >
+                  {
+                    !isSuccess
+                      ? (
+                        isPending
+                          ? (
+                            "درحال فعالسازی..."
+                          )
+                          : (
+                            "فعالسازی رایگان"
+                          )
+                      )
+                      : (
+                        "پلن رایگان برای شما فعال شد"
+                      )
+                  }
+                </button>
+              )
+              : (
+                <Link
+                  href={`/panel/payments/submit/${id}`}
+                  className={
+                    ` py-2 w-full block rounded-full text-center text-[15px] mt-5  
                 ${isPopular ? "bg-white text-blue-500 hover:bg-slate-100" : "bg-blue-500 text-white hover:bg-blue-600"}`
-              }
-            >
-              خرید و فعالسازی
-            </Link>
+                  }
+                >
+                  خرید و فعالسازی
+                </Link>
+              )
           )
+        
       }
     </div>
   )

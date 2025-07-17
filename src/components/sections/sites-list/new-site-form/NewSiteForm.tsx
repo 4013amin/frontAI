@@ -57,7 +57,7 @@ const NewSiteForm = ({ isLoadingSites, sitesLength }: IProps) => {
       className="w-full lg:!w-2/5 flex flex-col justify-start p-3
         border rounded-xl"
     >
-      <h2 className="flex items-center gap-2 text-bold">
+      <h2 className="flex items-center gap-2 font-bold">
         <Plus />
         افزودن سایت جدید
       </h2>
