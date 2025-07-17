@@ -126,7 +126,7 @@ const CardHeader = ({ plan, isPopular }: IProps) => {
           )
           : (
             <Link
-              href={`/panel/submit-payment/${id}`}
+              href={`/panel/payments/submit/${id}`}
               className={
                 ` py-2 w-full block rounded-full text-center text-[15px] mt-5  
                 ${isPopular ? "bg-white text-blue-500 hover:bg-slate-100" : "bg-blue-500 text-white hover:bg-blue-600"}`
