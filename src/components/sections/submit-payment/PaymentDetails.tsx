@@ -1,8 +1,8 @@
 "use client"
 import React from "react"
 import { ListTodo } from "lucide-react"
+import PaymentDetailSkeleton from "./PaymentDetailSkeleton"
 import useGetPlans from "@/hooks/useGetPlans"
-import Skeleton from "@/components/ui/Skeleton"
 import NotLoadError from "@/components/ui/NotLoadErorr"
 import type { IPlan } from "@/types/globa_types"
 import { Separator } from "@/components/shadcn/Separator"
@@ -18,15 +18,8 @@ const PaymentDetails: React.FC<IProps> = ({ planId }) => {
     isError
   } = useGetPlans()
 
-  if (isLoading) return <Skeleton className="w-full h-12" />
+  const selectedPlan = plans?.find((plan: IPlan) => plan.id === planId)
 
-  if (isError || !plans) return <NotLoadError />
-
-  const selectedPlan = plans.find((plan: IPlan) => plan.id === planId)
-
-  if (!selectedPlan) {
-    return <div className="text-sm text-red-500">پلن انتخاب‌شده پیدا نشد.</div>
-  }
 
   return (
     <div className="w-full">
@@ -37,31 +30,39 @@ const PaymentDetails: React.FC<IProps> = ({ planId }) => {
 
       <Separator className="my-3" />
 
-      <div className="flex gap-2 flex-col">
-        <div className="flex gap-2">
-          <strong>نام پلن:</strong>
+      {isError && <NotLoadError /> }
 
-          {selectedPlan.title}
-        </div>
+      {
+        isLoading
+          ? <PaymentDetailSkeleton />
+          : (
+            <div className="flex gap-2 flex-col">
+              <div className="flex gap-2">
+                <strong>نام پلن:</strong>
 
-        <div className="flex gap-2">
-          <strong>قیمت:</strong> 
+                {selectedPlan?.title}
+              </div>
 
-          {selectedPlan.price.toLocaleString()} تومان
-        </div>
+              <div className="flex gap-2">
+                <strong>قیمت:</strong> 
 
-        <div className="flex gap-2">
-          <strong>مدت:</strong> 
+                {selectedPlan?.price.toLocaleString()} تومان
+              </div>
 
-          {selectedPlan.duration_months} ماه
-        </div>
+              <div className="flex gap-2">
+                <strong>مدت:</strong> 
 
-        <div className="flex gap-2">
-          <strong>توضیحات:</strong>
+                {selectedPlan?.duration_months} ماه
+              </div>
 
-          {selectedPlan.description || "ندارد"}
-        </div>
-      </div>
+              <div className="flex gap-2">
+                <strong>توضیحات:</strong>
+
+                {selectedPlan?.description || "ندارد"}
+              </div>
+            </div>
+          )
+      }
     </div>
   )
 }

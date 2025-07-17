@@ -1,4 +1,6 @@
 import PaymentDetails from "@/components/sections/submit-payment/PaymentDetails"
+import PaymentSteps from "@/components/sections/submit-payment/PaymentSteps"
+import SubmitPaymentForm from "@/components/sections/submit-payment/SubmitPaymentForm"
 import Breadcrumb from "@/components/ui/Breadcrumb"
 import PageHeader from "@/components/ui/PageHeader"
 
@@ -33,6 +35,9 @@ export default function page({ params }: IProps) {
               className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
               border rounded-xl"
             >
+              <PaymentSteps />
+
+              <SubmitPaymentForm />
             </div>
 
             <div
