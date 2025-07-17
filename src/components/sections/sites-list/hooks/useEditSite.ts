@@ -5,9 +5,10 @@ import API from "@/lib/axios"
 import { ISite } from "@/types/globa_types"
 
 // Request Function
-const requestFn = ({ id, data }: { id: number, data: ISite }): Promise<AxiosResponse> => {
+const requestFn = ({ id, data }: { id: number, data: Partial<ISite> }): Promise<AxiosResponse> => {
   return API.patch(`/sites/${id}/`, data)
 }
+
 
 const useEditSite = () => {
   const queryClient = useQueryClient()

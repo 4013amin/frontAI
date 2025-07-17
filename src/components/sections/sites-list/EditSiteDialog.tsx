@@ -15,7 +15,8 @@ import { ISite } from "@/types/globa_types"
 import { Button } from "@/components/shadcn/Button"
 import CustomInput from "@/components/ui/CustomInput"
 import CustomTextarea from "@/components/ui/CustomTexarea"
-import { NewSiteFormSchema } from "@/lib/schemas"
+import { EditSiteFormSchema } from "@/lib/schemas"
+import { getChangedFields } from "@/utility/getChangedFields"
 
 type IProps = {
   currentSite: ISite | undefined
@@ -39,8 +40,8 @@ const EditSiteDialog = ({
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<z.infer<typeof NewSiteFormSchema>>({
-    resolver: zodResolver(NewSiteFormSchema),
+  } = useForm<z.infer<typeof EditSiteFormSchema>>({
+    resolver: zodResolver(EditSiteFormSchema),
     defaultValues: {
       name: currentSite && currentSite.name,
       site_url: currentSite && currentSite.site_url,
@@ -51,9 +52,17 @@ const EditSiteDialog = ({
 
   
   const handelEdit = (data: ISite) => {
-    if(currentSite?.id) {
-      mutate({ id: currentSite.id, data })
+    if (!currentSite?.id) return
+
+    const updatedFields = getChangedFields(data, currentSite, ["app_password"])
+
+    if (Object.keys(updatedFields).length === 0) {
+      // eslint-disable-next-line no-console
+      console.log("No changes detected.")
+      return
     }
+
+    mutate({ id: currentSite.id, data: updatedFields })
   }
     
   // Close after successfuly
@@ -136,6 +145,10 @@ const EditSiteDialog = ({
                 error={errors.app_password?.message}
                 placeholder="App password"
               />
+              
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                به دلایل امنیتی، رمز اپلیکیشن نمایش داده نمی‌شود. اگر قصد تغییر ندارید، این فیلد را خالی بگذارید.
+              </p>
 
               <DialogFooter className="flex-center flex-row w-full">
                 <DialogClose asChild disabled={isPending}>
