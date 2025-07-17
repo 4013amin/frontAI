@@ -7,19 +7,19 @@ import FormHeader from "../FormHeader"
 import { RootState } from "@/store/store"
 
 const OtpForm = () => {
-  const hasPhoneNumber = useSelector((state: RootState) => state.auth.phoneNumber)
+  const phoneNumber = useSelector((state: RootState) => state.auth.phoneNumber)
 
   const navigator = useRouter()
 
   useEffect(() => {
-    if (!hasPhoneNumber) {
+    if (!phoneNumber) {
       navigator.replace("/auth/login")
     }
   }, [])
 
   return (
     <div className="flex-center flex-col gap-2">
-      <FormHeader title="تایید کد" desc="لطفا کد پیامک شده را وارد کنید" />
+      <FormHeader title="تایید کد" desc={`لطفا کد پیامک شده به ${phoneNumber} را وارد کنید`} />
 
       <InputOTPForm />
     </div>

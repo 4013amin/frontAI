@@ -35,7 +35,7 @@ const SiteCard = ({
             <Link
               href={site_url}
               target="_blank"
-              className="text-sm text-slate-600 hover:text-blue-500"
+              className="text-sm text-slate-600 hover:text-blue-500 text-left"
             >
               {slicedUrl}
             </Link>
