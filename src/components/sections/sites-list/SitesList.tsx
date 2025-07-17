@@ -1,16 +1,26 @@
 "use client"
 import React, { memo, useState } from "react"
 import { List } from "lucide-react"
+import dynamic from "next/dynamic"
 import EmptySiteList from "./EmptySiteList"
 import SitesListSkeleton from "./SitesListSkeleton"
 import SiteCard from "./SiteCard"
-import RemoveSiteDialog from "./RemoveSiteDialog"
 import NewSiteForm from "./new-site-form/NewSiteForm"
-import EditSiteDialog from "./EditSiteDialog"
 import useGetSites from "@/hooks/useGetSites"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { ISite } from "@/types/globa_types"
 import { Separator } from "@/components/shadcn/Separator"
+
+
+const RemoveSiteDialog = dynamic(() => import("./RemoveSiteDialog"), {
+  loading: () => <div>در حال بارگذاری...</div>,
+  ssr: false
+})
+
+const EditSiteDialog = dynamic(() => import("./EditSiteDialog"), {
+  loading: () => <div>در حال بارگذاری...</div>,
+  ssr: false
+})
 
 const SitesList = () => {
   const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
