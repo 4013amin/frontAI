@@ -5,10 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import { UploadCloud } from "lucide-react"
 import useSubmitPaymentReceipt from "./hooks/useSubmitPaymentReceipt"
-import { submitPaymentReceiptSchema } from "@/lib/schemas"
+import { SubmitPaymentReceiptSchema } from "@/lib/schemas"
 import { Separator } from "@/components/shadcn/Separator"
 import CustomInput from "@/components/ui/CustomInput"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
+import ImageUploader from "@/components/ui/ImageUploader"
 
 interface IProps {
   planId: number
@@ -21,8 +22,8 @@ const SubmitPaymentForm: React.FC<IProps> = ({ planId }) => {
     handleSubmit,
     reset,
     formState: { errors }
-  } = useForm<z.infer<typeof submitPaymentReceiptSchema>>({
-    resolver: zodResolver(submitPaymentReceiptSchema),
+  } = useForm<z.infer<typeof SubmitPaymentReceiptSchema>>({
+    resolver: zodResolver(SubmitPaymentReceiptSchema),
     defaultValues: { transaction_ref: "", payment_receipt: undefined }
   })
 
@@ -32,10 +33,10 @@ const SubmitPaymentForm: React.FC<IProps> = ({ planId }) => {
     isSuccess
   } = useSubmitPaymentReceipt()
 
-  const onSubmit = (data: z.infer<typeof submitPaymentReceiptSchema>) => {
+  const onSubmit = (data: z.infer<typeof SubmitPaymentReceiptSchema>) => {
     mutate({
       transaction_ref: data.transaction_ref,
-      payment_receipt: data.payment_receipt[0],
+      payment_receipt: data.payment_receipt,
       plan: planId
     })
   }
@@ -57,29 +58,25 @@ const SubmitPaymentForm: React.FC<IProps> = ({ planId }) => {
         onSubmit={handleSubmit(onSubmit)} 
         className="flex flex-col gap-3"
       >
-        <div>
-          <CustomInput
-            placeholder="شماره پیگیری"
-            register={register}
-            error={errors.transaction_ref?.message}
-            name="transaction_ref"
-          />
-        </div>
+        <CustomInput
+          placeholder="شماره پیگیری"
+          register={register}
+          error={errors.transaction_ref?.message}
+          name="transaction_ref"
+        />
 
         <div>
+          <span className="block mt-2 mb-1 text-sm">انتخاب تصویر فیش</span>
 
-          <input
-            type="file"
-            accept="image/*"
-            {...register("payment_receipt")}
-            className="w-full border rounded px-3 py-2"
+          <ImageUploader
+            field={register("payment_receipt")}
+            error={
+              typeof errors.payment_receipt?.message === "string" ?
+                errors.payment_receipt.message
+                : undefined
+            }
           />
 
-          {
-            errors.payment_receipt?.message && (
-              <p className="text-red-500 text-xs mt-1">{errors.payment_receipt.message as string}</p>
-            )
-          }
         </div>
 
         <SubmitFormButton

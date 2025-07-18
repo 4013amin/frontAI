@@ -56,17 +56,38 @@ const EditSiteFormSchema = z.object({
     )
 })
 
-export const submitPaymentReceiptSchema = z.object({
-  transaction_ref: z.string().min(6, "شماره پیگیری باید حداقل ۶ رقم باشد"),
+
+// Submit PaymentReceipt Schema
+const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5MB
+
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/heic",
+  "image/heif"
+]
+
+const SubmitPaymentReceiptSchema = z.object({
+  transaction_ref: z
+    .string()
+    .min(6, "شماره پیگیری باید حداقل ۶ رقم باشد"),
+    
   payment_receipt: z
-    .any()
+    .instanceof(File, { message: "فایل نامعتبر است" })
+    .refine(file => file.size > 0, { message: "تصویر فیش الزامی است" })
+    .refine(file => file.size <= MAX_FILE_SIZE, { message: "حجم تصویر نباید بیشتر از ۵ مگابایت باشد" })
     .refine(
-      fileList => fileList instanceof FileList && fileList.length > 0,
-      { message: "تصویر فیش الزامی است" }
+      file => ACCEPTED_IMAGE_TYPES.includes(file.type), 
+      { message: "فرمت تصویر قابل قبول نیست. فقط JPG، PNG، WebP یا HEIC" }
     )
 })
 
+// END OF Submit PaymentReceipt Schema
+
+
 export {
   LoginFormSchema, OtpFormSchema, RegisterFormSchema,
-  NewSiteFormSchema, EditSiteFormSchema
+  NewSiteFormSchema, EditSiteFormSchema, SubmitPaymentReceiptSchema
 }
