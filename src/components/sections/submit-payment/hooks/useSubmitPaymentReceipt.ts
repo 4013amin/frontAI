@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query"
 import { AxiosResponse } from "axios"
 import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 import API from "@/lib/axios"
 
 interface ISubmitPaymentReceiptInput {
@@ -15,14 +16,15 @@ const requestFn = (data: ISubmitPaymentReceiptInput): Promise<AxiosResponse> => 
   formData.append("plan", String(data.plan))
   formData.append("payment_receipt", data.payment_receipt)
 
-  for (const pair of formData.entries()) {
-    console.log(`${pair[0]}:`, pair[1])
-  }
-
-  return API.post("/subscription/payment-requests/", formData, { headers: { "Content-Type": "multipart/form-data" } })
+  return API.post(
+    "/subscription/payment-requests/", formData, 
+    { headers: { "Content-Type": "multipart/form-data" } }
+  )
 }
 
 const useSubmitPaymentReceipt = () => {
+  const navigaitor = useRouter()
+
   const {
     mutate,
     isPending,
@@ -33,6 +35,10 @@ const useSubmitPaymentReceipt = () => {
     onSuccess: response => {
       if (response.status === 201) {
         toast.success("فیش با موفقیت ثبت شد.", { duration: 5000 })
+
+        setTimeout(() => {
+          navigaitor.push("/panel/payments")
+        }, 3000)
       }
     },
     onError: error => {

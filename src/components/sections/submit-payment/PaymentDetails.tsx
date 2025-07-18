@@ -1,6 +1,7 @@
 "use client"
-import React from "react"
+import React, { useEffect } from "react"
 import { ListTodo } from "lucide-react"
+import { useRouter } from "next/navigation"
 import PaymentDetailSkeleton from "./PaymentDetailSkeleton"
 import useGetPlans from "@/hooks/useGetPlans"
 import NotLoadError from "@/components/ui/NotLoadErorr"
@@ -18,8 +19,16 @@ const PaymentDetails: React.FC<IProps> = ({ planId }) => {
     isError
   } = useGetPlans()
 
+  const router = useRouter()
+
   const selectedPlan = plans?.find((plan: IPlan) => plan.id === planId)
 
+  // Redirect if plan not found and not loading
+  useEffect(() => {
+    if (!isLoading && !selectedPlan) {
+      router.replace("/panel/subscription")
+    }
+  }, [isLoading, selectedPlan, router])
 
   return (
     <div className="w-full">

@@ -10,7 +10,7 @@ interface IProps {
   }
 }
 
-export default function page({ params }: IProps) {
+export default async function page({ params }: IProps) {
   const id = params.id
 
   const breadcrumbItems = [
