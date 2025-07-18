@@ -36,7 +36,7 @@ export default function page({ params }: IProps) {
             >
               <PaymentSteps />
 
-              <SubmitPaymentForm />
+              <SubmitPaymentForm planId={Number(id)} />
             </div>
 
             <div

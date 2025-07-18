@@ -56,6 +56,16 @@ const EditSiteFormSchema = z.object({
     )
 })
 
+export const submitPaymentReceiptSchema = z.object({
+  transaction_ref: z.string().min(6, "شماره پیگیری باید حداقل ۶ رقم باشد"),
+  payment_receipt: z
+    .any()
+    .refine(
+      fileList => fileList instanceof FileList && fileList.length > 0,
+      { message: "تصویر فیش الزامی است" }
+    )
+})
+
 export {
   LoginFormSchema, OtpFormSchema, RegisterFormSchema,
   NewSiteFormSchema, EditSiteFormSchema

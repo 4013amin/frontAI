@@ -53,7 +53,7 @@ const steps = [
     )
   },
   {
-    title: "ارسال فیش تایید",
+    title: "ارسال فیش پرداخت",
     icon: UploadCloud,
     content: (
       <>
@@ -73,9 +73,9 @@ const steps = [
 
 const PaymentSteps = () => {
   return (
-    <div className="w-full mx-auto border rounded-lg p-3">
+    <div className="w-full border rounded-lg p-3">
       {/* Vertical Stepper */}
-      <div className="flex flex-col items-start gap-0 mb-10 relative">
+      <div className="flex flex-col items-start gap-0 relative">
         {
           steps.map((step, idx) => {
             const Icon = step.icon
