@@ -32,8 +32,7 @@ export default function page({ params }: IProps) {
             justify-start items-start"
           >
             <div
-              className="w-full lg:!w-3/5 flex flex-col items-start justify-start p-3
-              border rounded-xl"
+              className="w-full lg:!w-3/5 flex flex-col items-start justify-start"
             >
               <PaymentSteps />
 

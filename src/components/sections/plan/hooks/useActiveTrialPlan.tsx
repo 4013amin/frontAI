@@ -30,13 +30,15 @@ const useActiveTrialPlan = () => {
 
       if (status === 200) {
         if (message === "Trial plan activated successfully.") {
-          toast("اشتراک رایگان با موفقیت برای شما فعال شد")
+          toast.success("اشتراک رایگان با موفقیت برای شما فعال شد")
         
           //   Refatch Current Plan
           queryClient.invalidateQueries({ queryKey: ["profile"] })
 
           // Redirect to sites
-          navigation.push("/panel/my-sites")
+          setTimeout(() => {
+            navigation.push("/panel/my-sites")
+          }, 3000)
         }
       }
     },
