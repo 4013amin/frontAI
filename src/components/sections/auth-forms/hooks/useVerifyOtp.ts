@@ -34,12 +34,17 @@ const useVerifyOtp = () => {
 
       if (status === 201 || status === 200) {
         // Set local token for middleware validation
-        Cookies.set("auth_token", token, { path: "/", expires: 15 })
-
-        // Redirect user
-        if (isNewUser === true) navigation.replace("/auth/register")
-        else navigation.replace("/panel")
         toast.success("با موفقیت وارد شدید!", { duration: 5000 })
+        
+        // Redirect user
+        if (isNewUser === true) {
+          navigation.replace("/auth/register")
+          Cookies.set("auth_token", token, { path: "/", expires: 15 })
+        }
+        else{
+          navigation.replace("/panel")
+          Cookies.set("auth_token", token, { path: "/", expires: 15 })
+        }
       }
     },
     onError: error => {

@@ -13,12 +13,12 @@ import { Separator } from "@/components/shadcn/Separator"
 
 
 const RemoveSiteDialog = dynamic(() => import("./RemoveSiteDialog"), {
-  loading: () => <div>در حال بارگذاری...</div>,
+  loading: () => null,
   ssr: false
 })
 
 const EditSiteDialog = dynamic(() => import("./EditSiteDialog"), {
-  loading: () => <div>در حال بارگذاری...</div>,
+  loading: () => null,
   ssr: false
 })
 
