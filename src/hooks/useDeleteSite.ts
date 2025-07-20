@@ -1,4 +1,3 @@
-// hooks/useDeleteSite.ts
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import API from "@/lib/axios"

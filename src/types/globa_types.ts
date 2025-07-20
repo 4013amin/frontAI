@@ -28,3 +28,17 @@ export type ISite = {
   username: string
   app_password?: string
 }
+
+export type IPayment = {
+  id: number
+  plan: number
+  plan_title: string
+  user_username: string
+  amount: number
+  transaction_ref: string
+  payment_receipt: string
+  status: string
+  status_display: string
+  created_at: string
+  admin_notes: string | null
+}

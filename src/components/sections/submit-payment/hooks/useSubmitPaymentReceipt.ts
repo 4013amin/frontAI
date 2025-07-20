@@ -1,7 +1,7 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { AxiosResponse } from "axios"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import API from "@/lib/axios"
 
 interface ISubmitPaymentReceiptInput {
@@ -17,13 +17,15 @@ const requestFn = (data: ISubmitPaymentReceiptInput): Promise<AxiosResponse> => 
   formData.append("payment_receipt", data.payment_receipt)
 
   return API.post(
-    "/subscription/payment-requests/", formData, 
+    "/subscription/payment-requests/",
+    formData,
     { headers: { "Content-Type": "multipart/form-data" } }
   )
 }
 
 const useSubmitPaymentReceipt = () => {
-  const navigaitor = useRouter()
+  const navigator = useRouter()
+  const queryClient = useQueryClient()
 
   const {
     mutate,
@@ -36,8 +38,11 @@ const useSubmitPaymentReceipt = () => {
       if (response.status === 201) {
         toast.success("فیش با موفقیت ثبت شد.", { duration: 5000 })
 
+        // ❗ invalidate subscription-payments query
+        queryClient.invalidateQueries({ queryKey: ["subscription-payments"] })
+
         setTimeout(() => {
-          navigaitor.push("/panel/payments")
+          navigator.push("/panel/payments")
         }, 3000)
       }
     },
@@ -47,11 +52,13 @@ const useSubmitPaymentReceipt = () => {
       toast.error("عملیات ناموفق بود!")
     }
   })
-  
+
   return {
-    mutate, isPending, isError, isSuccess
+    mutate,
+    isPending,
+    isError,
+    isSuccess
   }
 }
 
-
-export default useSubmitPaymentReceipt 
+export default useSubmitPaymentReceipt

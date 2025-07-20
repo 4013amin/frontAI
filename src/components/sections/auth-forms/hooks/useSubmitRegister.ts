@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { useRouter } from "nextjs-toploader/app"
+import { useRouter } from "next/navigation" 
 import { toast } from "sonner"
 import axios from "axios"
 import API from "@/lib/axios"

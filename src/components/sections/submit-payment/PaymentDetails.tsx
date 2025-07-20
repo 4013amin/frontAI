@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react"
 import { ListTodo } from "lucide-react"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import PaymentDetailSkeleton from "./PaymentDetailSkeleton"
 import useGetPlans from "@/hooks/useGetPlans"
 import NotLoadError from "@/components/ui/NotLoadErorr"
