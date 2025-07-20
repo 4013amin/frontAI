@@ -4,14 +4,15 @@ import SubmitPaymentForm from "@/components/sections/submit-payment/SubmitPaymen
 import Breadcrumb from "@/components/ui/Breadcrumb"
 import PageHeader from "@/components/ui/PageHeader"
 
-interface IProps {
+
+interface PageProps {
   params: {
-    id?: string
+    id: string
   }
 }
 
-export default async function page({ params }: IProps) {
-  const id = await params.id
+export default async function Page({ params }: PageProps) {
+  const { id } = params
 
   const breadcrumbItems = [
     { title: "پرداخت ها", link: "/panel/payments" },
