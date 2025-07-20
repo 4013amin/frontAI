@@ -1,6 +1,7 @@
 import {
   BadgeCheck,
   BookMarked,
+  CircleDollarSign,
   CircleQuestionMark,
   FilePen,
   Heading1,
@@ -33,10 +34,13 @@ const Links: INavLink[] = [
     id: 6, name: "اشتراک من", href: "/panel/subscription", icon: <BadgeCheck /> 
   },
   {
-    id: 7, name: "پشتیبانی", href: "/panel/support", icon: <Headset /> 
+    id: 7, name: "پرداخت ها", href: "/panel/payments", icon: <CircleDollarSign />
   },
   {
-    id: 8, name: "راهنما", href: "/panel/help", icon: <CircleQuestionMark /> 
+    id: 8, name: "پشتیبانی", href: "/panel/support", icon: <Headset /> 
+  },
+  {
+    id: 9, name: "راهنما", href: "/panel/help", icon: <CircleQuestionMark /> 
   }
 ]
 
