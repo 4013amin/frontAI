@@ -11,7 +11,7 @@ interface IProps {
 }
 
 export default async function page({ params }: IProps) {
-  const id = params.id
+  const id = await params.id
 
   const breadcrumbItems = [
     { title: "پرداخت ها", link: "/panel/payments" },
