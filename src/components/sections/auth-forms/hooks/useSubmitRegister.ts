@@ -23,7 +23,7 @@ const useSubmitRegister = () => {
     mutationFn: (full_name: string) => requestFn({ full_name }),
     onSuccess: () => {
       toast.success("اطلاعات شما با موفقیت بروزرسانی شد", { duration: 5000 })
-      navigation.replace("/panel/subscription")
+      navigation.replace("/panel/my-sites")
     },
     onError: error => {
       if (axios.isAxiosError(error)) {

@@ -8,6 +8,7 @@ import { useRouter } from "nextjs-toploader/app"
 import FormFooter from "../FormFooter"
 import FormHeader from "../FormHeader"
 import useSubmitRegister from "../hooks/useSubmitRegister"
+import useActiveTrialPlan from "@/hooks/useActiveTrialPlan"
 import { Input } from "@/components/shadcn/Input"
 import { RegisterFormSchema } from "@/lib/schemas"
 import { IFullName } from "@/components/types"
@@ -19,6 +20,9 @@ const RegisterForm = () => {
 
   const { mutate, isPending } = useSubmitRegister()
 
+  const { mutate: mutateActiveTrial } = useActiveTrialPlan()
+  
+
   const {
     register,
     handleSubmit,
@@ -29,6 +33,7 @@ const RegisterForm = () => {
   })
 
   const submitForm = (data: IFullName) => {
+    mutateActiveTrial(1)
     mutate(data.full_name)
   }
 
