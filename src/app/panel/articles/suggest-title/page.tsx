@@ -13,6 +13,9 @@ function Page() {
   const [titles, setTitels] = useState<string | string[]>("")
   const [tags, setTags] = useState<string>("")
 
+  // eslint-disable-next-line no-console
+  console.log(titles, tags)
+
   return (
     <div>
       <Breadcrumb items={breadcrumbItems} />

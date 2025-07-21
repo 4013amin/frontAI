@@ -19,8 +19,6 @@ const useGenerateTitles = () => {
   } = useMutation({
     mutationFn: requestGenerateTitles,
     onError: (error: unknown) => {
-      console.error(error)
-
       if (error && (error as AxiosError).isAxiosError) {
         const axiosError = error as AxiosError<{ error_code?: string, detail?: string }>
         const errorCode = axiosError.response?.data.error_code

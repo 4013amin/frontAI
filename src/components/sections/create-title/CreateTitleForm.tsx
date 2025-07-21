@@ -17,14 +17,16 @@ type IProps = {
 }
 
 
-const CreateTitleForm = ({ setTitle, setTags }: IProps) => {
+const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
   const {
     generateTitles,
     data,
-    error,
     isSuccess,
     isPending
   } = useGenerateTitles()
+
+  // eslint-disable-next-line no-console
+  console.log(setTags, setTitles)
 
   const { control, handleSubmit } = useForm<CreateTitleFormSchemaType>({
     resolver: zodResolver(CreateTitleFormSchema),
@@ -45,6 +47,7 @@ const CreateTitleForm = ({ setTitle, setTags }: IProps) => {
 
   useEffect(() => {
     if(isSuccess && data) {
+      // eslint-disable-next-line no-console
       console.log(data)
     }
   }, [isSuccess, data])

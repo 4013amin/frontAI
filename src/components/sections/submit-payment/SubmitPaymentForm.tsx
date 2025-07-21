@@ -23,9 +23,7 @@ const SubmitPaymentForm: React.FC<IProps> = ({ planId }) => {
     formState: { errors }
   } = useForm<z.infer<typeof SubmitPaymentReceiptSchema>>({
     resolver: zodResolver(SubmitPaymentReceiptSchema),
-    defaultValues: { 
-      payment_receipt: undefined 
-    }
+    defaultValues: { payment_receipt: undefined }
   })
 
   const {
