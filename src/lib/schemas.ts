@@ -87,6 +87,24 @@ const SubmitPaymentReceiptSchema = z.object({
 // END OF Submit PaymentReceipt Schema
 
 
+export const CreateTitleFormSchema = z.object({
+  tags: z
+    .string({ message: "لطفا این قسمت را خالی نگذارید" })
+    .refine(val => {
+      const tags = val
+        .split(",")
+        .map(tag => tag.trim())
+        .filter(tag => tag.length > 0)
+
+      if (tags.length === 0) return false
+      if (tags.length > 10) return false
+      if (tags.some(tag => tag.length < 3)) return false
+
+      return true
+    }, { message: "بین ۱ تا ۱۰ کلمه کلیدی وارد کنید که هرکدام حداقل ۳ حرف داشته باشند" })
+})
+
+
 export {
   LoginFormSchema, OtpFormSchema, RegisterFormSchema,
   NewSiteFormSchema, EditSiteFormSchema, SubmitPaymentReceiptSchema

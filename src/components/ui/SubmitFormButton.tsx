@@ -6,20 +6,24 @@ type IProps = {
   isPending: boolean
   text: string
   icon?: ReactNode
+  className?: string
 }
 
 const SubmitFormButton = ({
   isPending,
   text,
-  icon
+  icon,
+  className
 }: IProps) => {
 
   return (
     <>
       <Button
         type="submit"
-        className="w-full bg-blue-500 dark:text-white
-        dark:hover:bg-blue-900"
+        className={
+          `w-full bg-blue-500 dark:text-white
+        dark:hover:bg-blue-900 ${className}`
+        }
         size="lg"
         disabled={isPending}
       >
