@@ -50,10 +50,10 @@ const PaymentItem = ({ payment }: PaymentItemProps) => {
 
       {
         payment.admin_notes && (
-          <div className="text-sm text-muted-foreground">
-            <span className="block text-xs">یادداشت ادمین:</span>
+          <div className="text-sm text-muted-foreground mt-3">
+            <span className="block mb-2">یادداشت ادمین:</span>
 
-            <span className="text-sm">{payment.admin_notes}</span>
+            <span className="text-zinc-800 dark:text-zinc-200">{payment.admin_notes}</span>
           </div>
         )
       }
