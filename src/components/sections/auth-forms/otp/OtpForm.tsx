@@ -1,7 +1,7 @@
 "use client"
 import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { InputOTPForm } from "./InputOTPForm"
 import FormHeader from "../FormHeader"
 import { RootState } from "@/store/store"

@@ -1,17 +1,31 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import TagInput, { TagInputHandle } from "./TagInput"
+import useGenerateTitles from "./hooks/useGenerateTitles"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
 import { CreateTitleFormSchema } from "@/lib/schemas"
 
-
 type CreateTitleFormSchemaType = z.infer<typeof CreateTitleFormSchema>
 
-const CreateTitleForm = () => {
+type IProps = {
+  setTitles: React.Dispatch<React.SetStateAction<string[] | string>>
+  setTags: React.Dispatch<React.SetStateAction<string>>
+}
+
+
+const CreateTitleForm = ({ setTitle, setTags }: IProps) => {
+  const {
+    generateTitles,
+    data,
+    error,
+    isSuccess,
+    isPending
+  } = useGenerateTitles()
+
   const { control, handleSubmit } = useForm<CreateTitleFormSchemaType>({
     resolver: zodResolver(CreateTitleFormSchema),
     defaultValues: { tags: "" }
@@ -20,13 +34,21 @@ const CreateTitleForm = () => {
   const tagInputRef = useRef<TagInputHandle>(null)
 
   const onSubmit = (data: { tags: string }) => {
-    console.log("مقادیر فرم:", data) // "react,nextjs,tailwind"
+    generateTitles(data.tags)
   }
 
   const handleFinalSubmit = () => {
     tagInputRef.current?.flushInputToTags()
     setTimeout(() => handleSubmit(onSubmit)(), 0)
   }
+
+
+  useEffect(() => {
+    if(isSuccess && data) {
+      console.log(data)
+    }
+  }, [isSuccess, data])
+
 
   return (
     <>
@@ -48,7 +70,7 @@ const CreateTitleForm = () => {
       >
         <TagInput name="tags" control={control} ref={tagInputRef} />
 
-        <SubmitFormButton isPending={false} text="ثبت و ادامه" />
+        <SubmitFormButton isPending={isPending} text="ثبت و ادامه" />
       </form>
     </>
   )
