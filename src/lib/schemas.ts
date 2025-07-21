@@ -70,9 +70,9 @@ const ACCEPTED_IMAGE_TYPES = [
 ]
 
 const SubmitPaymentReceiptSchema = z.object({
-  transaction_ref: z
-    .string()
-    .min(6, "شماره پیگیری باید حداقل ۶ رقم باشد"),
+  // transaction_ref: z
+  //   .string()
+  //   .min(6, "شماره پیگیری باید حداقل ۶ رقم باشد"),
     
   payment_receipt: z
     .instanceof(File, { message: "فایل نامعتبر است" })

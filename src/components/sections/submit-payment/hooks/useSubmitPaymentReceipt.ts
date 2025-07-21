@@ -5,14 +5,13 @@ import { useRouter } from "nextjs-toploader/app"
 import API from "@/lib/axios"
 
 interface ISubmitPaymentReceiptInput {
-  transaction_ref: string
   payment_receipt: File
   plan: number
 }
 
 const requestFn = (data: ISubmitPaymentReceiptInput): Promise<AxiosResponse> => {
   const formData = new FormData()
-  formData.append("transaction_ref", data.transaction_ref)
+  formData.append("transaction_ref", "nothing")
   formData.append("plan", String(data.plan))
   formData.append("payment_receipt", data.payment_receipt)
 
