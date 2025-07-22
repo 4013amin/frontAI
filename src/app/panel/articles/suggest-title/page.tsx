@@ -11,11 +11,9 @@ const breadcrumbItems = [
 ]
 
 function Page() {
-  const [titles, setTitels] = useState<string | string[]>("")
-  const [tags, setTags] = useState<string>("")
+  const [titles, setTitels] = useState<string[]>([])
 
-  // eslint-disable-next-line no-console
-  console.log(titles, tags)
+  const [tags, setTags] = useState<string>("")
 
   return (
     <div>
@@ -40,7 +38,7 @@ function Page() {
               <CreateTitleForm setTags={setTags} setTitles={setTitels}  />
             )
             : (
-              <SelectTitleForm />
+              <SelectTitleForm tags={tags} titles={titles} />
             )
         }
       </div>

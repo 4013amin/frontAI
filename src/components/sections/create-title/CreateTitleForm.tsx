@@ -12,7 +12,7 @@ import { Button } from "@/components/shadcn/Button"
 type CreateTitleFormSchemaType = z.infer<typeof CreateTitleFormSchema>
 
 type IProps = {
-  setTitles: React.Dispatch<React.SetStateAction<string[] | string>>
+  setTitles: React.Dispatch<React.SetStateAction<string[]>>
   setTags: React.Dispatch<React.SetStateAction<string>>
 }
 
