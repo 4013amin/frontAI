@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import TagInput, { TagInputHandle } from "./TagInput"
 import useGenerateTitles from "./hooks/useGenerateTitles"
-import SubmitFormButton from "@/components/ui/SubmitFormButton"
 import { CreateTitleFormSchema } from "@/lib/schemas"
+import { Button } from "@/components/shadcn/Button"
 
 type CreateTitleFormSchemaType = z.infer<typeof CreateTitleFormSchema>
 
@@ -25,8 +25,6 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
     isPending
   } = useGenerateTitles()
 
-  // eslint-disable-next-line no-console
-  console.log(setTags, setTitles)
 
   const { control, handleSubmit } = useForm<CreateTitleFormSchemaType>({
     resolver: zodResolver(CreateTitleFormSchema),
@@ -36,6 +34,7 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
   const tagInputRef = useRef<TagInputHandle>(null)
 
   const onSubmit = (data: { tags: string }) => {
+    setTags(data.tags)
     generateTitles(data.tags)
   }
 
@@ -47,8 +46,7 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
 
   useEffect(() => {
     if(isSuccess && data) {
-      // eslint-disable-next-line no-console
-      console.log(data)
+      setTitles(data.titles)
     }
   }, [isSuccess, data])
 
@@ -73,7 +71,24 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
       >
         <TagInput name="tags" control={control} ref={tagInputRef} />
 
-        <SubmitFormButton isPending={isPending} text="ثبت و ادامه" />
+        <Button
+          type="submit"
+          className={
+            `w-full bg-blue-500 dark:text-white
+            dark:hover:bg-blue-900`
+          }
+          size="lg"
+          disabled={isPending}
+        >
+        
+          {
+            isPending
+              ? "درحال ایده پردازی..."
+              : (
+                "ثبت و ادامه"
+              )
+          }
+        </Button>
       </form>
     </>
   )
