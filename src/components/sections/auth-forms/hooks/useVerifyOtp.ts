@@ -5,9 +5,12 @@ import { useState } from "react"
 import { useSelector } from "react-redux"
 import { toast } from "sonner"
 import Cookies from "js-cookie"
+import { useDispatch } from "react-redux"
 import { RootState } from "@/store/store"
 import API from "@/lib/axios"
 import { IOtpCode } from "@/components/types"
+import { setTempToken } from "@/store/features/tempTokenSlice"
+
 
 // Request Function 
 const requestFn = ({ code, phone }: IOtpCode) => {
@@ -16,6 +19,7 @@ const requestFn = ({ code, phone }: IOtpCode) => {
 
 const useVerifyOtp = () => {
   const phoneNumber = useSelector((state: RootState) => state.auth.phoneNumber)
+  const dispatch = useDispatch()
 
   const [verifyError, setVerifyError] = useState("")
   const navigation = useRouter()
@@ -36,14 +40,13 @@ const useVerifyOtp = () => {
         // Set local token for middleware validation
         toast.success("با موفقیت وارد شدید!", { duration: 5000 })
         
-        // Redirect user
         if (isNewUser === true) {
           navigation.replace("/auth/register")
-          Cookies.set("auth_token", token, { path: "/", expires: 15 })
+          dispatch(setTempToken(token))
         }
-        else{
-          navigation.replace("/panel")
+        else {
           Cookies.set("auth_token", token, { path: "/", expires: 15 })
+          navigation.replace("/panel")
         }
       }
     },
