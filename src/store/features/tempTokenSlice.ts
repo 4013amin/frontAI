@@ -4,9 +4,7 @@ interface TempTokenState {
   token: string | null
 }
 
-const initialState: TempTokenState = {
-  token: null
-}
+const initialState: TempTokenState = { token: null }
 
 const tempTokenSlice = createSlice({
   name: "tempToken",
@@ -15,11 +13,12 @@ const tempTokenSlice = createSlice({
     setTempToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
     },
-    clearTempToken: (state) => {
+    clearTempToken: state => {
       state.token = null
     }
   }
 })
 
 export const { setTempToken, clearTempToken } = tempTokenSlice.actions
+
 export default tempTokenSlice.reducer

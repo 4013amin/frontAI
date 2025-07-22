@@ -24,7 +24,7 @@ const useGetPlans = () => {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
     retry: 2,
-    staleTime: 1000 * 60 * 5 // 5 min
+    staleTime: 1000 * 60 * 2 // 5 min
   })
 
   return {

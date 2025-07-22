@@ -22,9 +22,7 @@ const useGetPayments = () => {
     queryFn: requestFn,
     select: res => res.data,
     refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-    retry: 2,
-    staleTime: 1000 * 60 * 5
+    refetchOnReconnect: false
   })
 
   return {
