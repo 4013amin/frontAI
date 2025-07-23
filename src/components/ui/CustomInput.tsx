@@ -8,6 +8,7 @@ type IProps = {
   name: string
   error?: string
   label?: string
+  labelIcon?: React.ReactNode
   placeholder: string
   type?: string
 }
@@ -18,6 +19,7 @@ const CustomInput = (props: IProps) => {
     name,
     error,
     label,
+    labelIcon,
     placeholder,
     type = "text"
   } = props
@@ -27,7 +29,7 @@ const CustomInput = (props: IProps) => {
       e.preventDefault()
 
       const allInputs =
-       Array.from(document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[name], textarea[name]"))
+        Array.from(document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>("input[name], textarea[name]"))
 
       const currentIndex = allInputs.findIndex(input => input.name === name)
       const nextInput = allInputs[currentIndex + 1]
@@ -37,8 +39,16 @@ const CustomInput = (props: IProps) => {
   }
 
   return (
-    <div className="w-full">
-      {label && <Label>{label}</Label>}
+    <div className="w-full text-right">
+      {
+        label && (
+          <Label className="flex items-center mb-2 text-zinc-500">
+            {labelIcon && labelIcon}
+
+            {label}
+          </Label>
+        )
+      }
 
       <Input
         {...register(name)}

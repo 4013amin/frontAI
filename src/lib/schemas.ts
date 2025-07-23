@@ -113,7 +113,7 @@ export const CreateArticleFormSchema = z
         "عنوان باید حداقل شامل ۳ کلمه باشد"
       ),
     wordpress_site_id: z
-      .number()
+      .string()
       .min(1, "لطفاً یک سایت وردپرس انتخاب کنید"),
     article_language: z
       .string()
