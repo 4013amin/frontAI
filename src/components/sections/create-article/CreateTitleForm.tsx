@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Controller } from "react-hook-form"
 import z from "zod"
 import { Earth, Languages, PenIcon, Stars } from "lucide-react"
+import { useRouter } from "nextjs-toploader/app"
+import { toast } from "sonner"
 import CreateTitleFormHeader from "./CreateTitleFormHeader"
 import CustomInput from "@/components/ui/CustomInput"
 import CustomSelect from "@/components/ui/CustomSelect"
@@ -29,6 +31,8 @@ const CreateTitleForm = () => {
     }
   })
 
+  const router = useRouter()
+
   const { sites, isLoading: sitesLoading } = useGetSites()
 
   const siteOptions = sites?.map(s => ({
@@ -38,8 +42,11 @@ const CreateTitleForm = () => {
 
 
   useEffect(() => {
-    console.log("Sites updated:", sites)
-  }, [sites])
+    if (sites && sites.length === 0) {
+      toast.warning("ابتدا یک سایت اضافه کنید")
+      router.push("/panel/my-sites") 
+    }
+  }, [sites, router])
 
 
   return (
@@ -48,7 +55,7 @@ const CreateTitleForm = () => {
 
       <form
         className="w-full lg:w-3/4 max-w-xl gap-5 flex flex-col mt-7"
-        onSubmit={handleSubmit(data => console.log(data))}
+        onSubmit={handleSubmit(() => true)}
       >
         <CustomInput
           register={register}
