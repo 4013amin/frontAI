@@ -100,10 +100,7 @@ export const CreateTitleFormSchema = z.object({
     }, { message: "بین ۱ تا ۱۰ کلمه کلیدی وارد کنید که هرکدام حداقل ۳ حرف داشته باشند" })
 })
 
-export const SelectTitleFormSchema = z.object({
-  selectedTitle: z
-    .string({ message: "لطفا یک عنوان را انتخاب نمایید" })
-})
+export const SelectTitleFormSchema = z.object({ selectedTitle: z.string().min(1, "لطفاً یک عنوان انتخاب کنید") })
 
 
 export {

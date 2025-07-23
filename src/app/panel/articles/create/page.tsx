@@ -1,5 +1,6 @@
 import React from "react"
 import Breadcrumb from "@/components/ui/Breadcrumb"
+import CreateArticleMain from "@/components/sections/create-article/CreateArticleMain"
 
 const breadcrumbItems = [
   { title: "مقالات", link: "/panel/articles" },
@@ -12,7 +13,7 @@ function page() {
     <div>
       <Breadcrumb items={breadcrumbItems} />
 
-      
+      <CreateArticleMain />
     </div>
   )
 }

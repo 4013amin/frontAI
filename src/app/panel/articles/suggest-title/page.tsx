@@ -38,7 +38,7 @@ function Page() {
               <CreateTitleForm setTags={setTags} setTitles={setTitels}  />
             )
             : (
-              <SelectTitleForm tags={tags} titles={titles} />
+              <SelectTitleForm tags={tags} titles={titles} setTitles={setTitels} />
             )
         }
       </div>
