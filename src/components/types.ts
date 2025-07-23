@@ -27,3 +27,8 @@ export type IBreadcrumbItem = {
 }
 
 export type IPlanId = number
+
+
+export type IArticleTitle = string
+
+export type ArticleLanguage = "fa" | "en" | "custom" | "auto"

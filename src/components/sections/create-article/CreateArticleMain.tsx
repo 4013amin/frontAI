@@ -1,13 +1,18 @@
 "use client"
 import React from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "@/store/store"
+import CreateTitleForm from "./CreateTitleForm"
+// import { useSelector } from "react-redux"
+// import { RootState } from "@/store/store"
 
 
 const CreateArticleMain = () => {
-  const selectedTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
+  // const selectedTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
   return (
-    <div>{selectedTitle}</div>
+    <div 
+      className="w-full flex justify-center items-start my-14"
+    >
+      <CreateTitleForm />
+    </div>
   )
 }
 

@@ -34,7 +34,13 @@ const SubmitFormButton = ({
             : (
               icon
                 ? 
-                (`${icon} ${text}`)
+                (
+                  <>
+                    {text}
+
+                    {icon} 
+                  </>
+                )
                 : text
             )
         }
