@@ -7,7 +7,7 @@ export default function RootLayout({ children }: Readonly<{
   return (
     <>
       <Header />
-
+      
       <MainContentProvider>{children}</MainContentProvider>
     </>
   )

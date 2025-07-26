@@ -6,6 +6,7 @@ import ThemeWrapper from "@/providers/ThemeWrapper"
 import { Toaster } from "@/components/shadcn/Toaster"
 import StoreProvider from "@/providers/StoreProvider"
 import ReactQueryProvider from "@/providers/ReactQueryProvider"
+import { LoadingProvider } from "@/hooks/useGlobalLoading"
 
 export default function RootLayout({ children }: Readonly<{
   children: React.ReactNode
@@ -22,7 +23,11 @@ export default function RootLayout({ children }: Readonly<{
 
             <Toaster position="top-right" richColors />
 
-            <ReactQueryProvider>{children}</ReactQueryProvider>
+            <ReactQueryProvider>
+              <LoadingProvider>
+                {children}
+              </LoadingProvider>
+            </ReactQueryProvider>
           </ThemeWrapper>
         </StoreProvider>
       </body>
