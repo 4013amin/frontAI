@@ -13,12 +13,15 @@ import CustomSelect from "@/components/ui/CustomSelect"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
 import useGetSites from "@/hooks/useGetSites"  
+import { Switch } from "@/components/shadcn/Switch"
 
 const CreateTitleForm = () => {
   const {
     register,
     handleSubmit,
     control,
+    watch,
+    setValue,
     formState: { errors }
   } = useForm<z.infer<typeof CreateArticleFormSchema>>({
     resolver: zodResolver(CreateArticleFormSchema),
@@ -32,14 +35,12 @@ const CreateTitleForm = () => {
   })
 
   const router = useRouter()
-
   const { sites, isLoading: sitesLoading } = useGetSites()
 
   const siteOptions = sites?.map(s => ({
     value: String(s.id),
     label: s.name
   })) || []
-
 
   useEffect(() => {
     if (sites && sites.length === 0) {
@@ -48,6 +49,14 @@ const CreateTitleForm = () => {
     }
   }, [sites, router])
 
+  const selectedLanguage = watch("article_language")
+
+  useEffect(() => {
+    if (selectedLanguage !== "custom") {
+      setValue("custom_language", "")
+    }
+  }, [selectedLanguage, setValue])
+
 
   return (
     <div className="w-full flex-center flex-col gap-3">
@@ -55,7 +64,7 @@ const CreateTitleForm = () => {
 
       <form
         className="w-full lg:w-3/4 max-w-xl gap-5 flex flex-col mt-7"
-        onSubmit={handleSubmit(() => true)}
+        onSubmit={handleSubmit(data => console.log(data))}
       >
         <CustomInput
           register={register}
@@ -107,6 +116,40 @@ const CreateTitleForm = () => {
             )
           }
         />
+
+        {
+          selectedLanguage === "custom" && (
+            <CustomInput
+              register={register}
+              name="custom_language"
+              error={errors.custom_language?.message}
+              placeholder="مثلاً: فرانسوی"
+              label="زبان دلخواه را وارد کنید"
+              labelIcon={<Languages size={17} />}
+            />
+          )
+        }
+
+        <Controller
+          name="generate_image_option"
+          control={control}
+          render={
+            ({ field }) => (
+              <div className="flex items-center gap-3">
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  id="generate-image"
+                />
+
+                <label htmlFor="generate-image" className="text-sm text-muted-foreground cursor-pointer">
+                  تولید تصویر شاخص برای مقاله
+                </label>
+              </div>
+            )
+          }
+        />
+
 
         <SubmitFormButton
           isPending={false}

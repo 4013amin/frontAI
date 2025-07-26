@@ -16,7 +16,8 @@ const Sidebar = () => {
       className={
         `w-[260px] h-screen absolute top-0 -right-260 fixed 
         bg-slate-100 transition-all duration-300 z-999 p-2
-        dark:bg-zinc-800 ${isOpen ? "right-0" : ""}`
+        dark:bg-zinc-800 ${isOpen ? "right-0" : ""}
+        overflow-y-auto`
       }
     >
       <SidebarHeader />

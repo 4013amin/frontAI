@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import CreateTitleForm from "./CreateTitleForm"
+import CreateTitleForm from "./CreateArticleForm"
 // import { useSelector } from "react-redux"
 // import { RootState } from "@/store/store"
 

@@ -100,6 +100,7 @@ export const CreateTitleFormSchema = z.object({
     }, { message: "بین ۱ تا ۱۰ کلمه کلیدی وارد کنید که هرکدام حداقل ۳ حرف داشته باشند" })
 })
 
+
 export const SelectTitleFormSchema = z.object({ selectedTitle: z.string().min(1, "لطفاً یک عنوان انتخاب کنید") })
 
 
@@ -107,14 +108,13 @@ export const CreateArticleFormSchema = z
   .object({
     title: z
       .string()
-      .min(1, "لطفاً عنوان مقاله را وارد کنید")
-      .refine(
-        val => val.trim().split(/\s+/).length >= 3,
-        "عنوان باید حداقل شامل ۳ کلمه باشد"
-      ),
+      .min(5, "عنوان مقاله باید حداقل ۵ کاراکتر باشد")
+      .max(300, "عنوان مقاله نمی‌تواند بیش از ۳۰۰ کاراکتر باشد"),
+
     wordpress_site_id: z
       .string()
       .min(1, "لطفاً یک سایت وردپرس انتخاب کنید"),
+
     article_language: z
       .string()
       .min(1, "لطفاً زبان مقاله را انتخاب کنید")
@@ -122,14 +122,18 @@ export const CreateArticleFormSchema = z
         (val): val is "fa" | "en" | "custom" | "auto" => ["fa", "en", "custom", "auto"].includes(val),
         "زبان مقاله نامعتبر است"
       ),
+
     custom_language: z.string().optional(),
+
     generate_image_option: z.boolean()
   })
   .refine(
     data => data.article_language !== "custom" ||
-      (data.custom_language && data.custom_language.trim().length > 0),
+      (data.custom_language &&
+        data.custom_language.trim().length >= 2 &&
+        data.custom_language.trim().length <= 30),
     {
-      message: "لطفاً زبان دلخواه را مشخص کنید",
+      message: "زبان دلخواه باید بین ۲ تا ۳۰ کاراکتر باشد",
       path: ["custom_language"]
     }
   )
