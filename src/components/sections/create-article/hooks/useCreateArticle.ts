@@ -4,6 +4,7 @@ import { toast } from "sonner"
 import type { AxiosError } from "axios"
 import API from "@/lib/axios"
 import { IArticle } from "@/types/globa_types"
+import { useGlobalLoading } from "@/hooks/useGlobalLoading"
 
 export type CreateArticleRequest = {
   title: string
@@ -18,6 +19,8 @@ const requestCreateArticle = (data: CreateArticleRequest) => {
 }
 
 const useCreateArticle = () => {
+  const { showLoading, hideLoading } = useGlobalLoading()
+
   const {
     mutate: createArticle,
     data,
@@ -26,9 +29,11 @@ const useCreateArticle = () => {
     isError,
     isSuccess
   } = useMutation({
-    mutationFn: requestCreateArticle,
+    mutationFn: async (data: CreateArticleRequest) => {
+      showLoading("درحال ایجاد مقاله...")
+      return await requestCreateArticle(data)
+    },
     onError: (error: unknown) => {
-      console.log(error)
       if ((error as AxiosError).isAxiosError) {
         const axiosError = error as AxiosError<{ error_code?: string, detail?: string }>
         const message = axiosError.response?.data.detail || "خطا در ایجاد مقاله!"
@@ -37,9 +42,11 @@ const useCreateArticle = () => {
       else {
         toast.error("خطایی رخ داده است.")
       }
+      hideLoading()
     },
     onSuccess: () => {
       toast.success("مقاله با موفقیت ایجاد شد.")
+      hideLoading()
     }
   })
 
@@ -52,5 +59,6 @@ const useCreateArticle = () => {
     isSuccess
   }
 }
+
 
 export default useCreateArticle

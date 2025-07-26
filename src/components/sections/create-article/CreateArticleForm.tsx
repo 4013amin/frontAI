@@ -16,17 +16,15 @@ import useCreateArticle from "./hooks/useCreateArticle"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
-import { useGlobalLoading } from "@/hooks/useGlobalLoading"
 
 const CreateTitleForm = () => {
   const createdTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
-  const { showLoading, hideLoading } = useGlobalLoading()
+
 
   const {
-    createArticle,
-    isPending,
-    isSuccess,
-    data
+    createArticle
+    // isSuccess,
+    // data
   } = useCreateArticle()
 
   const {
@@ -68,16 +66,11 @@ const CreateTitleForm = () => {
   }, [selectedLanguage, setValue])
 
 
-  useEffect(() => {
-    if (isSuccess) {
-      hideLoading()
-      console.log(data)
-      return
-    }
-    if (isPending) {
-      showLoading("در حال ساخت مقاله...")
-    }
-  }, [isSuccess, isPending])
+  // useEffect(() => {
+  //   if (isSuccess && data) {
+  //     console.log(data)
+  //   }
+  // }, [isSuccess, data])
   
 
   return (
