@@ -12,12 +12,20 @@ import WordPressSiteSelect from "./inputs/WordPressSiteSelect"
 import ArticleLanguageSelect from "./inputs/ArticleLanguageSelect"
 import CustomLanguageInput from "./inputs/CustomLanguageInput"
 import GenerateImageToggle from "./inputs/GenerateImageToggle"
+import useCreateArticle from "./hooks/useCreateArticle"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
 
 const CreateTitleForm = () => {
   const createdTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
+
+  const {
+    createArticle,
+    isPending,
+    isSuccess,
+    data
+  } = useCreateArticle()
 
   const {
     register,
@@ -39,6 +47,10 @@ const CreateTitleForm = () => {
 
   const selectedLanguage = watch("article_language")
 
+  const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
+    createArticle(data)
+  }
+
   // If the user already selected a title, set it as the form's default
   useEffect(() => {
     if (createdTitle) {
@@ -54,9 +66,17 @@ const CreateTitleForm = () => {
   }, [selectedLanguage, setValue])
 
 
-  const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
-    console.log(data)
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      // Reset the form or perform any other actions on success
+      console.log(data)
+      return
+    }
+    if (isPending) {
+      console.log("در حال ایجاد مقاله...")
+    }
+  }, [isSuccess, isPending])
+  
 
   return (
     <div className="w-full flex-center flex-col gap-3">

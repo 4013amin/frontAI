@@ -42,3 +42,16 @@ export type IPayment = {
   created_at: string
   admin_notes: string | null
 }
+
+export type IArticle = {
+  id: number
+  title: string
+  content: string
+  status: "draft" | "published"
+  status_display: string
+  article_link: string
+  created_at: string
+  published_at: string | null
+  wordpress_site: number
+  wordpress_site_name: string
+}
