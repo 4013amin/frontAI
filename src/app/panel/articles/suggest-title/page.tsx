@@ -47,7 +47,7 @@ export default async function Page() {
           width={500}
           height={500}
           alt="تولید کننده هوشمند عنوان"
-          className="w-36 mb-3"
+          className="w-36 mb-3 mt-7"
         />
       </div>
 
