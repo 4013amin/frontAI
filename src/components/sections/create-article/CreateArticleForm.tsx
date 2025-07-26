@@ -1,19 +1,24 @@
 "use client"
 
 import React, { useEffect } from "react"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm, Controller } from "react-hook-form"
 import z from "zod"
-import { Earth, Languages, PenIcon, Stars } from "lucide-react"
+import { useSelector } from "react-redux"
+import { Stars } from "lucide-react"
 import CreateTitleFormHeader from "./CreateTitleFormHeader"
-import CustomInput from "@/components/ui/CustomInput"
-import CustomSelect from "@/components/ui/CustomSelect"
+import ArticleTitleInput from "./inputs/ArticleTitleInput"
+import WordPressSiteSelect from "./inputs/WordPressSiteSelect"
+import ArticleLanguageSelect from "./inputs/ArticleLanguageSelect"
+import CustomLanguageInput from "./inputs/CustomLanguageInput"
+import GenerateImageToggle from "./inputs/GenerateImageToggle"
 import { CreateArticleFormSchema } from "@/lib/schemas"
+import { RootState } from "@/store/store"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
-import useGetSites from "@/hooks/useGetSites"  
-import { Switch } from "@/components/shadcn/Switch"
 
 const CreateTitleForm = () => {
+  const createdTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
+
   const {
     register,
     handleSubmit,
@@ -32,16 +37,16 @@ const CreateTitleForm = () => {
     }
   })
 
-  const { sites, isLoading: sitesLoading } = useGetSites()
-
-  const siteOptions = sites?.map(s => ({
-    value: String(s.id),
-    label: s.name
-  })) || []
-
-
   const selectedLanguage = watch("article_language")
 
+  // If the user already selected a title, set it as the form's default
+  useEffect(() => {
+    if (createdTitle) {
+      setValue("title", createdTitle)
+    }
+  }, [createdTitle, setValue])
+
+  // If the selected language is not "custom", clear the custom language field
   useEffect(() => {
     if (selectedLanguage !== "custom") {
       setValue("custom_language", "")
@@ -49,104 +54,42 @@ const CreateTitleForm = () => {
   }, [selectedLanguage, setValue])
 
 
+  const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
+    console.log(data)
+  }
+
   return (
     <div className="w-full flex-center flex-col gap-3">
       <CreateTitleFormHeader />
 
       <form
         className="w-full lg:w-3/4 max-w-xl gap-5 flex flex-col mt-7"
-        onSubmit={handleSubmit(data => console.log(data))}
+        onSubmit={handleSubmit(onSubmit)}
       >
-        <CustomInput
-          register={register}
-          name="title"
-          error={errors.title?.message}
-          placeholder="عنوان مقاله را وارد کنید"
-          label="عنوان مقاله"
-          labelIcon={<PenIcon size={17} />}
+        <ArticleTitleInput register={register} error={errors.title?.message} />
+
+        <WordPressSiteSelect
+          control={control}
+          error={errors.wordpress_site_id?.message}
         />
 
-        <Controller
-          name="wordpress_site_id"
+        <ArticleLanguageSelect
           control={control}
-          render={
-            ({ field }) => (
-              <CustomSelect
-                field={field}
-                label="سایت وردپرس"
-                emptyOptionLabel="یک سایت انتخاب کنید"
-                options={siteOptions}
-                isLoading={sitesLoading}
-                error={errors.wordpress_site_id?.message}
-                labelIcon={<Earth size={17} />}
-              />
-            )
-          }
-        />
-
-        <Controller
-          name="article_language"
-          control={control}
-          render={
-            ({ field }) => (
-              <CustomSelect
-                field={field}
-                label="زبان مقاله"
-                emptyOptionLabel="انتخاب زبان"
-                labelIcon={<Languages size={17} />}
-                options={
-                  [
-                    { value: "fa", label: "فارسی" },
-                    { value: "en", label: "انگلیسی" },
-                    { value: "auto", label: "خودکار" },
-                    { value: "custom", label: "سایر" }
-                  ]
-                }
-                error={errors.article_language?.message}
-              />
-            )
-          }
+          error={errors.article_language?.message}
         />
 
         {
           selectedLanguage === "custom" && (
-            <CustomInput
+            <CustomLanguageInput
               register={register}
-              name="custom_language"
               error={errors.custom_language?.message}
-              placeholder="مثلاً: فرانسوی"
-              label="زبان دلخواه را وارد کنید"
-              labelIcon={<Languages size={17} />}
             />
           )
         }
 
-        <Controller
-          name="generate_image_option"
-          control={control}
-          render={
-            ({ field }) => (
-              <div className="flex items-center gap-3">
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  id="generate-image"
-                />
+        <GenerateImageToggle control={control} />
 
-                <label htmlFor="generate-image" className="text-sm text-muted-foreground cursor-pointer">
-                  تولید تصویر شاخص برای مقاله
-                </label>
-              </div>
-            )
-          }
-        />
-
-
-        <SubmitFormButton
-          isPending={false}
-          text="خلق کن و بفرست"
-          icon={<Stars />}
-        />
+        <SubmitFormButton isPending={false} text="خلق کن و بفرست" icon={<Stars />} />
       </form>
     </div>
   )
