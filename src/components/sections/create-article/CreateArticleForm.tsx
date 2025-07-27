@@ -22,9 +22,9 @@ const CreateTitleForm = () => {
 
 
   const {
-    createArticle
-    // isSuccess,
-    // data
+    createArticle,
+    isSuccess,
+    data
   } = useCreateArticle()
 
   const {
@@ -66,11 +66,11 @@ const CreateTitleForm = () => {
   }, [selectedLanguage, setValue])
 
 
-  // useEffect(() => {
-  //   if (isSuccess && data) {
-  //     console.log(data)
-  //   }
-  // }, [isSuccess, data])
+  useEffect(() => {
+    if (isSuccess && data) {
+      console.log(data)
+    }
+  }, [isSuccess, data])
   
 
   return (
