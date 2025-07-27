@@ -68,6 +68,7 @@ const CreateTitleForm = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
+      // eslint-disable-next-line no-console
       console.log(data)
     }
   }, [isSuccess, data])
