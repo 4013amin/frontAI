@@ -37,7 +37,16 @@ const useCreateArticle = () => {
       if ((error as AxiosError).isAxiosError) {
         const axiosError = error as AxiosError<{ error_code?: string, detail?: string }>
         const message = axiosError.response?.data.detail || "خطا در ایجاد مقاله!"
-        toast.error(message)
+        
+        if(axiosError.status === 503) {
+          toast.error("مقاله به دلیل خطای سرور ایجاد نشد!")
+        }
+        else{
+          toast.error(message)
+        }
+        
+        // eslint-disable-next-line no-console
+        console.log(axiosError)
       }
       else {
         toast.error("خطایی رخ داده است.")

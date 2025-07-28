@@ -6,6 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
 import { useSelector } from "react-redux"
 import { Stars } from "lucide-react"
+import { useDispatch } from "react-redux"
+import { toast } from "sonner"
+import { useRouter } from "nextjs-toploader/app"
 import CreateTitleFormHeader from "./CreateTitleFormHeader"
 import ArticleTitleInput from "./inputs/ArticleTitleInput"
 import WordPressSiteSelect from "./inputs/WordPressSiteSelect"
@@ -16,10 +19,12 @@ import useCreateArticle from "./hooks/useCreateArticle"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
+import { setCreatedArticle } from "@/store/features/articleSlice"
 
 const CreateTitleForm = () => {
-  const createdTitle = useSelector((state: RootState) => state.userInfo.selectedArticleTitle)
-
+  const createdTitle = useSelector((state: RootState) => state.article.selectedArticleTitle)
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const {
     createArticle,
@@ -68,8 +73,9 @@ const CreateTitleForm = () => {
 
   useEffect(() => {
     if (isSuccess && data) {
-      // eslint-disable-next-line no-console
-      console.log(data)
+      toast.success("مقاله با موفقیت ایجاد شد")
+      dispatch(setCreatedArticle(data))
+      router.push(`/panel/articles/review/${data.id}`)
     }
   }, [isSuccess, data])
   

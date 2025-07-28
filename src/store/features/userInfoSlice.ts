@@ -2,13 +2,9 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 interface UserInfoState {
   currentPlanId: string
-  selectedArticleTitle: string
 }
 
-const initialState: UserInfoState = {
-  currentPlanId: "",
-  selectedArticleTitle: ""
-}
+const initialState: UserInfoState = { currentPlanId: "" }
 
 export const userInfoSlice = createSlice({
   name: "auth",
@@ -19,21 +15,10 @@ export const userInfoSlice = createSlice({
     },
     clearCurrentPlanId: state => {
       state.currentPlanId = ""
-    },
-    setSelectedArticleTitle: (state, action: PayloadAction<string>) => {
-      state.selectedArticleTitle = action.payload
-    },
-    clearSelectedArticleTitle: state => {
-      state.selectedArticleTitle = ""
     }
   }
 })
 
-export const {
-  setCurrentPlanId,
-  clearCurrentPlanId,
-  setSelectedArticleTitle,
-  clearSelectedArticleTitle
-} = userInfoSlice.actions
+export const { setCurrentPlanId, clearCurrentPlanId } = userInfoSlice.actions
 
 export default userInfoSlice.reducer

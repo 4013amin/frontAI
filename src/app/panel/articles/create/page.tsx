@@ -14,7 +14,7 @@ async function Page() {
   const token = cookieStore.get("auth_token")?.value
 
   
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}sites/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sites/`, {
     headers: {
       Authorization: `Token ${token}`,
       Accept: "application/json"
