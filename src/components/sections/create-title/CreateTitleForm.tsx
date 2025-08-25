@@ -8,6 +8,7 @@ import TagInput, { TagInputHandle } from "./TagInput"
 import useGenerateTitles from "./hooks/useGenerateTitles"
 import { CreateTitleFormSchema } from "@/lib/schemas"
 import { Button } from "@/components/shadcn/Button"
+import CustomTextarea from "@/components/ui/CustomTexarea"
 
 type CreateTitleFormSchemaType = z.infer<typeof CreateTitleFormSchema>
 
@@ -28,14 +29,17 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
 
   const { control, handleSubmit } = useForm<CreateTitleFormSchemaType>({
     resolver: zodResolver(CreateTitleFormSchema),
-    defaultValues: { tags: "" }
+    defaultValues: { tags: "", extra_instructions: undefined }
   })
 
   const tagInputRef = useRef<TagInputHandle>(null)
 
-  const onSubmit = (data: { tags: string }) => {
+  const onSubmit = (data: { tags: string, extra_instructions?: string }) => {
     setTags(data.tags)
-    generateTitles(data.tags)
+    generateTitles({
+      keywords: data.tags,
+      extra_instructions: data.extra_instructions ?? ""
+    })
   }
 
   const handleFinalSubmit = () => {
@@ -70,6 +74,17 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
         }
       >
         <TagInput name="tags" control={control} ref={tagInputRef} />
+
+        <CustomTextarea
+          name="extra_instructions"
+          control={control}
+          className="bg-white"
+          placeholder="دستورالعمل‌های اضافی برای تولید عناوین (اختیاری)"
+        />
+
+        <span className="text-sm text-zinc-600 dark:text-zinc-300 mb-3">
+          (مثلاً: لحن رسمی، تمرکز بر سئو، مرتبط با تکنولوژی و غیره)
+        </span>
 
         <Button
           type="submit"

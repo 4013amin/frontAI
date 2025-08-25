@@ -2,10 +2,11 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 import type { AxiosError } from "axios"
 import API from "@/lib/axios"
+import { IGenerateTitle } from "@/components/types"
 
 // Request function for /ai/generate-titles/
-const requestGenerateTitles = (tags: string) => {
-  return API.post("/ai/generate-titles/", { keywords: tags })
+const requestGenerateTitles = ({ extra_instructions, keywords }: IGenerateTitle) => {
+  return API.post("/ai/generate-titles/", { extra_instructions, keywords })
 }
 
 const useGenerateTitles = () => {

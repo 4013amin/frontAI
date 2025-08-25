@@ -97,7 +97,12 @@ export const CreateTitleFormSchema = z.object({
       if (tags.some(tag => tag.length < 3)) return false
 
       return true
-    }, { message: "بین ۱ تا ۱۰ کلمه کلیدی وارد کنید که هرکدام حداقل ۳ حرف داشته باشند" })
+    }, { message: "بین ۱ تا ۱۰ کلمه کلیدی وارد کنید که هرکدام حداقل ۳ حرف داشته باشند" }),
+  extra_instructions: z.preprocess(
+    val => typeof val === "string" && val.trim() === "" ? undefined : val,
+    z.string().min(5, { message: "دستورالعمل باید حداقل ۵ کاراکتر باشد" })
+      .optional()
+  ) as z.ZodType<string | undefined, any, any>
 })
 
 

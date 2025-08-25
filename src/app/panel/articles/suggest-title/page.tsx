@@ -17,14 +17,14 @@ export default async function Page() {
     redirect("/auth/login")
   }
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/sites/`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}sites/`, {
     headers: {
       Authorization: `Token ${token}`,
       Accept: "application/json"
     },
     cache: "no-store"
   })
-
+ 
   if (!res.ok) {
     redirect("/auth/login")
   }
