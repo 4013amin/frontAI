@@ -79,7 +79,6 @@ const SubmitPaymentReceiptSchema = z.object({
       { message: "فرمت تصویر قابل قبول نیست. فقط JPG، PNG، WebP یا HEIC" }
     )
 })
-
 // END OF Submit PaymentReceipt Schema
 
 
@@ -116,21 +115,39 @@ export const CreateArticleFormSchema = z
       .min(5, "عنوان مقاله باید حداقل ۵ کاراکتر باشد")
       .max(300, "عنوان مقاله نمی‌تواند بیش از ۳۰۰ کاراکتر باشد"),
 
+    // هم عدد (ID) هم رشته (برای سازگاری) را می‌پذیرد
     wordpress_site_id: z
       .string()
-      .min(1, "لطفاً یک سایت وردپرس انتخاب کنید"),
+      .nonempty("لطفاً یک سایت وردپرس انتخاب کنید")  // رشته خالی -> خطا
+      .regex(/^\d+$/, "لطفاً یک سایت وردپرس انتخاب کنید"), // فقط عدد
 
+
+    // فقط کد زبان/حالت انتخاب زبان
     article_language: z
       .string()
-      .min(1, "لطفاً زبان مقاله را انتخاب کنید")
       .refine(
-        (val): val is "fa" | "en" | "custom" | "auto" => ["fa", "en", "custom", "auto"].includes(val),
+        (val): val is "fa" | "en" | "auto" | "custom" => ["fa", "en", "auto", "custom"].includes(val),
         "زبان مقاله نامعتبر است"
       ),
 
+    // وقتی article_language = "custom" باشد الزامی می‌شود (پایین‌تر با refine چک شده)
     custom_language: z.string().optional(),
 
-    generate_image_option: z.boolean()
+    generate_image_option: z.boolean(),
+
+    // لحن از زبان جداست
+    tone: z.string().min(1, "لطفاً لحن مقاله را مشخص کنید"),
+
+    target_audience: z
+      .string()
+      .min(3, "مخاطب هدف باید حداقل ۳ کاراکتر باشد"),
+
+    article_purpose: z.string().min(1, "هدف مقاله را مشخص کنید"),
+
+    // این سه مورد «اختیاری» هستند
+    additional_keywords: z.string().optional(),   // کلمات اضافی
+    custom_instructions: z.string().optional(),   // توضیحات اضافی
+    subheadings: z.array(z.string()).optional()   // زیرتیترهای اضافی
   })
   .refine(
     data => data.article_language !== "custom" ||

@@ -8,7 +8,7 @@ import TagInput, { TagInputHandle } from "./TagInput"
 import useGenerateTitles from "./hooks/useGenerateTitles"
 import { CreateTitleFormSchema } from "@/lib/schemas"
 import { Button } from "@/components/shadcn/Button"
-import CustomTextarea from "@/components/ui/CustomTexarea"
+import CustomTextareaController from "@/components/ui/CustomTextareaController"
 
 type CreateTitleFormSchemaType = z.infer<typeof CreateTitleFormSchema>
 
@@ -75,7 +75,7 @@ const CreateTitleForm = ({ setTitles, setTags }: IProps) => {
       >
         <TagInput name="tags" control={control} ref={tagInputRef} />
 
-        <CustomTextarea
+        <CustomTextareaController
           name="extra_instructions"
           control={control}
           className="bg-white"
