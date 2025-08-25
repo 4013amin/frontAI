@@ -8,6 +8,7 @@ import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import { toast } from "sonner"
 import { useRouter } from "nextjs-toploader/app"
+import { Stars } from "lucide-react"
 import CreateTitleFormHeader from "./CreateTitleFormHeader"
 import ArticleTitleInput from "./inputs/ArticleTitleInput"
 import WordPressSiteSelect from "./inputs/WordPressSiteSelect"
@@ -20,10 +21,11 @@ import TargetAudienceInput from "./inputs/TargetAudienceInput"
 import ArticlePurposeSelect from "./inputs/ArticlePurposeSelect"
 import ArticleAdditionalKeywords from "./inputs/ArticleAdditionalKeywords"
 import CustomInstructions from "./inputs/CustomInstructions"
+import ArticleSubheadings from "./inputs/ArticleSubheadings"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import { setCreatedArticle } from "@/store/features/articleSlice"
-import ArticleSubheadings from "./inputs/ArticleSubheadings"
+import SubmitFormButton from "@/components/ui/SubmitFormButton"
 
 const CreateTitleForm = () => {
   const createdTitle = useSelector((state: RootState) => state.article.selectedArticleTitle)
@@ -65,7 +67,7 @@ const CreateTitleForm = () => {
 
   const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
     console.log(data)
-    // createArticle(data)
+    createArticle(data)
   }
 
   // If the user already selected a title, set it as the form's default
@@ -138,9 +140,7 @@ const CreateTitleForm = () => {
 
         <GenerateImageToggle control={control} />
 
-        <button type="submit">ok</button>
-
-        {/* <SubmitFormButton isPending={isPending} text="خلق کن و بفرست" icon={<Stars />} /> */}
+        <SubmitFormButton isPending={isPending} text="خلق کن و بفرست" icon={<Stars />} />
       </form>
     </div>
   )

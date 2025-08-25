@@ -147,7 +147,13 @@ export const CreateArticleFormSchema = z
     // این سه مورد «اختیاری» هستند
     additional_keywords: z.string().optional(),   // کلمات اضافی
     custom_instructions: z.string().optional(),   // توضیحات اضافی
-    subheadings: z.array(z.string()).optional()   // زیرتیترهای اضافی
+    subheadings: z
+      .array(z.string())
+      .refine(
+        arr => Array.isArray(arr) && arr.every(item => typeof item === "string"),
+        { message: "زیرتیترها باید آرایه‌ای از رشته باشند" }
+      )
+      .optional()   // زیرتیترهای اضافی
   })
   .refine(
     data => data.article_language !== "custom" ||
