@@ -47,7 +47,7 @@ export type IArticle = {
   id: number
   title: string
   content: string
-  status: "published" | "rejected" | "draft"
+  status: "published" | "rejected" | "draft" | string
   status_display: string
   article_link: string
   created_at: string

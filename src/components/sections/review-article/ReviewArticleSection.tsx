@@ -7,7 +7,6 @@ type IProps = IArticle
 
 const ReviewArticleSection = (props: IProps) => {
   const {
-    id,
     title,
     content,
     featured_image_url

@@ -16,7 +16,7 @@ const db = {
   status_display: "پیش‌نویس",
   article_link: "",
   created_at: "2025-08-25T13:17:38.587091Z",
-  published_at: null,
+  published_at: "2025-08-25T13:17:38.587091Z",
   wordpress_site: 2,
   wordpress_site_name: "سایت 1",
   featured_image_url: "https://picsum.photos/1200/600",
@@ -64,9 +64,9 @@ const Page = () => {
         {/* {
           article && (
             <>
-              <ReviewArticleSection {...db} />
+              <ReviewArticleSection {...article} />
 
-              <PublicationSidebar {...db} />
+              <PublicationSidebar {...article} />
             </>
           )
         } */}
