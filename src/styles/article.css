@@ -1,0 +1,128 @@
+:root {
+  /* متغیرهای رنگ - اگر نمی‌خوای رنگ‌ها اینجا رو تغییر بده */
+  --text-color: #1e1e1e;
+  --heading-border: #000;
+  --blockquote-bg: #f5f5f5;
+  --blockquote-border: #ccc;
+}
+
+/* وقتی <html> دارای کلاس .dark باشد این متغیرها اوورراید می‌شوند */
+html.dark {
+  --text-color: #e5e5e5;
+  --heading-border: #888;
+  --blockquote-bg: #222;
+  --blockquote-border: #666;
+}
+
+/* پایه مقاله */
+.article {
+  line-height: 1.8;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: justify;
+  direction: rtl;
+  color: var(--text-color);
+  /* در صورت نیاز میتونی فونت فمیلی اضافه کنی */
+}
+
+.article img{
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+/* موبایل: متن کمی کوچکتر */
+@media (max-width: 768px) {
+  .article {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+}
+
+/* پاراگراف‌ها */
+.article p {
+  margin: 0 0 1rem 0;
+}
+
+/* تیترهای اصلی */
+.article h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  line-height: 1.4;
+  border-right: 4px solid var(--heading-border);
+  padding-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .article h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* زیرتیترها */
+.article h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .article h3 {
+    font-size: 1.1rem;
+  }
+}
+
+/* لیست‌های نامرتب */
+.article ul {
+  margin: 1rem 1.5rem 1rem 0;
+  padding-left: 1.25rem; /* فاصله داخلی برای بولت */
+  list-style-position: outside;
+  list-style-type: disc;
+}
+
+.article ul li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* لیست‌های مرتب */
+.article ol {
+  margin: 1rem 1.5rem 1rem 0;
+  padding-left: 1.25rem;
+  list-style-position: outside;
+  list-style-type: decimal;
+}
+
+.article ol li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+/* بولد */
+.article strong {
+  font-weight: 700;
+}
+
+/* نقل‌قول */
+.article blockquote {
+  font-size: 1rem;
+  font-style: italic;
+  margin: 1.5rem 0;
+  padding: 0.75rem 1rem;
+  border-right: 4px solid var(--blockquote-border);
+  background: var(--blockquote-bg);
+  border-radius: 6px;
+}
+
+/* کوچک‌سازی فضاها داخل عکس/iframe/table در موبایل اگر نیاز بود */
+.article img,
+.article iframe,
+.article table {
+  max-width: 100%;
+  height: auto;
+}
+
