@@ -66,7 +66,6 @@ const CreateTitleForm = () => {
   const selectedLanguage = watch("article_language")
 
   const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
-    console.log(data)
     createArticle(data)
   }
 

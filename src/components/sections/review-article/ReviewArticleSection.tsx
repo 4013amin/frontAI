@@ -1,7 +1,7 @@
 import React from "react"
+import Image from "next/image"
 import { IArticle } from "@/types/globa_types"
 import "@/styles/article.css"
-import Image from "next/image"
 
 type IProps = IArticle
 

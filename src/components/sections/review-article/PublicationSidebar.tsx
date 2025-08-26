@@ -1,8 +1,9 @@
 "use client"
 import React from "react"
 import Link from "next/link"
-import { ArrowLeft, ArrowRight, Eye } from "lucide-react"
+import { ArrowLeft, ArrowRight, Eye, Loader } from "lucide-react"
 import { useRouter } from "next/navigation"
+import usePublishArticle from "./hooks/usePublishArticle"
 import { IArticle } from "@/types/globa_types"
 import { convertToShamsi } from "@/utility/convertToShamsi"
 import { Button } from "@/components/shadcn/Button"
@@ -10,8 +11,6 @@ import { Button } from "@/components/shadcn/Button"
 type IProps = IArticle
 
 const PublicationSidebar = (props: IProps) => {
-  const router = useRouter()
-
   const {
     id,
     status,
@@ -22,8 +21,16 @@ const PublicationSidebar = (props: IProps) => {
     wordpress_site_name
   } = props
 
+  const router = useRouter()
+
+  const { isPending, publishArticle } = usePublishArticle()
+
   const createdAtShamsi = convertToShamsi(created_at)
   const publishedAtShamsi = convertToShamsi(published_at ? published_at : "")
+
+  const handlePublish = () => {
+    publishArticle(id)
+  }
 
   return (
     <aside
@@ -122,10 +129,15 @@ const PublicationSidebar = (props: IProps) => {
             )
             : (
               <Button
-                className="text-xs bg-red-100 text-red-600
+                className={
+                  `text-xs bg-red-100 text-red-600
                 hover:text-slate-50 dark:bg-red-400/30
-                dark:text-red-200 dark:hover:bg-red-500 dark:hover:text-white"
+                dark:text-red-200 dark:hover:bg-red-500 dark:hover:text-white
+                 ${isPending ? "opacity-50 !cursor-not-allowed" : ""}`
+                }
                 onClick={() => router.back()}
+                disabled={isPending}
+
               >
                 <ArrowRight />
                 بازگشت
@@ -134,11 +146,17 @@ const PublicationSidebar = (props: IProps) => {
         }
 
         <Button
-          className="text-xs bg-blue-500 
-          dark:text-white dark:hover:bg-blue-600"
+          className={
+            `text-xs bg-blue-500 dark:text-white dark:hover:bg-blue-600
+             ${isPending ? "opacity-50 !cursor-not-allowed" : ""}`
+          }
+          onClick={handlePublish}
+          disabled={isPending}
         >
-          تایید و انتشار در سایت
-          <ArrowLeft />
+          {isPending ? "در حال انتشار..." : "تایید و انتشار در سایت"}
+
+          {isPending ? <Loader className="animate-spin" /> : <ArrowLeft />}
+
         </Button>
       </div>
       
