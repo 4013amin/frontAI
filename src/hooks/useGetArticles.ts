@@ -26,10 +26,10 @@ const useGetArticles = () => {
     staleTime: 1000 * 60 * 2 // 5 min
   })
 
-  const sites = data?.data
+  const articles = data?.data
 
   return {
-    sites,
+    articles,
     isLoading,
     isError,
     isSuccess,

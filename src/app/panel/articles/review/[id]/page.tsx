@@ -33,6 +33,8 @@ const Page = () => {
     }
   }, [article])
 
+  console.log(article)
+
 
   return (
     <div className="mb-10">
@@ -40,10 +42,6 @@ const Page = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="w-full flex gap-5 flex-col lg:!flex-row items-start mt-5">
-
-        {/* <ReviewArticleSection {...db} />
-
-        <PublicationSidebar {...db} /> */}
 
         {
           article && (
