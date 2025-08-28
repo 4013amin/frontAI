@@ -1,7 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
+import dynamic from "next/dynamic"
 import ArticleItem from "./ArticleItem"
 import ArticleListHeader from "./ArticleListHeader"
 import { IArticle } from "@/types/globa_types"
+
+const RemoveArticleDialog = dynamic(() => import("./RemoveArticleDialog"), {
+  loading: () => null,
+  ssr: false
+})
 
 type IProps = {
   articles: IArticle[]
@@ -9,6 +15,10 @@ type IProps = {
 
 
 const ArticlesList = ({ articles }: IProps) => {
+  const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
+  const [selectedForRemoveTitle, setSelectedForRemoveTitle] = useState<string>("")
+  const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
+  
   const handleViewArticle = () => {
     console.log("handleViewArticle")
   }
@@ -17,29 +27,41 @@ const ArticlesList = ({ articles }: IProps) => {
     console.log("handleEditArticle")
   }
 
-  const handleDeleteArticle = () => {
-    console.log("handleDeleteArticle")
+  const handleDeleteArticle = (article: IArticle) => {
+    setSelectedForRemove(article.id)
+    setSelectedForRemoveTitle(article.title)
+    setIsOpenRemoveDialog(true)
+    console.log(article.title)
   }
-
-  console.log(articles)
 
 
   return (
-    <div className="rounded-lg border overflow-hidden mb-12">
-      <ArticleListHeader />
+    <>
+      <div className="rounded-lg border overflow-hidden mb-12">
+        <ArticleListHeader />
 
-      {
-        articles.map(article => (
-          <ArticleItem
-            key={article.id}
-            article={article}
-            onView={handleViewArticle}
-            onEdit={handleEditArticle}
-            onDelete={handleDeleteArticle}
-          />
-        ))
-      }
-    </div>
+        {
+          articles.map(article => (
+            <ArticleItem
+              key={article.id}
+              article={article}
+              onView={handleViewArticle}
+              onEdit={handleEditArticle}
+              onDelete={handleDeleteArticle}
+            />
+          ))
+        }
+      </div>
+
+  
+      <RemoveArticleDialog
+        isOpen={isOpenRemoveDialog}
+        articleId={selectedForRemove}
+        setIsOpen={setIsOpenRemoveDialog}
+        articleTitle={selectedForRemoveTitle}
+      />
+
+    </>
   )
 }
 

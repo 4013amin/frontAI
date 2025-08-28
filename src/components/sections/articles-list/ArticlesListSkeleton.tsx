@@ -3,12 +3,18 @@ import Skeleton from "@/components/ui/Skeleton"
 
 const ArticlesListSkeleton = () => {
   return (
-    <div className="grid !grid-cols-1 lg:!grid-cols-3 gap-5 w-full items-start mb-10">
-      <Skeleton className="h-52 !rounded-2xl" />
+    <div
+      className="mb-10 flex flex-col gap-5 rounded-2xl"
+    >
+      <Skeleton className="h-18 !rounded-2xl" />
 
-      <Skeleton className="h-52 !rounded-2xl" />
+      <Skeleton className="h-18 !rounded-2xl" />
 
-      <Skeleton className="h-52 !rounded-2xl" />
+      <Skeleton className="h-18 !rounded-2xl" />
+
+      <Skeleton className="h-18 !rounded-2xl" />
+
+      <Skeleton className="h-18 !rounded-2xl" />
     </div>
   )
 }
