@@ -1,0 +1,11 @@
+html.dark #aisign-light{
+    display: none !important;
+}
+
+#aisign-dark {
+    display: none !important;
+}
+
+html.dark #aisign-dark {
+    display: flex !important;
+}
