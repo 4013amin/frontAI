@@ -1,9 +1,9 @@
-import { Eye, Pencil, Trash2 } from "lucide-react"
 import React from "react"
-import { Badge } from "@/components/shadcn/Badge"
-import { Button } from "@/components/shadcn/Button"
+import ListItemBadge from "./ListItemBadge"
+import ListItemActions from "./ListItemActions"
 import { IArticle } from "@/types/globa_types"
 import { convertToShamsi } from "@/utility/convertToShamsi"
+
 
 type ArticleItemProps = {
   article: IArticle
@@ -18,84 +18,7 @@ const ArticleItem = ({
   onDelete,
   onView
 }: ArticleItemProps) => {
-  const getStatusColor = (status: string): "secondary" | "destructive" | "default" => {
-    switch (status) {
-      case "published":
-        return "secondary" // سبز در تم پیش‌فرض
 
-      case "rejected":
-        return "destructive" // قرمز
-
-      default:
-        return "default" // خاکستری
-    }
-  }
-
-  const shouldShowViewButton = article.status === "published" && onView
-  
-  const renderViewButton = () => shouldShowViewButton 
-    ? (
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => onView(article)}
-      >
-        <Eye className="w-4 h-4" />
-      </Button>
-    )
-    : null
-
-  const renderEditButton = () => onEdit 
-    ? (
-      <Button
-        variant="outline"
-        size="sm"
-        onClick={() => onEdit(article)}
-      >
-        <Pencil className="w-4 h-4" />
-      </Button>
-    )
-    : null
-
-  const renderDeleteButton = () => onDelete 
-    ? (
-      <Button
-        variant="destructive"
-        size="sm"
-        onClick={() => onDelete(article)}
-      >
-        <Trash2 className="w-4 h-4" />
-      </Button>
-    )
-    : null
-
-  const renderMobileActions = () => (
-    <div className="flex sm:hidden items-center gap-2 mt-4">
-      {
-        shouldShowViewButton && (
-          <Button variant="outline" size="sm" onClick={() => onView?.(article)}>
-            <Eye className="w-4 h-4" />
-          </Button>
-        )
-      }
-
-      {
-        onEdit && (
-          <Button variant="outline" size="sm" onClick={() => onEdit(article)}>
-            <Pencil className="w-4 h-4" />
-          </Button>
-        )
-      }
-
-      {
-        onDelete && (
-          <Button variant="destructive" size="sm" onClick={() => onDelete(article)}>
-            <Trash2 className="w-4 h-4" />
-          </Button>
-        )
-      }
-    </div>
-  )
 
   return (
     <div className="block">
@@ -107,9 +30,8 @@ const ArticleItem = ({
         <div className="truncate">{article.title}</div>
 
         <div>
-          <Badge variant={getStatusColor(article.status)}>
-            {article.status_display}
-          </Badge>
+          <ListItemBadge article={article} />
+
         </div>
 
         <div className="text-sm text-muted-foreground">
@@ -120,13 +42,12 @@ const ArticleItem = ({
           }
         </div>
 
-        <div className="flex items-center justify-end gap-2">
-          {renderViewButton()}
-
-          {renderEditButton()}
-
-          {renderDeleteButton()}
-        </div>
+        <ListItemActions
+          article={article}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onView={onView}
+        />
       </div>
 
       {/* Mobile View */}
@@ -134,12 +55,10 @@ const ArticleItem = ({
         <div className="font-medium">{article.title}</div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Badge variant={getStatusColor(article.status)}>
-              {article.status_display}
-            </Badge>
+          <div className="flex items-center gap-4 flex-col">
+            <ListItemBadge article={article} />
 
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               {
                 article.published_at ? 
                   convertToShamsi(article.published_at).date :
@@ -147,33 +66,15 @@ const ArticleItem = ({
               }
             </span>
           </div>
+
+          <ListItemActions
+            article={article}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onView={onView}
+          />
         </div>
 
-        <div className="flex items-center gap-2 pt-2">
-          {
-            shouldShowViewButton && (
-              <Button variant="outline" size="sm" onClick={() => onView?.(article)}>
-                <Eye className="w-4 h-4" />
-              </Button>
-            )
-          }
-
-          {
-            onEdit && (
-              <Button variant="outline" size="sm" onClick={() => onEdit(article)}>
-                <Pencil className="w-4 h-4" />
-              </Button>
-            )
-          }
-
-          {
-            onDelete && (
-              <Button variant="destructive" size="sm" onClick={() => onDelete(article)}>
-                <Trash2 className="w-4 h-4" />
-              </Button>
-            )
-          }
-        </div>
       </div>
     </div>
   )

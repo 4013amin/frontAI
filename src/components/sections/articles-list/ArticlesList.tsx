@@ -25,7 +25,7 @@ const ArticlesList = ({ articles }: IProps) => {
 
 
   return (
-    <div className="rounded-lg border">
+    <div className="rounded-lg border overflow-hidden mb-12">
       <ArticleListHeader />
 
       {
