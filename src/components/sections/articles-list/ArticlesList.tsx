@@ -1,49 +1,44 @@
 import React from "react"
-import { ColumnDef } from "@tanstack/react-table"
+import ArticleItem from "./ArticleItem"
+import ArticleListHeader from "./ArticleListHeader"
 import { IArticle } from "@/types/globa_types"
-import { DataTable } from "@/components/ui/DataTable"
 
 type IProps = {
   articles: IArticle[]
 }
 
-type User = {
-  id: string
-  name: string
-  email: string
-}
-
-const columns: ColumnDef<User>[] = [
-  {
-    accessorKey: "name",
-    header: "Name",
-    cell: ({ row }) => <span>{row.getValue("name")}</span>
-  },
-  {
-    accessorKey: "email",
-    header: "Email",
-    cell: ({ row }) => <span>{row.getValue("email")}</span>
-  }
-]
-
-
-const data: User[] = [
-  {
-    id: "1", name: "Alireza", email: "alireza@example.com" 
-  },
-  {
-    id: "2", name: "Sara", email: "sara@example.com" 
-  },
-  {
-    id: "3", name: "Ali", email: "ali@example.com" 
-  }
-]
-
 
 const ArticlesList = ({ articles }: IProps) => {
+  const handleViewArticle = () => {
+    console.log("handleViewArticle")
+  }
+
+  const handleEditArticle = () => {
+    console.log("handleEditArticle")
+  }
+
+  const handleDeleteArticle = () => {
+    console.log("handleDeleteArticle")
+  }
+
+  console.log(articles)
+
+
   return (
-    <div className="rtl" dir="rtl">
-      <DataTable data={data} columns={columns} />
+    <div className="rounded-lg border">
+      <ArticleListHeader />
+
+      {
+        articles.map(article => (
+          <ArticleItem
+            key={article.id}
+            article={article}
+            onView={handleViewArticle}
+            onEdit={handleEditArticle}
+            onDelete={handleDeleteArticle}
+          />
+        ))
+      }
     </div>
   )
 }
