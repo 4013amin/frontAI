@@ -56,3 +56,28 @@ export type IArticle = {
   wordpress_site_name: string
   featured_image_url?: string | null
 }
+
+export interface IDashboard {
+  profile: {
+    username: string
+    full_name: string | null
+    phone: string
+    subscription_active: boolean
+    subscription_end_date: string // YYYY-MM-DD
+    jalali_subscription_date: string // مثلا "1404/06/10"
+    jalali_registration_date: string // مثلا "1404/06/03"
+    active_plan: IPlan | null
+  }
+  quota: {
+    daily_limit: number
+    articles_used_today: number
+    remaining_today: number
+  }
+  stats: {
+    total_sites: number
+    total_articles: number
+    published_articles: number
+  }
+  latest_published_articles: IArticle[]
+  latest_tickets: Array<any>
+}
