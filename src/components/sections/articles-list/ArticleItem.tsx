@@ -38,7 +38,7 @@ const ArticleItem = ({
           {
             article.published_at ? 
               convertToShamsi(article.published_at).date :
-              convertToShamsi(article.created_at).date
+              "-"
           }
         </div>
 
@@ -62,7 +62,7 @@ const ArticleItem = ({
               {
                 article.published_at ? 
                   convertToShamsi(article.published_at).date :
-                  convertToShamsi(article.created_at).date
+                  ""
               }
             </span>
           </div>

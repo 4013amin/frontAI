@@ -31,7 +31,6 @@ const ArticlesList = ({ articles }: IProps) => {
     setSelectedForRemove(article.id)
     setSelectedForRemoveTitle(article.title)
     setIsOpenRemoveDialog(true)
-    console.log(article.title)
   }
 
 
