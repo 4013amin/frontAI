@@ -5,12 +5,13 @@ import useGetDashboard from "./hooks/useGetDashboard" // مسیرت رو درس�
 import DashboardGrid from "./dashboard-grid/DashboardGrid"
 import DashboardArticles from "./dashboard-articles/DashboardArticles"
 import DashboardTickets from "./dashboard-tickets/DashboardTickets"
+import DashboardSkeleton from "./DashboardSkeleton"
 
 const DashboardWrapper: React.FC = () => {
   const {
     dashboardData,
-    isLoading,
-    isError
+    isError,
+    isLoading
   } = useGetDashboard()
 
 
@@ -24,7 +25,7 @@ const DashboardWrapper: React.FC = () => {
 
       {/* وضعیت‌ها */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px] mb-10">
-        {isLoading && <p>درحال بارگذاری...</p>}
+        {isLoading && <DashboardSkeleton />}
 
         {isError && <p className="text-red-500">بارگذاری انجام نشد</p>}
 
