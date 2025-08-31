@@ -9,7 +9,7 @@ const ArticlesCard: React.FC<Props> = ({ publishedArticles }) => {
   return (
     <DashboardCard
       title="مقالات منتشر شده"
-      value={publishedArticles == 0 ? "مقاله‌ای منتشر نکرده اید" : publishedArticles}
+      value={publishedArticles == 0 ? "مقاله‌ای منتشر نکرده اید" : `${publishedArticles} مقاله`}
       image="/images/article-icon.webp"
       link="/panel/articles"
       linkText="مدیریت مقالات"

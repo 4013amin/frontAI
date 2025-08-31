@@ -27,7 +27,7 @@ const DashboardCard: React.FC<DashboardCardProps> = ({
       className="bg-white p-3 rounded-lg border 
       hover:[box-shadow:0px_4px_10px_rgba(0,0,0,0.1)] 
       dark:bg-zinc-900 dark:border-zinc-700 
-      flex flex-col h-full"  // 🔥 کارت کل ارتفاع رو می‌گیره
+      flex flex-col h-full dark:hover:border-blue-400/40" 
     >
       {/* محتوا */}
       <div className="flex justify-between items-start">

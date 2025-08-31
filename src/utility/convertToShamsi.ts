@@ -1,4 +1,3 @@
-// utils.ts
 import moment from "moment-jalaali"
 
 interface ShamsiDateTime {
