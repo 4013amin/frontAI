@@ -1,26 +1,26 @@
-import { ArrowLeft, Stars } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import React from "react"
-import DashboardArticlesItem from "./DashboardArticlesItem"
+import DashboardArticlesItem from "./DashboardTicketItem"
 import { Button } from "@/components/shadcn/Button"
 import { IArticle } from "@/types/globa_types"
 
 
 type IProps = {
-  articles: IArticle[]
+  tickets: IArticle[]
 }
 
 
-const DashboardArticles = ({ articles }: IProps) => {
+const DashboardTickets = ({ tickets }: IProps) => {
   return (
-    <div className="border rounded-lg p-4 w-full lg:!w-7/12 dark:bg-zinc-900">
+    <div className="border rounded-lg p-4 w-full lg:!w-5/12 dark:bg-zinc-900">
 
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <h4 className="text-[15px] lg:!text-[17px] font-bold">آخرین مقالات منتشر شده</h4>
+        <h4 className="text-[15px] lg:!text-[17px] font-bold"> آخرین تیکت‌ها </h4>
 
         <Link 
-          href="/panel/articles"
+          href="/panel/support"
           className="flex items-center justify-content-end gap-2 text-sm text-blue-500
                       hover:text-blue-600 group transition-all duration-150 ease-in"
         >
@@ -38,19 +38,18 @@ const DashboardArticles = ({ articles }: IProps) => {
       {/* Section content */}
       <ul>
         {
-          !articles
+          !tickets
             ? (
               <div className="flex gap-4 items-center justify-center flex-col">
-                <h2>مقاله‌ای منتشر نکرده‌اید</h2>
+                <h2> تیکتی ندارید </h2>
 
                 <Button
                   className="group text-xs border border-blue-400 bg-blue-300/30 
                               text-blue-500 transition-all hover:bg-bluse-300 dark:text-blue-500
                              duration-150 dark:bg-blue-600/15 dark:border-blue-500/29"
                 >
-                  <Link href="/panel/articles/create">
-                    ایجاد اولین مقاله 
-                    <Stars className="group-hover:rotate-[34deg] transition-all duration-300" />
+                  <Link href="/panel/support/create">
+                    ایجاد تیکت جدید
                   </Link>
                 </Button>
               </div>
@@ -58,8 +57,8 @@ const DashboardArticles = ({ articles }: IProps) => {
             : (
               <div>
                 {
-                  articles.map(article => (
-                    <DashboardArticlesItem key={article.id} article={article} />
+                  tickets.map(ticket => (
+                    <DashboardArticlesItem key={ticket.id} ticket={ticket} />
                   ))
                 }
               </div>
@@ -71,4 +70,4 @@ const DashboardArticles = ({ articles }: IProps) => {
   )
 }
 
-export default DashboardArticles
+export default DashboardTickets
