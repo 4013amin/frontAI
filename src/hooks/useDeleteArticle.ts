@@ -15,6 +15,7 @@ const useDeleteArticle = (onSuccessCallback?: () => void) => {
       onSuccessCallback?.()
     },
     onError: error => {
+      // eslint-disable-next-line no-console
       console.log(error)
       toast.error("حذف مقاله ناموفق بود")
     }

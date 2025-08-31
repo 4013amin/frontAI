@@ -20,10 +20,12 @@ const ArticlesList = ({ articles }: IProps) => {
   const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
   
   const handleViewArticle = () => {
+    // eslint-disable-next-line no-console
     console.log("handleViewArticle")
   }
 
   const handleEditArticle = () => {
+    // eslint-disable-next-line no-console
     console.log("handleEditArticle")
   }
 

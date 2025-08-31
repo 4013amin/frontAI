@@ -33,8 +33,6 @@ const Page = () => {
     }
   }, [article])
 
-  console.log(article)
-
 
   return (
     <div className="mb-10">
