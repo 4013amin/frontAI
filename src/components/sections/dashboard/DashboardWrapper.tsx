@@ -2,7 +2,7 @@
 import React from "react"
 import DashboardHero from "./DashboardHero"
 import useGetDashboard from "./hooks/useGetDashboard" // مسیرت رو درست وارد کن
-import DashboardGrid from "./DashboardGrid"
+import DashboardGrid from "./dashboard-grid/DashboardGrid"
 
 const DashboardWrapper: React.FC = () => {
   const {
@@ -32,7 +32,11 @@ const DashboardWrapper: React.FC = () => {
             <>
               <DashboardHero fullName={dashboardData.profile.full_name} />
 
-              <DashboardGrid />
+              <DashboardGrid
+                profile={dashboardData.profile}
+                quota={dashboardData.quota}
+                stats={dashboardData.stats}
+              />
             </>
           )
         }

@@ -22,8 +22,7 @@ const useGetDashboard = () => {
     queryFn: requestDashboard,
     refetchOnWindowFocus: false,
     refetchOnReconnect: true,
-    retry: 2,
-    staleTime: 1000 * 60 * 1 // 1 دقیقه
+    retry: 2
   })
 
   const dashboardData = data?.data
