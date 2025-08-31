@@ -1,6 +1,10 @@
 import React from "react"
 
-const DashboardHero = () => {
+type IProps = {
+  fullName: string | null
+}
+
+const DashboardHero = ({ fullName }: IProps) => {
   return (
     <div className="flex items-center gap-5 flex-col pt-10">
       {/* Light video */}
@@ -31,8 +35,12 @@ const DashboardHero = () => {
         />
       </div>
 
-      <div className="flex items-center justify-center flex-col">
-        <h1 className="font-bold text-lg">سلام علیرضا !</h1>
+      <div className="flex items-center justify-center flex-col ">
+        <div className="flex gap-2 items-center mb-1">
+          <span className="text-sm">سلام</span>
+
+          <h1 className="font-bold text-lg"> {fullName}!</h1>
+        </div>
 
         <p>به داشبورد مدیریت بینام خوش آمدید.</p>
       </div>

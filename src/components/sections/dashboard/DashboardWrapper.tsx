@@ -11,6 +11,8 @@ const DashboardWrapper: React.FC = () => {
     isError
   } = useGetDashboard()
 
+  console.log(dashboardData)
+
   return (
     <div className="">
       {/* بک‌گراند */}
@@ -20,7 +22,7 @@ const DashboardWrapper: React.FC = () => {
       </div>
 
       {/* وضعیت‌ها */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px]">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-[500px] mb-10">
         {isLoading && <p>درحال بارگذاری...</p>}
 
         {isError && <p className="text-red-500">بارگذاری انجام نشد</p>}
@@ -28,7 +30,7 @@ const DashboardWrapper: React.FC = () => {
         {
           !isLoading && !isError && dashboardData && (
             <>
-              <DashboardHero />
+              <DashboardHero fullName={dashboardData.profile.full_name} />
 
               <DashboardGrid />
             </>
