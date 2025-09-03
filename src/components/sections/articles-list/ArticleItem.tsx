@@ -25,7 +25,7 @@ const ArticleItem = ({
       {/* Desktop View */}
       <div
         className="hidden md:!grid grid-cols-[2fr_1fr_1fr_120px] 
-      gap-4 p-4 items-center border-b hover:bg-gray-50 dark:hover:bg-muted/50"
+        gap-4 p-4 items-center border-b hover:bg-gray-50 dark:hover:bg-muted/50"
       >
         <div className="truncate">{article.title}</div>
 

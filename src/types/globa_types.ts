@@ -85,7 +85,7 @@ export interface IDashboard {
 export interface ITicket {
   id: number
   title: string
-  status: string | "open" | "in_progress" | "closed" 
+  status: "open" | "in_progress" | "closed" 
   status_display: string
   updated_at: string
 }
