@@ -38,7 +38,7 @@ const DashboardArticles = ({ articles }: IProps) => {
       {/* Section content */}
       <ul>
         {
-          !articles
+          !articles.length
             ? (
               <div className="flex gap-4 items-center justify-center flex-col">
                 <h2>مقاله‌ای منتشر نکرده‌اید</h2>
@@ -48,7 +48,10 @@ const DashboardArticles = ({ articles }: IProps) => {
                               text-blue-500 transition-all hover:bg-bluse-300 dark:text-blue-500
                              duration-150 dark:bg-blue-600/15 dark:border-blue-500/29"
                 >
-                  <Link href="/panel/articles/create">
+                  <Link
+                    href="/panel/articles/create"
+                    className="flex gap-2"
+                  >
                     ایجاد اولین مقاله 
                     <Stars className="group-hover:rotate-[34deg] transition-all duration-300" />
                   </Link>

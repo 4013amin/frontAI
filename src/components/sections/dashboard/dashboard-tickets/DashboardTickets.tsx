@@ -38,7 +38,7 @@ const DashboardTickets = ({ tickets }: IProps) => {
       {/* Section content */}
       <ul>
         {
-          !tickets
+          !tickets.length
             ? (
               <div className="flex gap-4 items-center justify-center flex-col">
                 <h2> تیکتی ندارید </h2>

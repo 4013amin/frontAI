@@ -14,6 +14,8 @@ const DashboardWrapper: React.FC = () => {
     isLoading
   } = useGetDashboard()
 
+  // console.log(dashboardData)
+  // console.log(isError)
 
   return (
     <div className="">
