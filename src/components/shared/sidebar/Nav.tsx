@@ -37,7 +37,7 @@ const Links: INavLink[] = [
     id: 7, name: "پرداخت ها", href: "/panel/payments", icon: <CircleDollarSign />
   },
   {
-    id: 8, name: "پشتیبانی", href: "/panel/support", icon: <Headset /> 
+    id: 8, name: "پشتیبانی", href: "/panel/tickets", icon: <Headset /> 
   },
   {
     id: 9, name: "راهنما", href: "/panel/help", icon: <CircleQuestionMark /> 

@@ -81,3 +81,11 @@ export interface IDashboard {
   latest_published_articles: IArticle[]
   latest_tickets: Array<any>
 }
+
+export interface ITicket {
+  id: number
+  title: string
+  status: string | "open" | "in_progress" | "closed" 
+  status_display: string
+  updated_at: string
+}

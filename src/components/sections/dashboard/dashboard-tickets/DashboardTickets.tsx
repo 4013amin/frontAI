@@ -20,7 +20,7 @@ const DashboardTickets = ({ tickets }: IProps) => {
         <h4 className="text-[15px] lg:!text-[17px] font-bold"> آخرین تیکت‌ها </h4>
 
         <Link 
-          href="/panel/support"
+          href="/panel/tickets"
           className="flex items-center justify-content-end gap-2 text-sm text-blue-500
                       hover:text-blue-600 group transition-all duration-150 ease-in"
         >
@@ -48,7 +48,7 @@ const DashboardTickets = ({ tickets }: IProps) => {
                               text-blue-500 transition-all hover:bg-bluse-300 dark:text-blue-500
                              duration-150 dark:bg-blue-600/15 dark:border-blue-500/29"
                 >
-                  <Link href="/panel/support/create">
+                  <Link href="/panel/tickets/create">
                     ایجاد تیکت جدید
                   </Link>
                 </Button>

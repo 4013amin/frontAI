@@ -23,7 +23,7 @@ const DashboardTicketItem = ({ ticket }: IProps) => {
       flex-col md:!flex-row w-full"
     >
       <Link 
-        href={`/panel/support/${ticket.id}`} 
+        href={`/panel/tickets/${ticket.id}`} 
         target="_blank" 
         rel="nofollow"
         className="truncate max-w-full md:max-w-[calc(100%-80px)] 
