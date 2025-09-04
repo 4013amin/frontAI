@@ -5,6 +5,7 @@ import Link from "next/link"
 import TicketsHeader from "./TicketsHeader"
 import TicketsFaq from "./TicketsFaq"
 import TicketsList from "./TicketsList"
+import TicketsListSkeleton from "./TicketsListSkeleton"
 import useGetTickets from "@/hooks/useGetTickets"
 import NotLoadErorr from "@/components/ui/NotLoadErorr"
 import { Button } from "@/components/shadcn/Button"
@@ -16,7 +17,7 @@ const TicketsWrapper = () => {
     isError
   } = useGetTickets()
 
-  // خطای دریافت دیتا
+  // Error
   if (isError) {
     return (
       <div>
@@ -31,14 +32,19 @@ const TicketsWrapper = () => {
     )
   }
 
-  // در حال لود
+  // IsLoading
   if (isLoading) {
     return (
       <div>
         <TicketsHeader />
 
-        <div className="flex items-start justify-between gap-8 mt-8 flex-col-reverse lg:!flex-row mb-10">
-          <div className="w-8/12">در حال بارگیری...</div>
+        <div className="flex items-start justify-between gap-8 mt-8 !flex-col lg:!flex-row mb-10">
+          <div
+            className="w-full lg:!w-8/12 border rounded-lg flex items-center justify-center
+            flex-col"
+          >
+            <TicketsListSkeleton />
+          </div>
 
           <TicketsFaq />
         </div>
@@ -46,13 +52,13 @@ const TicketsWrapper = () => {
     )
   }
 
-  // اگر تیکتی وجود نداشت
+  // Empty
   if (!tickets?.length) {
     return (
       <div>
         <TicketsHeader />
 
-        <div className="flex items-start justify-between gap-8 mt-8 flex-col-reverse lg:!flex-row mb-10">
+        <div className="flex items-start justify-between gap-8 mt-8 flex-col lg:!flex-row mb-10">
           <div className="flex items-center justify-center w-full lg:!w-8/12 mt-5 flex-col">
             <Image 
               src="/images/chara-robo/tickets-cr.webp"
@@ -86,12 +92,12 @@ const TicketsWrapper = () => {
     )
   }
 
-  // حالت نرمال: نمایش لیست
+  // Show list
   return (
     <div>
       <TicketsHeader />
 
-      <div className="flex items-start justify-between gap-8 mt-8 flex-col-reverse lg:!flex-row mb-10">
+      <div className="flex items-start justify-between gap-8 mt-8 flex-col lg:!flex-row mb-10">
         <TicketsList tickets={tickets} />
 
         <TicketsFaq />

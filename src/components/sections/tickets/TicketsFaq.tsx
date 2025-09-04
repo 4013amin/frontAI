@@ -68,7 +68,7 @@ const TicketsFaq = () => {
                   {item.title}
                 </AccordionTrigger>
 
-                <AccordionContent className="mt-2 !border-none outline-none ">
+                <AccordionContent className="mt-2 !border-none outline-none text-sm ">
                   {item.content}
                 </AccordionContent>
               </AccordionItem>
