@@ -52,7 +52,6 @@ const Page = async (props: { params: Promise<{ id: string }> }) => {
 
   try {
     ticket = await getTicket(id, token)
-    console.log(ticket)
     if (!ticket) {
       return notFound()
     }

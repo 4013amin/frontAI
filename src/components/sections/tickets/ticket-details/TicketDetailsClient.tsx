@@ -1,31 +1,35 @@
 "use client"
 
 import React from "react"
+import TicketDetailsHeader from "./TicketDetailsHeader"
+import TicketChats from "./TicketChats"
 import { ITicket } from "@/types/globa_types"
+import Breadcrumb from "@/components/ui/Breadcrumb"
 
 interface Props {
   ticket: ITicket
 }
 
+
 const TicketDetailsClient: React.FC<Props> = ({ ticket }) => {
+  const breadcrumbItems = [
+    { title: "تیکت ها", link: "/panel/tickets" },
+    { title: ticket.title, isCurrent: true }
+  ]
+    
+  console.log(ticket)
+
   return (
-    <div className="p-5 border rounded-md shadow-sm">
-      <h1 className="text-xl font-bold mb-3">{ticket.title}</h1>
+    <>
+      <Breadcrumb items={breadcrumbItems} />
 
-      <p className="mb-2">{ticket.message}</p>
+      <div className="p-2 lg:p-5 border rounded-md my-8">
 
-      {
-        ticket.attachment && (
-          <div className="mt-4">
-            <img
-              src={ticket.attachment}
-              alt="ticket attachment"
-              className="max-w-sm rounded-md border"
-            />
-          </div>
-        )
-      }
-    </div>
+        <TicketDetailsHeader {...ticket} />
+        
+        {ticket.messages && <TicketChats messages={ticket.messages} />}
+      </div>
+    </>
   )
 }
 

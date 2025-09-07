@@ -87,7 +87,15 @@ export interface ITicket {
   title: string
   status: "open" | "in_progress" | "closed" 
   status_display: string
-  updated_at: string,
+  updated_at: string
   attachment?: string | null
-  message?: string
+  messages?: ITicketMessage[]
+}
+
+export interface ITicketMessage {
+  id: number
+  username: string
+  message: string
+  attachment: string | null
+  created_at: string // می‌تونی بعداً به Date تبدیلش کنی
 }
