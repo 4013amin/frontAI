@@ -11,8 +11,22 @@ const TicketChatItem = ({ message, isAdmin }: IProps) => {
   const formattedDate = convertToShamsi(message.created_at).date
   const formattedTime = convertToShamsi(message.created_at).time.slice(0, 5)
 
+  // آدرس عکس‌ها
+  const adminAvatar = "/images/admin-avatar.png"
+  const userAvatar = "/images/user-avatar.png"
+
   return (
-    <div className={`flex mb-4 ${isAdmin ? "justify-end" : "justify-start"}`}>
+    <div className={`flex mb-4 items-end ${isAdmin ? "justify-end" : "justify-start"} gap-2`}>
+      {
+        !isAdmin && (
+          <img
+            src={userAvatar}
+            alt="Admin"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+        )
+      }
+
       <div
         className={
           `
@@ -45,21 +59,29 @@ const TicketChatItem = ({ message, isAdmin }: IProps) => {
 
         <div
           className={
-            `text-xs mt-2 block text-right
-         !flex items-center gap-1 ${!isAdmin? "text-white/50" : "text-gray-500/50 dark:text-gray-300/50"}`
+            `
+            text-xs mt-2 block text-right
+            !flex items-center gap-1 ${!isAdmin ? "text-white/50" : "text-gray-500/50 dark:text-gray-300/50"}
+          `
           }
         >
-          <span>
-            {formattedDate} 
-          </span>
+          <span>{formattedDate}</span>
 
           - 
 
-          <span>
-            {formattedTime}
-          </span>
+          <span>{formattedTime}</span>
         </div>
       </div>
+
+      {
+        isAdmin && (
+          <img
+            src={adminAvatar}
+            alt="User"
+            className="w-8 h-8 rounded-full object-cover"
+          />
+        )
+      }
     </div>
   )
 }
