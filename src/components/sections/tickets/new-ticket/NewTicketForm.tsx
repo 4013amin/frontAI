@@ -36,7 +36,7 @@ const NewTicketForm = () => {
 
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full lg:w-3/4 max-w-xl gap-5 flex flex-col mt-7"
+      className="w-full max-w-xl gap-5 flex flex-col mt-7"
     >
       {/* Title */}
       <div className="flex flex-col gap-2">
@@ -59,7 +59,7 @@ const NewTicketForm = () => {
           name="message"
           error={errors.message?.message}
           register={register}
-          placeholder="توضیحات مربوط به تیکت"
+          placeholder="توضیحات خود را اینجا بنویسید..."
           rows={3}
         />
       </div>
@@ -70,7 +70,7 @@ const NewTicketForm = () => {
           className="text-sm font-medium mb-3 block"
         >
           فایل پیوست
-          <span className="text-xs text-blue-500"> (اختیاری) </span>
+          <span className="text-xs text-blue-500 dark:text-blue-300"> (اختیاری) </span>
 
         </label>
 
