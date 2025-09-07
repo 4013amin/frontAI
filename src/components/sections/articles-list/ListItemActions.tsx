@@ -22,7 +22,7 @@ const ListItemActions = ({
     ? (
       <ListItemButton
         article={article}
-        onClickFn={onView}
+        onClickFn={() => onView(article)}
         tooltip="مشاهده مقاله"
       >
         <Eye className="w-4 h-4" />

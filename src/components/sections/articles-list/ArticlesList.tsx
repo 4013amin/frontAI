@@ -18,15 +18,14 @@ const ArticlesList = ({ articles }: IProps) => {
   const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
   const [selectedForRemoveTitle, setSelectedForRemoveTitle] = useState<string>("")
   const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
-  
-  const handleViewArticle = () => {
-    // eslint-disable-next-line no-console
-    console.log("handleViewArticle")
+
+  const handleViewArticle = (article: IArticle) => {
+    window.open(article.article_link, "_blank")
   }
 
-  const handleEditArticle = () => {
+  const handleEditArticle = (article: IArticle) => {
     // eslint-disable-next-line no-console
-    console.log("handleEditArticle")
+    console.log("handleEditArticle", article)
   }
 
   const handleDeleteArticle = (article: IArticle) => {
