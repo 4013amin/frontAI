@@ -1,23 +1,37 @@
 "use client"
 
 import React from "react"
-import TicketDetailsHeader from "./TicketDetailsHeader"
+import { Loader2 } from "lucide-react"
+import useGetSingleTicket from "../hooks/useGetSingleTicket"
 import TicketChats from "./TicketChats"
-import { ITicket } from "@/types/globa_types"
+import AddMessageForm from "./AddMessageForm"
+import TicketDetailsHeader from "./TicketDetailsHeader"
 import Breadcrumb from "@/components/ui/Breadcrumb"
 
-interface Props {
-  ticket: ITicket
-}
 
+const TicketDetailsClient = ({ id }: { id: string }) => {
+  const {
+    data: ticket,
+    isLoading,
+    isError
+  } = useGetSingleTicket(id)
 
-const TicketDetailsClient: React.FC<Props> = ({ ticket }) => {
   const breadcrumbItems = [
     { title: "تیکت ها", link: "/panel/tickets" },
-    { title: ticket.title, isCurrent: true }
+    { title: "جزییات تیکت", isCurrent: true }
   ]
-    
-  console.log(ticket)
+
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-40">
+        <Loader2 className="animate-spin" />
+      </div>
+    )
+  }
+
+  if (isError || !ticket) {
+    return <p className="text-red-500">خطا در دریافت اطلاعات تیکت</p>
+  }
 
   return (
     <>
@@ -28,6 +42,12 @@ const TicketDetailsClient: React.FC<Props> = ({ ticket }) => {
         <TicketDetailsHeader {...ticket} />
         
         {ticket.messages && <TicketChats messages={ticket.messages} />}
+
+        {
+          ticket.status !== "closed" && (
+            <AddMessageForm {...ticket} />
+          )
+        }
       </div>
     </>
   )

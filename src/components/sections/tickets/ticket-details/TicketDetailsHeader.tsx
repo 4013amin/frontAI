@@ -26,7 +26,10 @@ const TicketDetailsHeader = (props: IProps) => {
   return (
     <div className="flex flex-col gap-3">
       {/* هدر تیکت */}
-      <div className="flex items-center justify-between gap-2 bg-slate-50 p-3 rounded-lg dark:bg-zinc-900">
+      <div
+        className="flex items-center justify-between gap-2 bg-slate-50 p-3 
+        bg-red-300 rounded-lg dark:bg-zinc-900"
+      >
         <h1 className="font-bold text-lg lg:text-xl truncate">{title}</h1>
 
         <Badge
@@ -47,7 +50,7 @@ const TicketDetailsHeader = (props: IProps) => {
           <Alert
             variant="destructive"
             className="flex flex-col sm:flex-row items-center sm:items-center 
-            justify-center gap-2 bg-red-100 text-center"
+            justify-center gap-2 bg-red-100 text-center dark:bg-red-400/20" 
           >
             <span>این تیکت بسته شده است. اگر نیاز به پشتیبانی دارید یک تیکت جدید ایجاد کنید.</span>
 

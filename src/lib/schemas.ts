@@ -187,6 +187,25 @@ const NewTicketFormSchema = z.object({
 })
 
 
+export const TicketMessageSchema = z.object({
+  message: z.string().min(5, "توضیحات باید حداقل ۵ کاراکتر باشد"),
+  attachment: z
+    .any()
+    .optional()
+    .refine(
+      file => !file || file instanceof File,
+      { message: "فایل نامعتبر است" }
+    )
+    .refine(
+      file => !file || file.size <= MAX_FILE_SIZE,
+      { message: "حجم تصویر نباید بیشتر از ۵ مگابایت باشد" }
+    )
+    .refine(
+      file => !file || ACCEPTED_IMAGE_TYPES.includes(file.type),
+      { message: "فرمت تصویر قابل قبول نیست. فقط JPG، PNG، WebP یا HEIC" }
+    )
+})
+
 export {
   LoginFormSchema, OtpFormSchema, RegisterFormSchema,
   NewSiteFormSchema, EditSiteFormSchema, SubmitPaymentReceiptSchema,
