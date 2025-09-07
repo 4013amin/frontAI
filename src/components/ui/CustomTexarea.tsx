@@ -11,6 +11,7 @@ type IProps = {
   placeholder: string
   className?: string
   labelIcon?: React.ReactNode
+  rows?: number
 }
 
 const CustomTextarea = (props: IProps) => {
@@ -21,7 +22,8 @@ const CustomTextarea = (props: IProps) => {
     label,
     placeholder,
     className,
-    labelIcon
+    labelIcon,
+    rows  
   } = props
 
   return (
@@ -42,6 +44,7 @@ const CustomTextarea = (props: IProps) => {
         placeholder={placeholder}
         aria-invalid={error ? "true" : "false"}
         className={`w-full${className ? ` ${className}` : ""}`}
+        rows={rows}
       />
 
       {

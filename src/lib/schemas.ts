@@ -166,8 +166,29 @@ export const CreateArticleFormSchema = z
     }
   )
 
+const NewTicketFormSchema = z.object({
+  title: z.string().min(3, "عنوان باید حداقل ۳ کاراکتر باشد"),
+  message: z.string().min(5, "توضیحات باید حداقل ۵ کاراکتر باشد"),
+  attachment: z
+    .any()
+    .optional()
+    .refine(
+      file => !file || file instanceof File,
+      { message: "فایل نامعتبر است" }
+    )
+    .refine(
+      file => !file || file.size <= MAX_FILE_SIZE,
+      { message: "حجم تصویر نباید بیشتر از ۵ مگابایت باشد" }
+    )
+    .refine(
+      file => !file || ACCEPTED_IMAGE_TYPES.includes(file.type),
+      { message: "فرمت تصویر قابل قبول نیست. فقط JPG، PNG، WebP یا HEIC" }
+    )
+})
+
 
 export {
   LoginFormSchema, OtpFormSchema, RegisterFormSchema,
-  NewSiteFormSchema, EditSiteFormSchema, SubmitPaymentReceiptSchema
+  NewSiteFormSchema, EditSiteFormSchema, SubmitPaymentReceiptSchema,
+  NewTicketFormSchema
 }
