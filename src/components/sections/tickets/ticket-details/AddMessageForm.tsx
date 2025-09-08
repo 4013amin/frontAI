@@ -33,7 +33,7 @@ const AddMessageForm = ({ id }: ITicket) => {
   const onSubmit = (data: INewMessage) => {
     sendMessage(data, {
       onSuccess: () => {
-        reset() // بعد از موفقیت فرم خالی بشه
+        reset() 
       }
     })
   }

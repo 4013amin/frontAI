@@ -12,10 +12,14 @@ export type CreateArticleRequest = {
   article_language: string
   custom_language?: string
   generate_image_option: boolean
+  image_field?: File
 }
 
 const requestCreateArticle = (data: CreateArticleRequest) => {
-  return API.post<IArticle>("/ai/create-article/", data)
+  return API.post<IArticle>(
+    "/ai/create-article/", 
+    data, { headers: { "Content-Type": "multipart/form-data" } }
+  )
 }
 
 const useCreateArticle = () => {

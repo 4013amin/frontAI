@@ -107,7 +107,6 @@ export const CreateTitleFormSchema = z.object({
 
 export const SelectTitleFormSchema = z.object({ selectedTitle: z.string().min(1, "لطفاً یک عنوان انتخاب کنید") })
 
-
 export const CreateArticleFormSchema = z
   .object({
     title: z
@@ -115,14 +114,11 @@ export const CreateArticleFormSchema = z
       .min(5, "عنوان مقاله باید حداقل ۵ کاراکتر باشد")
       .max(300, "عنوان مقاله نمی‌تواند بیش از ۳۰۰ کاراکتر باشد"),
 
-    // هم عدد (ID) هم رشته (برای سازگاری) را می‌پذیرد
     wordpress_site_id: z
       .string()
-      .nonempty("لطفاً یک سایت وردپرس انتخاب کنید")  // رشته خالی -> خطا
-      .regex(/^\d+$/, "لطفاً یک سایت وردپرس انتخاب کنید"), // فقط عدد
+      .nonempty("لطفاً یک سایت وردپرس انتخاب کنید")
+      .regex(/^\d+$/, "لطفاً یک سایت وردپرس انتخاب کنید"),
 
-
-    // فقط کد زبان/حالت انتخاب زبان
     article_language: z
       .string()
       .refine(
@@ -130,30 +126,27 @@ export const CreateArticleFormSchema = z
         "زبان مقاله نامعتبر است"
       ),
 
-    // وقتی article_language = "custom" باشد الزامی می‌شود (پایین‌تر با refine چک شده)
     custom_language: z.string().optional(),
-
     generate_image_option: z.boolean(),
-
-    // لحن از زبان جداست
     tone: z.string().min(1, "لطفاً لحن مقاله را مشخص کنید"),
-
-    target_audience: z
-      .string()
-      .min(3, "مخاطب هدف باید حداقل ۳ کاراکتر باشد"),
-
+    target_audience: z.string().min(3, "مخاطب هدف باید حداقل ۳ کاراکتر باشد"),
     article_purpose: z.string().min(1, "هدف مقاله را مشخص کنید"),
+    additional_keywords: z.string().optional(),
+    custom_instructions: z.string().optional(),
 
-    // این سه مورد «اختیاری» هستند
-    additional_keywords: z.string().optional(),   // کلمات اضافی
-    custom_instructions: z.string().optional(),   // توضیحات اضافی
-    subheadings: z
-      .array(z.string())
+    image_field: z
+      .custom<File | undefined>()
+      .optional()
       .refine(
-        arr => Array.isArray(arr) && arr.every(item => typeof item === "string"),
-        { message: "زیرتیترها باید آرایه‌ای از رشته باشند" }
+        file => !file || file.size <= MAX_FILE_SIZE,
+        { message: "حجم تصویر نباید بیشتر از ۵ مگابایت باشد" }
       )
-      .optional()   // زیرتیترهای اضافی
+      .refine(
+        file => !file || ACCEPTED_IMAGE_TYPES.includes(file.type),
+        { message: "فرمت تصویر قابل قبول نیست. فقط JPG، PNG، WebP یا HEIC" }
+      ),
+
+    subheadings: z.array(z.string()).optional()
   })
   .refine(
     data => data.article_language !== "custom" ||
@@ -165,6 +158,7 @@ export const CreateArticleFormSchema = z
       path: ["custom_language"]
     }
   )
+
 
 const NewTicketFormSchema = z.object({
   title: z.string().min(3, "عنوان باید حداقل ۳ کاراکتر باشد"),

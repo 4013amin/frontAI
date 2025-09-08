@@ -14,7 +14,6 @@ import ArticleTitleInput from "./inputs/ArticleTitleInput"
 import WordPressSiteSelect from "./inputs/WordPressSiteSelect"
 import ArticleLanguageSelect from "./inputs/ArticleLanguageSelect"
 import CustomLanguageInput from "./inputs/CustomLanguageInput"
-import GenerateImageToggle from "./inputs/GenerateImageToggle"
 import useCreateArticle from "./hooks/useCreateArticle"
 import ArticleToneSelect from "./inputs/ArticleToneSelect"
 import TargetAudienceInput from "./inputs/TargetAudienceInput"
@@ -26,6 +25,7 @@ import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import { setCreatedArticle } from "@/store/features/articleSlice"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
+import ImageUploader from "@/components/ui/ImageUploader"
 
 const CreateTitleForm = () => {
   const createdTitle = useSelector((state: RootState) => state.article.selectedArticleTitle)
@@ -51,7 +51,7 @@ const CreateTitleForm = () => {
     defaultValues: {
       title: "",
       wordpress_site_id: "",
-      article_language: "",
+      article_language: "fa",
       custom_language: "",
       generate_image_option: false,
       tone: "formal",
@@ -59,7 +59,8 @@ const CreateTitleForm = () => {
       article_purpose: "informative",
       additional_keywords: "",
       custom_instructions: "",
-      subheadings: []
+      subheadings: [],
+      image_field: undefined
     }
   })
 
@@ -137,7 +138,28 @@ const CreateTitleForm = () => {
 
         <ArticleSubheadings control={control} />
 
-        <GenerateImageToggle control={control} />
+        {/* Upload attachment */}
+        <div>
+          <label
+            className="text-sm font-medium mb-3 block"
+          >
+            تصویر شاخص
+            <span className="text-xs text-blue-500 dark:text-blue-300"> (اختیاری) </span>
+
+          </label>
+
+          <ImageUploader
+            field={register("image_field")}
+            error={
+              typeof errors.image_field?.message === "string" ?
+                errors.image_field.message
+                : undefined
+            }
+          />
+
+        </div>
+
+        {/* <GenerateImageToggle control={control} /> */}
 
         <SubmitFormButton isPending={isPending} text="خلق کن و بفرست" icon={<Stars />} />
       </form>

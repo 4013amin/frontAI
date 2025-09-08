@@ -24,8 +24,6 @@ const DashboardTicketItem = ({ ticket }: IProps) => {
     >
       <Link 
         href={`/panel/tickets/${ticket.id}`} 
-        target="_blank" 
-        rel="nofollow"
         className="truncate max-w-full md:max-w-[calc(100%-80px)] 
         text-sm hover:text-blue-500 font-bold text-zinc-800 dark:text-zinc-100
         dark:hover:text-blue-500"
