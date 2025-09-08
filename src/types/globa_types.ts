@@ -55,6 +55,7 @@ export type IArticle = {
   wordpress_site: number
   wordpress_site_name: string
   featured_image_url?: string | null
+  image_url?: string
 }
 
 export interface IDashboard {

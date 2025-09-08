@@ -9,8 +9,10 @@ const ReviewArticleSection = (props: IProps) => {
   const {
     title,
     content,
-    featured_image_url
+    image_url
   } = props
+
+  console.log(props)
 
   return (
     <article
@@ -19,9 +21,9 @@ const ReviewArticleSection = (props: IProps) => {
     >
 
       {
-        featured_image_url && (
+        image_url && (
           <Image 
-            src={featured_image_url}
+            src={image_url}
             height={600}
             alt={title}
             width={1200}
