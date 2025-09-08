@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import type { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
@@ -11,6 +11,7 @@ const requestPublishArticle = (id: number) => {
 
 const usePublishArticle = () => {
   const router = useRouter()
+  const queryClient = useQueryClient()
 
   const {
     mutate: publishArticle,
@@ -46,6 +47,7 @@ const usePublishArticle = () => {
     },
     onSuccess() {
       toast.success("مقاله با موفقیت منتشر شد")
+      queryClient.invalidateQueries({ queryKey: ["articles"] })
       router.push("/panel/articles")
     }
   })

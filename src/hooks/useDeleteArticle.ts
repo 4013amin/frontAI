@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 import API from "@/lib/axios"
 
-const deleteArticle = (id: number) => API.delete(`/articles/${id}/`)
+const deleteArticle = (id: number) => API.delete(`deleted_article/${id}`)
 
 const useDeleteArticle = (onSuccessCallback?: () => void) => {
   const queryClient = useQueryClient()

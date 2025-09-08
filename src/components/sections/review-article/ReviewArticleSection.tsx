@@ -12,7 +12,6 @@ const ReviewArticleSection = (props: IProps) => {
     image_url
   } = props
 
-  console.log(props)
 
   return (
     <article
