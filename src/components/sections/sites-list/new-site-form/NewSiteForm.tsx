@@ -68,7 +68,7 @@ const NewSiteForm = ({ isLoadingSites, sitesLength }: IProps) => {
 
       {
         !isLoadingSites && (
-          sitesLength !== undefined && sitesLength === 10
+          sitesLength !== undefined && sitesLength === 1000
             ? (
               <LimitAddNewSite />
             )
