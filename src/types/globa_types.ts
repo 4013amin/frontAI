@@ -98,5 +98,14 @@ export interface ITicketMessage {
   username: string
   message: string
   attachment: string | null
-  created_at: string // می‌تونی بعداً به Date تبدیلش کنی
+  created_at: string 
+}
+
+export interface IWordPressCategory {
+  id: number
+  name: string
+  slug: string
+  description?: string
+  count?: number
+  [key: string]: any
 }

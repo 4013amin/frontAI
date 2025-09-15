@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import z from "zod"
@@ -21,16 +21,19 @@ import ArticlePurposeSelect from "./inputs/ArticlePurposeSelect"
 import ArticleAdditionalKeywords from "./inputs/ArticleAdditionalKeywords"
 import CustomInstructions from "./inputs/CustomInstructions"
 import ArticleSubheadings from "./inputs/ArticleSubheadings"
+import ArticleCategorySelect from "./inputs/ArticleCategorySelect"
 import { CreateArticleFormSchema } from "@/lib/schemas"
 import { RootState } from "@/store/store"
 import { setCreatedArticle } from "@/store/features/articleSlice"
 import SubmitFormButton from "@/components/ui/SubmitFormButton"
 import ImageUploader from "@/components/ui/ImageUploader"
+import { ISite } from "@/types/globa_types"
 
 const CreateTitleForm = () => {
   const createdTitle = useSelector((state: RootState) => state.article.selectedArticleTitle)
   const dispatch = useDispatch()
   const router = useRouter()
+  const [selectedSite, setSelectedSite] = useState<ISite | null>(null)
 
   const {
     createArticle,
@@ -60,7 +63,8 @@ const CreateTitleForm = () => {
       additional_keywords: "",
       custom_instructions: "",
       subheadings: [],
-      image_field: undefined
+      image_field: undefined,
+      category_id: ""
     }
   })
 
@@ -106,7 +110,15 @@ const CreateTitleForm = () => {
 
         <WordPressSiteSelect
           control={control}
-          error={errors.wordpress_site_id?.message}
+          error={errors.wordpress_site_id}
+          setSelectedSite={setSelectedSite}
+        />
+
+        
+        <ArticleCategorySelect
+          control={control}
+          error={errors.category_id?.message}
+          selectedSite={selectedSite}
         />
 
         <ArticleLanguageSelect
