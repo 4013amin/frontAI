@@ -4,7 +4,6 @@ import type { AxiosError } from "axios"
 import API from "@/lib/axios"
 import { IWordPressCategory } from "@/types/globa_types"
 
-
 const fetchCategories = async (siteUrl: string): Promise<IWordPressCategory[]> => {
   if (!siteUrl) return []
   const { data } = await API.get<IWordPressCategory[]>(`${siteUrl.replace(/\/$/, "")}/wp-json/wp/v2/categories`)
@@ -13,30 +12,23 @@ const fetchCategories = async (siteUrl: string): Promise<IWordPressCategory[]> =
 }
 
 export const useWordPressCategories = (siteUrl: string) => {
-  const {
-    data,
-    error,
-    isLoading,
-    isError,
-    refetch,
-    isFetching
-  } = useQuery<IWordPressCategory[], AxiosError>({
+  const query = useQuery<IWordPressCategory[], AxiosError>({
     queryKey: ["wordpress-categories", siteUrl],
     queryFn: () => fetchCategories(siteUrl),
-    enabled: Boolean(siteUrl), // فقط وقتی url داریم اجرا بشه
-
-    staleTime: 0,  // 👈 همیشه تازه باشه
-    refetchOnWindowFocus: true, // هر بار فوکوس شد دوباره بگیره
-    refetchOnMount: true,       // هر بار کامپوننت لود شد دوباره بگیره
-    refetchOnReconnect: true   // وقتی اینترنت برگشت دوباره بگیره
+    enabled: Boolean(siteUrl),
+    staleTime: 0,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: true
   })
 
+
   return {
-    categories: data || [],
-    error,
-    isLoading,
-    isError,
-    refetch,
-    isFetching
+    categories: query.data || [],
+    isLoading: query.isLoading,
+    isError: query.isError,
+    error: query.error,
+    refetch: query.refetch,
+    isFetching: query.isFetching
   }
 }

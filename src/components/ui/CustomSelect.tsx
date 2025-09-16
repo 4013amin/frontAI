@@ -24,6 +24,7 @@ type IProps = {
   isLoading?: boolean
   emptyOptionLabel?: string
   labelIcon?: React.ReactNode
+  disabled?: boolean
 }
 
 export default function CustomSelect({
@@ -33,8 +34,8 @@ export default function CustomSelect({
   options,
   isLoading = false,
   emptyOptionLabel = "انتخاب کنید",
-  labelIcon
-
+  labelIcon,
+  disabled
 }: IProps) {
 
   return (
@@ -48,9 +49,12 @@ export default function CustomSelect({
         </Label>
       }
 
-      <Select onValueChange={field.onChange} value={field.value}>
+      <Select onValueChange={field.onChange} value={field.value} disabled={disabled}>
         <SelectTrigger className="w-full flex-row-reverse justify-between text-right">
-          <SelectValue placeholder={emptyOptionLabel} className="text-right" />
+          <SelectValue
+            placeholder={isLoading ? "در حال بارگذاری" : emptyOptionLabel}
+            className="text-right"
+          />
         </SelectTrigger>
 
         <SelectContent className="text-right">

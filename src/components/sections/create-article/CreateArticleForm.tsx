@@ -73,7 +73,7 @@ const CreateTitleForm = () => {
   const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
     createArticle(data)
   }
-
+  
   // If the user already selected a title, set it as the form's default
   useEffect(() => {
     if (createdTitle) {
@@ -88,7 +88,7 @@ const CreateTitleForm = () => {
     }
   }, [selectedLanguage, setValue])
 
-
+  // Success 
   useEffect(() => {
     if (isSuccess && data) {
       toast.success("مقاله با موفقیت ایجاد شد")
@@ -97,6 +97,12 @@ const CreateTitleForm = () => {
     }
   }, [isSuccess, data])
   
+  // Reset Categories
+  useEffect(() => {
+    if (selectedSite) {
+      setValue("category_id", "")
+    }
+  }, [selectedSite, setValue])
 
   return (
     <div className="w-full flex-center flex-col gap-3">
