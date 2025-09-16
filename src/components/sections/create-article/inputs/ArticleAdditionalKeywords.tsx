@@ -6,7 +6,7 @@ const ArticleAdditionalKeywords = ({ register, error }: any) => (
     register={register}
     name="additional_keywords"
     error={error}
-    placeholder="سئو در تهران، سئو در اسلامشهر و..."
+    placeholder="سئو در تهران..."
     label="کلمات کلیدی اضافی (اختیاری)"
     labelIcon={<Hash size={17} />}
   />

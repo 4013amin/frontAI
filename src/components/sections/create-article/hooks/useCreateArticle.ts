@@ -13,6 +13,7 @@ export type CreateArticleRequest = {
   custom_language?: string
   generate_image_option: boolean
   image_field?: File
+  selected_categories: number
 }
 
 const requestCreateArticle = (data: CreateArticleRequest) => {
@@ -42,7 +43,11 @@ const useCreateArticle = () => {
         const axiosError = error as AxiosError<{ error_code?: string, detail?: string }>
         const message = axiosError.response?.data.detail || "خطا در ایجاد مقاله!"
         
-        if(axiosError.status === 503) {
+        if(axiosError.status === 500 && 
+          axiosError.message === "Failed to upload manual image to WordPress. Check site permissions.") {
+          toast.error("مقاله بخاطر آپلود نشدن تصویر منتشر نشد، لطفا تنظمات ")
+        }
+        else if(axiosError.status === 503) {
           toast.error("مقاله به دلیل خطای سرور ایجاد نشد!")
         }
         else{

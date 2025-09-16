@@ -64,15 +64,21 @@ const CreateTitleForm = () => {
       custom_instructions: "",
       subheadings: [],
       image_field: undefined,
-      category_id: ""
+      selected_categories: ""
     }
   })
 
   const selectedLanguage = watch("article_language")
 
   const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
-    createArticle(data)
+    const numericData = {
+      ...data,
+      selected_categories: Number(data.selected_categories)
+    }
+
+    createArticle(numericData)
   }
+
   
   // If the user already selected a title, set it as the form's default
   useEffect(() => {
@@ -100,7 +106,7 @@ const CreateTitleForm = () => {
   // Reset Categories
   useEffect(() => {
     if (selectedSite) {
-      setValue("category_id", "")
+      setValue("selected_categories", "")
     }
   }, [selectedSite, setValue])
 
@@ -123,7 +129,7 @@ const CreateTitleForm = () => {
         
         <ArticleCategorySelect
           control={control}
-          error={errors.category_id?.message}
+          error={errors.selected_categories?.message}
           selectedSite={selectedSite}
         />
 

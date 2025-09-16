@@ -47,7 +47,8 @@ const ArticleCategorySelect = ({
   }, [selectedSite?.site_url, refetch])
 
   const categoryOptions =
-    categories?.map(c => ({ value: String(c.id), label: c.name })) || []
+  categories?.map(c => ({ value: String(c.id), label: c.name })) || []
+
 
   const errorMessage =
     fetchError && !isLoading
@@ -59,7 +60,7 @@ const ArticleCategorySelect = ({
   return (
     <>
       <Controller
-        name="category_id"
+        name="selected_categories"
         control={control}
         render={
           ({ field }) => (
