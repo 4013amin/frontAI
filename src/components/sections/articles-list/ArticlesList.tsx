@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import dynamic from "next/dynamic"
+import { useRouter } from "nextjs-toploader/app"
 import ArticleItem from "./ArticleItem"
 import ArticleListHeader from "./ArticleListHeader"
 import { IArticle } from "@/types/globa_types"
@@ -18,14 +19,14 @@ const ArticlesList = ({ articles }: IProps) => {
   const [selectedForRemove, setSelectedForRemove] = useState<number>(0)
   const [selectedForRemoveTitle, setSelectedForRemoveTitle] = useState<string>("")
   const [isOpenRemoveDialog, setIsOpenRemoveDialog] = useState<boolean>(false)
+  const router = useRouter()
 
   const handleViewArticle = (article: IArticle) => {
     window.open(article.article_link, "_blank")
   }
 
   const handleEditArticle = (article: IArticle) => {
-    // eslint-disable-next-line no-console
-    console.log("handleEditArticle", article)
+    router.push(`/panel/articles/edit/${article.id}`)
   }
 
   const handleDeleteArticle = (article: IArticle) => {
