@@ -8,6 +8,7 @@ import Link from "next/link"
 import Breadcrumb from "@/components/ui/Breadcrumb"
 import useGetArticle from "@/hooks/useGetArticle"
 import { Button } from "@/components/shadcn/Button"
+import EditeArticleSection from "@/components/sections/edit-article/EditeArticleSection"
 
 const breadcrumbItems = [
   { title: "مقالات", link: "/panel/articles" },
@@ -57,7 +58,7 @@ const Page = () => {
         {
           article && (
             <>
-              <h1 className="text-2xl font-bold">{article.title}</h1>
+              <EditeArticleSection {...article} />
             </>
           )
         }
