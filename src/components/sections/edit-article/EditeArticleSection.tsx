@@ -28,6 +28,7 @@ const EditeArticleSection = (props: IProps) => {
   })
 
   const onSubmit = (data: { title: string, content: string }) => {
+    // eslint-disable-next-line no-console
     console.log("فرم ارسال شد:", data)
     // اینجا میتونی درخواست API برای آپدیت مقاله بزنی
   }
