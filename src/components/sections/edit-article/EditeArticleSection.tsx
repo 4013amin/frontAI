@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form"
 import { IArticle } from "@/types/globa_types"
 import TextEditor from "@/components/ui/TextEditor"
 import "@/styles/article.css"
+import useUpdateArticle from "./hooks/useUpdateArticle"
+import SubmitFormButton from "@/components/ui/SubmitFormButton"
 
 type IProps = IArticle
 
@@ -12,8 +14,11 @@ const EditeArticleSection = (props: IProps) => {
   const {
     title,
     content,
-    image_url
+    image_url,
+    id
   } = props
+
+  const { updateArticle, isPending } = useUpdateArticle()
 
   // فرم
   const {
@@ -28,9 +33,10 @@ const EditeArticleSection = (props: IProps) => {
   })
 
   const onSubmit = (data: { title: string, content: string }) => {
-    // eslint-disable-next-line no-console
-    console.log("فرم ارسال شد:", data)
-    // اینجا میتونی درخواست API برای آپدیت مقاله بزنی
+    updateArticle({
+      id: id,
+      payload: data
+    })
   }
 
   return (
@@ -62,12 +68,7 @@ const EditeArticleSection = (props: IProps) => {
         <TextEditor name="content" control={control} />
 
         {/* دکمه ذخیره */}
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          ذخیره تغییرات
-        </button>
+        <SubmitFormButton text="بروزرسانی" isPending={isPending} />
       </form>
     </article>
   )
