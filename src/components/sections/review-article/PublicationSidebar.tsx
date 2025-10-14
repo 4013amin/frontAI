@@ -1,9 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { IArticle } from "@/types/globa_types"
 import usePublishArticle from "./hooks/usePublishArticle"
 
-const PublicationSidebar = ({ article }) => {
+type PublicationSidebarProps = {
+  article: IArticle
+}
+
+const PublicationSidebar = ({ article }: PublicationSidebarProps) => {
   const { publishArticle, isPending } = usePublishArticle()
 
   if (!article) return null
