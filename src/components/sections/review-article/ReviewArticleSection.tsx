@@ -15,9 +15,10 @@ const ReviewArticleSection = ({ article }: ReviewArticleSectionProps) => {
   return (
     <section className="w-full lg:w-3/4 rounded-lg border bg-white p-6 shadow-md">
       <h2 className="text-lg font-semibold mb-4">{article.title}</h2>
-      <div className="text-sm text-gray-700 leading-relaxed">
-        {article.content}
-      </div>
+      <div
+        className="text-sm text-gray-700 leading-relaxed"
+        dangerouslySetInnerHTML={{ __html: article.content }}
+      />
     </section>
   )
 }
