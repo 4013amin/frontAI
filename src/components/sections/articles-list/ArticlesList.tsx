@@ -29,6 +29,10 @@ const ArticlesList = ({ articles }: IProps) => {
     router.push(`/panel/articles/edit/${article.id}`)
   }
 
+  const handleReviewArticle = (article: IArticle) => {
+  router.push(`/panel/articles/review/${article.id}`)
+  }
+
   const handleDeleteArticle = (article: IArticle) => {
     setSelectedForRemove(article.id)
     setSelectedForRemoveTitle(article.title)
@@ -49,6 +53,7 @@ const ArticlesList = ({ articles }: IProps) => {
               onView={handleViewArticle}
               onEdit={handleEditArticle}
               onDelete={handleDeleteArticle}
+              onReview={handleReviewArticle}
             />
           ))
         }

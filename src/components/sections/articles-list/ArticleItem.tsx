@@ -4,21 +4,35 @@ import ListItemActions from "./ListItemActions"
 import { IArticle } from "@/types/globa_types"
 import { convertToShamsi } from "@/utility/convertToShamsi"
 
-
 type ArticleItemProps = {
   article: IArticle
   onEdit?: (article: IArticle) => void
   onDelete?: (article: IArticle) => void
   onView?: (article: IArticle) => void
+  onReview?: (article: IArticle) => void
 }
 
 const ArticleItem = ({
   article,
   onEdit,
   onDelete,
-  onView
+  onView,
+  onReview
 }: ArticleItemProps) => {
 
+  // اگر وضعیت مقاله pending یا draft بود، آیکن چشم نمایش داده شود
+  const reviewIcon = (article.status === "pending" || article.status === "draft") && onReview ? (
+    <button
+      title="بررسی مقاله"
+      onClick={() => onReview(article)}
+      className="ml-2 text-blue-600 hover:text-blue-800"
+    >
+      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/>
+        <circle cx="12" cy="12" r="3"/>
+      </svg>
+    </button>
+  ) : null
 
   return (
     <div className="block">
@@ -31,7 +45,6 @@ const ArticleItem = ({
 
         <div>
           <ListItemBadge article={article} />
-
         </div>
 
         <div className="text-sm text-muted-foreground">
@@ -42,12 +55,15 @@ const ArticleItem = ({
           }
         </div>
 
-        <ListItemActions
-          article={article}
-          onEdit={onEdit}
-          onDelete={onDelete}
-          onView={onView}
-        />
+        <div className="flex items-center">
+          {reviewIcon}
+          <ListItemActions
+            article={article}
+            onEdit={onEdit}
+            onDelete={onDelete}
+            onView={onView}
+          />
+        </div>
       </div>
 
       {/* Mobile View */}
@@ -66,15 +82,16 @@ const ArticleItem = ({
               }
             </span>
           </div>
-
-          <ListItemActions
-            article={article}
-            onEdit={onEdit}
-            onDelete={onDelete}
-            onView={onView}
-          />
+          <div className="flex items-center">
+            {reviewIcon}
+            <ListItemActions
+              article={article}
+              onEdit={onEdit}
+              onDelete={onDelete}
+              onView={onView}
+            />
+          </div>
         </div>
-
       </div>
     </div>
   )

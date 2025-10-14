@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useDropzone } from "react-dropzone"
 import { UseFormRegisterReturn } from "react-hook-form"
-import { Pencil, UploadCloud } from "lucide-react"
+import { Pencil, UploadCloud, Trash2 } from "lucide-react"
 
 interface ImageUploaderProps {
   field: UseFormRegisterReturn
@@ -74,6 +74,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
     }
   }, [preview])
 
+  // حذف تصویر
+  const handleRemoveImage = () => {
+    setPreview(null)
+    setLocalError(null)
+    field.onChange({ target: { name: field.name, value: null } })
+  }
+
   return (
     <div className="flex flex-col gap-2">
       <div
@@ -92,9 +99,19 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         {
           preview ?
             (
-            // Show preview image with overlay edit button
+              // Show preview image with overlay edit button and remove icon
               <div className="relative group">
                 <img src={preview} alt="Preview" className="w-full h-60 object-cover rounded-xl shadow" />
+
+                {/* دکمه حذف تصویر */}
+                <button
+                  type="button"
+                  onClick={handleRemoveImage}
+                  className="absolute top-2 left-2 bg-white/80 hover:bg-red-100 text-red-600 rounded-full p-1 z-10"
+                  title="حذف تصویر"
+                >
+                  <Trash2 size={18} />
+                </button>
 
                 <div
                   className="absolute inset-0 bg-black/50 rounded-xl opacity-0 group-hover:opacity-100 
@@ -111,11 +128,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                   </button>
                 </div>
               </div>
-              
-            ) : 
-            
+
+            ) :
+
             (
-            // Default placeholder UI
+              // Default placeholder UI
               <div
                 className="flex flex-col items-center justify-center h-40 text-zinc-500 text-center"
                 onClick={open}

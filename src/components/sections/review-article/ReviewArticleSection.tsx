@@ -1,42 +1,25 @@
-import React from "react"
-import Image from "next/image"
-import { IArticle } from "@/types/globa_types"
-import "@/styles/article.css"
+"use client" // این کامپوننت تعاملی است پس این خط لازم است
 
-type IProps = IArticle
+// ما دیگر نیازی به useSelector یا Redux نداریم
 
-const ReviewArticleSection = (props: IProps) => {
-  const {
-    title,
-    content,
-    image_url
-  } = props
+// کامپوننت، اطلاعات مقاله را به عنوان یک ورودی به نام "article" دریافت می‌کند
+const ReviewArticleSection = ({ article }) => {
 
+  if (!article) {
+    return <div>در حال بارگذاری...</div>;
+  }
 
   return (
-    <article
-      className="article w-full lg:!w-8/12 flex flex-col items-start justify-start p-3
-          border rounded-xl"
-    >
+    <div className="w-full lg:w-3/4 rounded-lg border bg-white p-6 shadow-md">
+      {/* نمایش عنوان مقاله */}
+      <h1 className="mb-4 text-3xl font-bold">{article.title}</h1>
 
-      {
-        image_url && (
-          <Image 
-            src={image_url}
-            height={600}
-            alt={title}
-            width={1200}
-          />
-        )
-      }
-
-      <h1 className="font-bold text-[24px] lg:text-[28px] my-3 border-r-4 border-blue-600 pr-4">{title}</h1>
-
+      {/* نمایش محتوای مقاله */}
       <div
-        className="prose prose-lg w-full rtl"
-        dangerouslySetInnerHTML={{ __html: content }}
+        className="prose lg:prose-xl max-w-none"
+        dangerouslySetInnerHTML={{ __html: article.content }}
       />
-    </article>
+    </div>
   )
 }
 

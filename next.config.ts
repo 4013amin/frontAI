@@ -11,6 +11,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "aiproject.liara.run"
+      },
+      {
+        protocol: "https",
+        hostname: "storage.c2.liara.space"
       }
     ]
   }

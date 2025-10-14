@@ -99,6 +99,7 @@ const CreateTitleForm = () => {
     if (isSuccess && data) {
       toast.success("مقاله با موفقیت ایجاد شد")
       dispatch(setCreatedArticle(data))
+      router.push("/panel/articles")
       router.push(`/panel/articles/review/${data.id}`)
     }
   }, [isSuccess, data])
