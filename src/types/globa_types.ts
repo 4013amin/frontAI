@@ -57,7 +57,7 @@ export type IArticle = {
   featured_image_url?: string | null
   image_url?: string
   manual_image_url?: string | null;
-
+  temp_image?: string | null;
 }
 
 export interface IDashboard {
