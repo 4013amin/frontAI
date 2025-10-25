@@ -9,6 +9,8 @@ import Breadcrumb from "@/components/ui/Breadcrumb"
 import useGetArticle from "@/hooks/useGetArticle"
 import { Button } from "@/components/shadcn/Button"
 import EditeArticleSection from "@/components/sections/edit-article/EditeArticleSection"
+// ===>  مرحله ۱: سایدبار را اینجا وارد کنید
+import PublicationEditArticleSidebar from "@/components/sections/edit-article/PublicationEditArticleSidebar" // مسیر فایل را چک کنید
 
 const breadcrumbItems = [
   { title: "مقالات", link: "/panel/articles" },
@@ -36,7 +38,7 @@ const Page = () => {
       <Breadcrumb items={breadcrumbItems} />
 
       <div className="w-full flex gap-5 flex-col lg:!flex-row items-start mt-5">
-        {isLoading && <div>در حال بارگذاری...</div>}
+        {isLoading && <div className="w-full text-center">در حال بارگذاری...</div>}
 
         {
           !isLoading && !article && (
@@ -58,7 +60,11 @@ const Page = () => {
         {
           article && (
             <>
+              {/* بخش ویرایش مقاله (ستون اصلی) */}
               <EditeArticleSection {...article} />
+
+              {/* ===>  مرحله ۲: کامپوننت سایدبار را اینجا اضافه کنید */}
+              <PublicationEditArticleSidebar {...article} />
             </>
           )
         }
