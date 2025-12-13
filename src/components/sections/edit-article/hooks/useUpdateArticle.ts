@@ -8,11 +8,16 @@ import API from "@/lib/axios"
 interface UpdateArticlePayload {
   title: string
   content: string
+  image?: File | null
 }
 
 // درخواست ویرایش مقاله
-const requestUpdateArticle = (id: number, payload: UpdateArticlePayload) => {
-  return API.put(`update_article/${id}/`, payload)
+const requestUpdateArticle = (id: number, payload: UpdateArticlePayload | FormData) => {
+  return API.put(`update_article/${id}/`, payload, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  })
 }
 
 const useUpdateArticle = () => {

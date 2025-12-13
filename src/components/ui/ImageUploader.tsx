@@ -6,7 +6,13 @@ import { UseFormRegisterReturn } from "react-hook-form"
 import { Pencil, UploadCloud, Trash2 } from "lucide-react"
 
 interface ImageUploaderProps {
-  field: UseFormRegisterReturn
+  field?: UseFormRegisterReturn
+  /** Optional label shown above uploader */
+  fieldLabel?: string
+  /** Optional callback to set file value (for useForm setValue) */
+  setValue?: (file: File | null) => void
+  /** Optional watch value to detect local changes */
+  watch?: any
   error?: string
   defaultPreview?: string
 }
@@ -24,6 +30,9 @@ const ACCEPTED_TYPES = [
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
   field,
+  fieldLabel,
+  setValue,
+  watch,
   error,
   defaultPreview
 }) => {
@@ -50,9 +59,13 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
       const previewUrl = URL.createObjectURL(file)
       setPreview(previewUrl)
       setLocalError(null)
-      field.onChange({ target: { name: field.name, value: file } })
+      if (setValue && typeof setValue === "function") {
+        setValue(file)
+      } else if (field && typeof field.onChange === "function") {
+        field.onChange({ target: { name: field.name, value: file } })
+      }
     }
-  }, [field])
+  }, [field, setValue])
 
   const {
     getRootProps,
@@ -78,7 +91,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   const handleRemoveImage = () => {
     setPreview(null)
     setLocalError(null)
-    field.onChange({ target: { name: field.name, value: null } })
+    if (setValue && typeof setValue === "function") {
+      setValue(null)
+    } else if (field && typeof field.onChange === "function") {
+      field.onChange({ target: { name: field.name, value: null } })
+    }
   }
 
   return (
@@ -94,7 +111,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
         `
         }
       >
-        <input {...getInputProps()} name={field.name} />
+          <input {...getInputProps()} {...(field && field.name ? { name: field.name } : {})} />
 
         {
           preview ?

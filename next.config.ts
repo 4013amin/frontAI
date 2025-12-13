@@ -15,6 +15,14 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "storage.c2.liara.space"
+      },
+      {
+        protocol: "http",
+        hostname: "127.0.0.1"
+      },
+      {
+        protocol: "http",
+        hostname: "localhost"
       }
     ]
   }
