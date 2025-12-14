@@ -1,13 +1,13 @@
 "use client"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { IArticle } from "@/types/globa_types"
 import TextEditor from "@/components/ui/TextEditor"
 import "@/styles/article.css"
-import SubmitFormButton from "@/components/ui/SubmitFormButton"
 import ImageUploader from "@/components/ui/ImageUploader"
-import { toast } from "sonner"
-import API from "@/lib/axios"
+import useUpdateArticle from "./hooks/useUpdateArticle"
+import { Button } from "@/components/shadcn/Button"
+import { Save, Loader } from "lucide-react"
 
 type IProps = IArticle
 
@@ -20,8 +20,8 @@ const EditeArticleSection = (props: IProps) => {
     status
   } = props
 
-  const [isUpdating, setIsUpdating] = useState(false)
   const [isSaved, setIsSaved] = useState(true)
+  const { updateArticle, isPending } = useUpdateArticle()
 
   // determine which image URL to show as preview
   const previewUrl = 
@@ -30,8 +30,6 @@ const EditeArticleSection = (props: IProps) => {
     (props as any).manual_image_url || 
     (props as any).temp_image || 
     undefined
-
-  console.log("EditeArticleSection - previewUrl:", previewUrl)
 
   const {
     register,
@@ -48,49 +46,54 @@ const EditeArticleSection = (props: IProps) => {
     }
   })
 
+  // Reset form when article data changes
+  useEffect(() => {
+    setValue("title", title)
+    setValue("content", content)
+    setValue("image", null)
+    setIsSaved(true)
+  }, [id, title, content, setValue])
+
   const onSubmit = async (data: { title: string; content: string; image: File | null }) => {
-    setIsUpdating(true)
-    try {
-      const formData = new FormData()
-      formData.append("title", data.title)
-      formData.append("content", data.content)
-      if (data.image) {
-        formData.append("image", data.image)
-      }
-      formData.append("status", "published")
-
-      console.log("Attempting to update article...")
-      
-      const response = await API.put(`/update_article/${id}/`, formData)
-
-      if (response.status === 200 || response.status === 201) {
-        toast.success("مقاله با موفقیت بروزرسانی شد")
-        setIsSaved(true)
-        setTimeout(() => {
-          window.location.reload()
-        }, 1000)
-      }
-    } catch (error: any) {
-      console.error("Error updating article:", error)
-      const errorMsg = error.response?.data?.error || error.message || "خطا در بروزرسانی مقاله"
-      toast.error(errorMsg)
-    } finally {
-      setIsUpdating(false)
+    const payload = {
+      title: data.title,
+      content: data.content,
+      image: data.image
     }
+
+    updateArticle(
+      { id, payload },
+      {
+        onSuccess: () => {
+          setIsSaved(true)
+        }
+      }
+    )
   }
 
   // هنگام تغییر فرم
-  React.useEffect(() => {
+  useEffect(() => {
     if (isDirty) {
       setIsSaved(false)
     }
   }, [isDirty])
+
+  const isPublished = status === "published"
 
   return (
     <article
       className="article w-full lg:!w-8/12 flex flex-col
      items-start justify-start p-3 border rounded-xl space-y-4"
     >
+      {/* Status indicator */}
+      {isPublished && (
+        <div className="w-full bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
+          <p className="text-sm text-blue-700 dark:text-blue-300">
+            <strong>یادآوری:</strong> این مقاله قبلاً منتشر شده است. تغییرات شما مقاله را به‌روزرسانی می‌کند.
+          </p>
+        </div>
+      )}
+
       <form onSubmit={handleSubmit(onSubmit)} className="w-full flex flex-col gap-4">
         {/* تصویر مقاله */}
         <div>
@@ -98,7 +101,7 @@ const EditeArticleSection = (props: IProps) => {
           <ImageUploader
             fieldLabel="تصویر مقاله خود را در اینجا بارگذاری کنید"
             setValue={(file) => {
-              setValue("image", file)
+              setValue("image", file, { shouldDirty: true })
               setIsSaved(false)
             }}
             watch={watch("image")}
@@ -111,9 +114,13 @@ const EditeArticleSection = (props: IProps) => {
           <label className="text-sm font-medium mb-2 block">عنوان مقاله</label>
           <input
             type="text"
-            {...register("title")}
-            className="w-full p-2 border rounded-md text-lg font-bold"
-            onChange={() => setIsSaved(false)}
+            {...register("title", {
+              onChange: () => {
+                setIsSaved(false)
+              }
+            })}
+            className="w-full p-2 border rounded-md text-lg font-bold dark:bg-zinc-800 dark:border-zinc-700"
+            disabled={isPending}
           />
         </div>
 
@@ -123,7 +130,26 @@ const EditeArticleSection = (props: IProps) => {
           <TextEditor name="content" control={control} />
         </div>
 
-       
+        {/* دکمه ذخیره */}
+        <div className="flex justify-end gap-3 pt-4 border-t">
+          <Button
+            type="submit"
+            disabled={isPending || !isDirty}
+            className="bg-blue-600 hover:bg-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isPending ? (
+              <>
+                <Loader className="animate-spin ml-2" size={18} />
+                در حال ذخیره...
+              </>
+            ) : (
+              <>
+                <Save className="ml-2" size={18} />
+                {isSaved ? "ذخیره تغییرات" : "ذخیره تغییرات"}
+              </>
+            )}
+          </Button>
+        </div>
       </form>
     </article>
   )

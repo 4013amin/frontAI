@@ -26,11 +26,35 @@ const usePublishArticle = () => {
       // eslint-disable-next-line no-console
       console.log(error)
       if (error && (error as AxiosError).isAxiosError) {
-        const axiosError = error as AxiosError<{ error_code?: string, detail?: string }>
+        const axiosError = error as AxiosError<{ error_code?: string, detail?: string, message?: string }>
         const errorCode = axiosError.response?.data.error_code
+        const errorDetail = axiosError.response?.data.detail || ""
+        const errorMessage = axiosError.response?.data.message || ""
+        const fullErrorText = `${errorDetail} ${errorMessage}`.toLowerCase()
 
         if (axiosError.status === 500) {
-          toast.error("خطا در انتشار مقاله توسط سرور!")
+          // Check if it's a WordPress error
+          if (
+            fullErrorText.includes("wordpress") || 
+            fullErrorText.includes("wp-json") ||
+            fullErrorText.includes("uploading image") ||
+            fullErrorText.includes("media")
+          ) {
+            if (fullErrorText.includes("503") || fullErrorText.includes("service unavailable")) {
+              toast.error("سایت وردپرس در دسترس نیست (503). لطفاً بعداً تلاش کنید یا با پشتیبانی تماس بگیرید.")
+            } else if (fullErrorText.includes("500") || fullErrorText.includes("internal server")) {
+              toast.error("خطا در آپلود تصویر به وردپرس (500). لطفاً تنظیمات دسترسی وردپرس را بررسی کنید یا با پشتیبانی تماس بگیرید.")
+            } else {
+              toast.error("خطا در ارتباط با سایت وردپرس. لطفاً تنظیمات سایت را بررسی کنید.")
+            }
+          } else {
+            toast.error("خطا در انتشار مقاله توسط سرور!")
+          }
+          return
+        }
+
+        if (axiosError.status === 401 || errorDetail.includes("auth_token") || errorDetail.includes("Cookie")) {
+          toast.error("احراز هویت ناموفق بود. لطفاً دوباره وارد شوید.")
           return
         }
 
@@ -39,7 +63,7 @@ const usePublishArticle = () => {
           return
         }
 
-        toast.error(axiosError.response?.data.detail || "خطا در انتشار مقاله!")
+        toast.error(errorDetail || errorMessage || "خطا در انتشار مقاله!")
       }
       else {
         toast.error("خطایی رخ داده است.")

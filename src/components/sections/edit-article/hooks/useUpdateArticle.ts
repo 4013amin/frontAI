@@ -21,7 +21,6 @@ const requestUpdateArticle = (id: number, payload: UpdateArticlePayload | FormDa
 }
 
 const useUpdateArticle = () => {
-  const router = useRouter()
   const queryClient = useQueryClient()
 
   const {
@@ -57,10 +56,13 @@ const useUpdateArticle = () => {
       }
     },
 
-    onSuccess() {
+    onSuccess: (_, variables) => {
       toast.success("مقاله با موفقیت ویرایش شد")
+      // invalidate تمام queries مربوط به articles
       queryClient.invalidateQueries({ queryKey: ["articles"] })
-      router.push("/panel/articles")
+      queryClient.invalidateQueries({ queryKey: ["article", variables.id] })
+      queryClient.invalidateQueries({ queryKey: ["article"] })
+      // داده‌ها به صورت خودکار refetch می‌شوند و فرم reset می‌شود
     }
   })
 

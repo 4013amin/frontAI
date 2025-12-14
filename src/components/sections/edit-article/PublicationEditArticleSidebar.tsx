@@ -112,52 +112,66 @@ const PublicationEditArticleSidebar = (props: IProps) => {
 
 
       <div className="flex items-center gap-2 justify-between w-full flex-wrap">
-        {
-          article_link
-            ? (
-              <Button
-                className="text-xs bg-slate-200 text-slate-600
-                hover:text-slate-50 dark:bg-zinc-600
-                dark:text-slate-200 dark:hover:bg-zinc-700"
-                asChild
-              >
-                <Link href={article_link} target="_blank">
-                  <Eye />
-                  مشاهده مقاله
-                </Link>
-              </Button>
-            )
-            : (
-              <Button
-                className={
-                  `text-xs bg-red-100 text-red-600
-                hover:text-slate-50 dark:bg-red-400/30
-                dark:text-red-200 dark:hover:bg-red-500 dark:hover:text-white
-                 ${isPending ? "opacity-50 !cursor-not-allowed" : ""}`
-                }
-                onClick={() => router.back()}
-                disabled={isPending}
+        {/* دکمه مشاهده مقاله - فقط برای مقالات منتشر شده */}
+        {status === "published" && article_link && (
+          <Button
+            className="text-xs bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700"
+            asChild
+          >
+            <Link href={article_link} target="_blank">
+              <Eye className="ml-2" size={16} />
+              مشاهده مقاله
+            </Link>
+          </Button>
+        )}
 
-              >
-                <ArrowRight />
-                بازگشت
-              </Button>
-            )
-        }
+        {/* دکمه بازگشت - برای مقالات منتشر نشده */}
+        {status !== "published" && (
+          <Button
+            className="text-xs bg-slate-200 text-slate-600 hover:bg-slate-300 dark:bg-zinc-600 dark:text-slate-200 dark:hover:bg-zinc-700"
+            onClick={() => router.back()}
+            disabled={isPending}
+          >
+            <ArrowRight className="ml-2" size={16} />
+            بازگشت
+          </Button>
+        )}
 
-        <Button
-          className={
-            `text-xs bg-blue-500 dark:text-white dark:hover:bg-blue-600
-             ${isPending ? "opacity-50 !cursor-not-allowed" : ""}`
-          }
-          onClick={handlePublish}
-          disabled={isPending}
-        >
-          {isPending ? "در حال انتشار..." : "تایید و انتشار در سایت"}
+        {/* دکمه انتشار - فقط برای مقالات منتشر نشده */}
+        {status !== "published" && (
+          <Button
+            className={
+              `text-xs bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700
+               ${isPending ? "opacity-50 !cursor-not-allowed" : ""}`
+            }
+            onClick={handlePublish}
+            disabled={isPending}
+          >
+            {isPending ? (
+              <>
+                <Loader className="animate-spin ml-2" size={16} />
+                در حال انتشار...
+              </>
+            ) : (
+              <>
+                تایید و انتشار در سایت
+                <ArrowLeft className="mr-2" size={16} />
+              </>
+            )}
+          </Button>
+        )}
 
-          {isPending ? <Loader className="animate-spin" /> : <ArrowLeft />}
-
-        </Button>
+        {/* پیام برای مقالات منتشر شده */}
+        {status === "published" && (
+          <div className="w-full bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3 text-center">
+            <p className="text-sm text-green-700 dark:text-green-300">
+              این مقاله قبلاً منتشر شده است
+            </p>
+            <p className="text-xs text-green-600 dark:text-green-400 mt-1">
+              برای ویرایش از فرم سمت راست استفاده کنید
+            </p>
+          </div>
+        )}
       </div>
       
     </aside>
