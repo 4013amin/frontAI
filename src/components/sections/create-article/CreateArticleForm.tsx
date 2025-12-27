@@ -71,12 +71,15 @@ const CreateTitleForm = () => {
   const selectedLanguage = watch("article_language")
 
   const onSubmit = (data: z.infer<typeof CreateArticleFormSchema>) => {
-    const numericData = {
-      ...data,
-      selected_categories: Number(data.selected_categories)
+    const payload: any = { ...data }
+
+    if (payload.selected_categories && payload.selected_categories !== "") {
+      payload.selected_categories = Number(payload.selected_categories)
+    } else {
+      delete payload.selected_categories
     }
 
-    createArticle(numericData)
+    createArticle(payload)
   }
 
   

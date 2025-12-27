@@ -28,16 +28,18 @@ const NetworkErrorDialog = ({ open, onOpenChange }: NetworkErrorDialogProps) => 
             <span>خطای اتصال به سایت</span>
           </AlertDialogTitle>
 
-          <AlertDialogDescription>
-            <p>
-              این خطا به دلیل محدودیت دسترسی REST API 
-              سایت شما رخ داده است.
-            </p>
+          <AlertDialogDescription asChild>
+            <div>
+              <div>
+                این خطا به دلیل محدودیت دسترسی REST API
+                سایت شما رخ داده است.
+              </div>
 
-            <p>
-              لطفاً بدون VPN تست کنید یا افزونه‌های امنیتی یا تنظیمات سایت خود
-              را بررسی کنید.
-            </p>
+              <div>
+                لطفاً بدون VPN تست کنید یا افزونه‌های امنیتی یا تنظیمات سایت خود
+                را بررسی کنید.
+              </div>
+            </div>
           </AlertDialogDescription>
         </AlertDialogHeader>
 

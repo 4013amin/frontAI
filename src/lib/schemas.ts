@@ -130,7 +130,7 @@ export const CreateArticleFormSchema = z
     generate_image_option: z.boolean(),
     tone: z.string().min(1, "لطفاً لحن مقاله را مشخص کنید"),
     target_audience: z.string().min(3, "مخاطب هدف باید حداقل ۳ کاراکتر باشد"),
-    selected_categories: z.string().min(1, "لطفاً دسته بندی مقاله را انتخاب کنید"),
+    selected_categories: z.string().optional(),
     article_purpose: z.string().min(1, "هدف مقاله را مشخص کنید"),
     additional_keywords: z.string().optional(),
     custom_instructions: z.string().optional(),
